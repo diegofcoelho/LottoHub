@@ -1,43 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/LottoHub.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Django_Lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/__base__.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/lottery.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/signup.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/dfcoelho.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/dfcoelho.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoHub/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoHub/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoHub/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoHub/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0002_auto_20170707_1535.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0003_auto_20170707_1539.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0004_teacher_analised.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0005_auto_20170709_1005.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0006_auto_20170709_1005.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0007_remove_teacher_analysed.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0008_teacher_analysed.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0009_auto_20180716_1210.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0010_auto_20180716_1231.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0011_auto_20180716_1232.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0012_auto_20180716_1232.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0013_university_sigaa_home.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +13,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/registration/login.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
               <caret line="46" column="58" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -92,15 +61,6 @@
               <folding>
                 <element signature="n#block#7;n#!!top" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LottoHub/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="38" lean-forward="true" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -413,15 +373,15 @@
       <workItem from="1555410603552" duration="28933000" />
       <workItem from="1555458880600" duration="3597000" />
       <workItem from="1555504910878" duration="10823000" />
-      <workItem from="1555599085062" duration="58876000" />
+      <workItem from="1555599085062" duration="59497000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114890000" />
+    <option name="totallyTimeSpent" value="115511000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1337953" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -461,9 +421,6 @@
           <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -804,6 +761,9 @@
           <caret line="46" column="58" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
