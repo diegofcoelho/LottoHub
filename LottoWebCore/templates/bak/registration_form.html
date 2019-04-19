@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <form method="post" action="../registration">
+        {% csrf_token %}
+        {% for p in form %}
+            <div class="group">
+                {{ p }}
+                <label>{{ p.label }}</label>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+            </div>
+        {% endfor %}
+        <md-button class="md-raised md-primary">
+            <input aria-label="{% trans 'Submit' %}" type="submit" value="{% trans 'Submit' %}"/>
+        </md-button>
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(function () {
+            body.hide();
+            html.hide();
+            BgBlur("{% get_static_prefix %}" + 'photos/1496092_593482210722280_2023120485_o.jpg', 15, .15, "white");
+        });
+    </script>
+{% endblock %}

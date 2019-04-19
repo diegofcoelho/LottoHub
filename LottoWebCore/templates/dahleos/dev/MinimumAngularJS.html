@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Angular Material - Starter App</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+    <script src="http://storage.googleapis.com/code.getmdl.io/1.0.1/material.min.js"></script>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.0.8/angular-material.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.8/angular-material.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.0.8/angular-material.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
+    <script src="https://angular-file-upload.appspot.com/js/ng-file-upload-shim.js"></script>
+    <script src="https://angular-file-upload.appspot.com/js/ng-file-upload.js"></script>
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.7.0/dist/progressbar.js"></script>
+    <style>.button {
+        -moz-appearance: button;
+        /* Firefox */
+        -webkit-appearance: button;
+        /* Safari and Chrome */
+        padding: 10px;
+        margin: 10px;
+        width: 70px;
+    }
+
+    .drop-box {
+        background: #F8F8F8;
+        border: 5px dashed #DDD;
+        width: 200px;
+        height: 65px;
+        text-align: center;
+        padding-top: 25px;
+        margin: 10px;
+    }
+
+    .dragover {
+        border: 5px dashed blue;
+    }
+
+    .progress {
+        height: 3vh;
+        width: 25vw;
+        background: whitesmoke;
+    }
+
+    .progress div {
+        font-size: smaller;
+        background: orange;
+        width: 0;
+        height: 100%;
+        border-radius: 5px;
+    }
+
+    #container {
+        margin: 0;
+        width: 100%;
+        height: 18px;
+        position: relative;
+    }
+    </style>
+</head>
+
+<body layout="column" style="background-color: white;">
+
+<div id="core" ng-controller="AppCtrl" ng-app="MyApp" layout="column" layout-align="center center"
+     style="height: 100%;">
+
+    <!--suppress HtmlFormInputWithoutLabel -->
+    <input type="text" ng-model="username"><br/><br/>
+    watching model:
+    <div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
+    on file change multiple:
+    <div class="button" ngf-select="upload($files)" ngf-multiple="true">Select File</div>
+    Drop File:
+    <div>
+    <div ngf-drop ngf-select ng-model="files" class="drop-box"
+         ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+         accept="image/*,application/pdf"
+         ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload
+    </div>
+    <div id="container"></div>
+    </div>
+    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+    Files:
+    <ul>
+        <li ng-repeat="f in files" style="font:smaller">{[{ f.name }]} {[{ f.$error}]} {[{ f.$errorParam}]}</li>
+    </ul>
+    <!-- <span class="progress" ng-show="uploadProgress >= 0" >
+<span class="progress" layout="row" layout-align="center center">
+    <div style="width:{[{uploadProgress}]}%" ng-bind="uploadProgress + '%'"></div>
+      </span>
+    -->
+
+
+    <!--
+    Upload Log:
+    <pre>{[{ log }]}</pre>
+    -->
+    <md-button class="md-raised md-primary">{[{title4}]}</md-button>
+</div>
+<!--
+<calendar-md flex layout layout-fill
+  calendar-direction="direction"
+  on-prev-month="prevMonth"
+  on-next-month="nextMonth"
+  on-day-click="dayClick"
+  title-format="'MMMM y'"
+  ng-model='selectedDate'
+  day-format="'d'"
+  day-label-format="'EEE'"
+  day-label-tooltip-format="'EEEE'"
+  day-tooltip-format="'fullDate'"
+  week-starts-on="firstDayOfWeek"
+   disable-past-selection="true"
+  day-content="setDayContent">
+  </calendar-md>
+</div>
+-->
+<script>
+
+    // progressbar.js@1.0.0 version is used
+    // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+    angular.module('MyApp', ['ngMaterial', 'ngMessages', 'ngSanitize', 'ngFileUpload'], function ($interpolateProvider, $httpProvider) {
+        // Contorna prroblema de interpolação da renderização de template do django
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    })
+        .config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }])
+        .controller('AppCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout, $filter) {
+            $scope.title1 = 'Button';
+            $scope.title4 = 'Warn';
+            $scope.isDisabled = true;
+            $scope.googleUrl = 'http://google.com';
+
+                var bar = new ProgressBar.Line(container, {
+        strokeWidth: 4,
+        easing: 'easeInOut',
+        duration: 140,
+        color: '#FFEA82',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: {width: '100%', height: '100%'},
+        text: {
+            style: {
+                // Text color.
+                // Default: same as stroke color (options.color)
+                color: '#999',
+                position: 'absolute',
+                right: '0',
+                top: '30px',
+                padding: 0,
+                margin: 0,
+                transform: null
+            },
+            autoStyleContainer: false
+        },
+        from: {color: '#FFEA82'}, to: {color: '#ED6A5A'},
+        step: (state, bar) => {bar.setText(Math.round($scope.uploadProgress * 100) + ' %')}
+    })
+
+    //bar.animate(1.0);  // Number from 0.0 to 1.0¶
+
+            $scope.$watch('files', function () {
+                $scope.upload($scope.files);
+            });
+            $scope.$watch('file', function () {
+                if ($scope.file != null) {
+                    $scope.files = [$scope.file];
+                }
+            });
+            $scope.log = '';
+
+            $scope.upload = function (files) {
+                if (files && files.length) {
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        if (!file.$error) {
+                            $scope.uploadProgress = 0;
+                            Upload.upload({
+                                url: 'http://127.0.0.1:8000/upload',
+                                data: {
+                                    username: $scope.username,
+                                    filename: file.name,
+                                    file: file,
+                                    size: file.size
+                                }
+                            }).then(function (resp) {
+                                $timeout(function () {
+                                    $scope.log = 'file: ' +
+                                        resp.config.data.file.name +
+                                        ', Response: ' + JSON.stringify(resp.data) +
+                                        '\n' + $scope.log;
+                                });
+                            }, null, function (evt) {
+                                var progressPercentage = parseInt(100.0 *
+                                    evt.loaded / evt.total);
+                                 bar.animate(evt.loaded / evt.total);
+                                $scope.uploadProgress = progressPercentage/100;
+                                $scope.log = 'progress: ' + progressPercentage +
+                                    '% ' + evt.config.data.file.name + '\n' +
+                                    $scope.log;
+
+                            });
+                        }
+                    }
+                }
+            };
+
+
+        }]);
+</script>
+</body>
+</html>
+<!-- -https://css-tricks.com/html5-progress-element/ ->
+<!-- -https://css-tricks.com/html5-progress-element/ ->

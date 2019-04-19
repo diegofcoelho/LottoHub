@@ -1,0 +1,119 @@
+{% block calendar %}
+    <!--suppress CssInvalidPropertyValue -->
+    <md-tab label="Agendamento">
+        <div class="fill-tab" layout="row">
+            <div id="PRMCalendar" ng-hide="calendarDate">
+                <calendar-md flex layout layout-fill
+                             calendar-direction="direction"
+                             on-prev-month="prevMonth"
+                             on-next-month="nextMonth"
+                             on-day-click="dayClick"
+                             title-format="'MMMM y'"
+                             ng-model='calendarDate'
+                             day-format="'d'"
+                             day-label-format="'EEE'"
+                             day-label-tooltip-format="'EEEE'"
+                             day-tooltip-format="'fullDate'"
+                             week-starts-on="firstDayOfWeek"
+                             disable-past-selection="true"
+                             day-content="setDayContent">
+                </calendar-md>
+            </div>
+            <div id="IDCalendar" ng-hide="!calendarDate" class="fade-in" layout="row">
+                <div id="SDate">
+                    <md-toolbar id="bodyToolbar" layout="row" layout-align="center center">
+                        {[{Day}]}
+                    </md-toolbar>
+                    <md-content layout="column" layout-align="space-between center" id="dateBox">
+                        <div class="md-date-toolbar-tools" layout="row" layout-align="space-between center">
+                            <md-button class="md-icon-button md-no-margin" aria-label="dayBefore"
+                                       ng-click="changeDay(-1)">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                            </md-button>
+                            <p class="box-header">{[{Date}]}</p>
+                            <md-button class="md-no-margin md-icon-button" aria-label="dayAfter"
+                                       ng-click="changeDay(1)">
+                                <i class="material-icons">keyboard_arrow_right</i>
+                            </md-button>
+                        </div>
+                        <p class="box-subheader">{[{Month}]}</p>
+                        <p class="box-subheader">{[{Year}]}</p>
+                    </md-content>
+                    <div layout="column" class="under-menu">
+                        <md-button class="md-raised md-primary md-hooded" ng-click="AngEnv.cTask=0">Agendar</md-button>
+                        <md-button class="md-raised md-primary md-hooded" ng-click="AngEnv.cTask=1">Editar</md-button>
+                        <md-button class="md-raised md-primary md-hooded" ng-click="AngEnv.cTask=calendarDate=null">
+                            Voltar
+                        </md-button>
+                    </div>
+                </div>
+                <div id="SchEvContainer" layout="column">
+                    <div id="PostContainer" layout="row" layout-align="space-between space-between"
+                         ng-show="AngEnv.cTask==0 && (calendarDate!=null)" class="fade-in">
+                        <form class="dropzone custom-dropzone" id="PostDropzone" layout="row"
+                              layout-align="space-between space-between">
+                            <div class="dropzone-previews" style="width: 0;"></div>
+                            {% csrf_token %}
+                            <div class="fallback">
+                                <input name="file" type="file"/>
+                            </div>
+                            <div layout="column" layout-align="space-between space-between" class="exempt"
+                                 style="/*width: 100%;padding: 0 14px 0 0;*/">
+                                <div class="generic-holder date-picker">
+                                    <span moment-picker="pickerDate" format="LLLL" autoclose="true"
+                                          min-view="year" max-view="hour" start-view="day" locale="pt-br"
+                                          ng-model="selectedDate" today="true"
+                                          selectable="AngEnv.isSelectable(date, type)">
+                                    {[{ pickerDate || 'Click here to select a date' }]}
+                                    </span>
+                                </div>
+                                <div>{{ form.as_p }}</div>
+                                <div layout="row" layout-align="space-between space-between" class="generic-holder">
+                                    <md-switch ng-model="AngEnv.HashTag" aria-label="Switch 1"
+                                               class="md-primary clickIt">
+                                        Hashtags
+                                    </md-switch>
+                                    <div layout="row" layout-align="end center">
+                                        <md-button class="md-warn clickIt" ng-click="delP()">
+                                            <i class="material-icons">
+                                                delete_sweep
+                                            </i>
+                                        </md-button>
+                                        <md-button type="submit" class="md-primary clickIt"
+                                                   ng-disabled="!isFormValid">
+                                            <i class="material-icons">archive</i>
+                                        </md-button>
+                                        <md-button ng-click="processForm()" type="submit" class="md-primary"
+                                                   ng-disabled="!isFormValid">
+                                            <i class="material-icons">send</i>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dz-message" data-dz-message layout="column" layout-align="center center">
+                                <i class="material-icons" style="font-size: 700%;">file_upload</i>
+                                <span>Clique aqui para enviar o arquivo.</span>
+                            </div>
+                            <input type="hidden" name="method" ng-value="PostForm.Method" value="posts">
+                            <input type="hidden" name="date" ng-value="PostForm.Date" required>
+                        </form>
+                    </div>
+                    <div id="DynamicContent" layout="row" layout-align="space-between center" class="data-container"
+                         ng-show="AngEnv.HashTag">
+                        <div layout="column" layout-align="space-between space-between">
+                            <label>Hashtags</label>
+                            <md-radio-group ng-model="AngEnv.HashGroup" layout="row"
+                                            layout-align="start center">
+                                <md-radio-button value="history" class="md-primary">Histórico
+                                </md-radio-button>
+                                <md-radio-button value="suggestion" class="md-primary">Sugestões
+                                </md-radio-button>
+                            </md-radio-group>
+                            <div id="hashtags"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-tab>
+{% endblock calendar %}

@@ -1,0 +1,152 @@
+{% extends "__base__.html" %}
+
+{% load static %}
+
+{% block title %}LottoHUB by HutchR{% endblock %}
+
+{% block scripts %}{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/assets/css/main.css"/>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+{% endblock %}
+
+{% block theme_style %} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <!-- Main -->
+        <section id="main">
+            <header>
+             <span class="avatar">
+                <img src="/static/images/LottoHub_logo.png" onclick="location.href='/'" on width="142px" height="142px"
+                     alt=""/>
+            </span>
+                <h1>LottoHUB</h1>
+                <p>Gerenciamento de Sorteios</p>
+                <hr>
+            </header>
+            <br>
+            <footer>
+                <ul class="icons">
+                    {% block content %}
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'profile' %}">
+                                <li><i class="material-icons LHButtons">person_pin</i></li>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}">
+                                <li><i class="material-icons LHButtons">fingerprint</i></li>
+                            </a>
+                            <a href="{% url 'signup' %}">
+                                <li><i class="material-icons LHButtons">loupe</i></li>
+                            </a>
+                        {% endif %}
+                        <a>
+                            <li><i class="material-icons LHButtons">error</i></li>
+                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}">
+                                <li><i class="material-icons LHButtons">exit_to_app</i></li>
+                            </a>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
+            </footer>
+        </section>
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="copyright">
+                <li>&copy; LottoHub</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+    </div>
+{% endblock %}
+
+{% block late_script %}
+    <script>
+        if ('addEventListener' in window) {
+            window.addEventListener('load', function () {
+                document.body.className = document.body.className.replace(/\bis-preload\b/, '');
+            });
+            document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+        }
+    </script>
+{% endblock %}
+
+{% block angularJS %}
+    <script>
+        angular.module('LottoApp', ['ngMaterial', 'ngMessages', 'ngSanitize', "ngAnimate", "ngRoute"], function ($interpolateProvider, $httpProvider) {
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            .config(
+                function ($mdIconProvider, $$mdSvgRegistry) {
+                    // Add default icons from angular material
+                    $mdIconProvider
+                        .icon('md-close', $$mdSvgRegistry.mdClose)
+                        .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                        .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                        .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+                }
+            )
+            .filter('ObjectLength', function () {
+                return function (object) {
+                    return Object.keys(object).length;
+                }
+            })
+            .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', function ($scope, $mdDialog, $timeout, $http) {
+                //
+                $scope.AngEnv = {
+                    Url: window.location.pathname,
+                    // {#  usrData: {{ usrData }}, #}
+                    // {#  #}adata: {{ angular_data }} #}
+                };
+                //
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.showConfirm = function (ev) {
+                    // Appending dialog to document.body to cover sidenav in docs app
+                    // TODO MOVE MESSAGE TO SYSTEM CODE
+                    var confirm = $mdDialog.confirm()
+                        .title('Would you like to delete your debt?')
+                        .textContent('All of the banks have agreed to forgive you your debts.')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Please do it!')
+                        .cancel('Sounds like a scam');
+
+                    $mdDialog.show(confirm).then(function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to get rid of your debt.';
+                    }, function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                $scope.nyx = function (code, method) {
+                    $http({
+                        method: 'GET',
+                        url: '/nyx/' + $scope.PostForm.Store + '/' + method + '/' + code + '/',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                    })
+                        .success(function (data) {
+                            $scope.AngEnv[method] = data[method];
+                        })
+                        .finally(function () {
+                            //
+                        });
+                };
+                //
+            }])
+
+    </script>
+{% endblock angularJS %}

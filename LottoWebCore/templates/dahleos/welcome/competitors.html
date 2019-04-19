@@ -1,0 +1,24 @@
+{% load static %}
+<!-- https://codepen.io/GhostRider/pen/GHaFw -->
+<div layout-fill="">
+    <form action="" method="post" layout="column" layout-align="space-between end">
+        {% csrf_token %}
+        <h4 style="width: 100%">Informações adicionais</h4>
+        {{ refForm.as_p }}
+        <div ng-show="!SetupForm.StoreState" style="font-size: .5em;color: red;">
+            *Você deve selecionar seu estado antes de continuar.
+        </div>
+        {{ catForm.as_p }}
+        <br>
+        <md-button ng-click="setupStore()" type="submit" class="md-primary md-raised"
+                   ng-disabled="!SetupForm.StoreState">
+            <!-- ng-disabled="!SetupForm.ToS"> -->
+            <i class="material-icons">send</i>
+        </md-button>
+    </form>
+</div>
+
+
+
+
+

@@ -1,0 +1,257 @@
+{% extends "__base__.html" %}
+
+{% load static %}
+
+{% block title %}LottoHUB | Dashboard{% endblock %}
+
+{% block scripts %}{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/assets/css/dashboard.css"/>
+    <noscript>
+        <link rel="stylesheet" href="/static/assets/css/noscript.css"/>
+    </noscript>
+{% endblock %}
+
+{% block theme_style %} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <section id="LHHeader" class="LHFields">
+
+            <ul class="icons">
+                <a ng-click="ActiveForm='UNI'" href="">
+                    <li><i class="material-icons LHButtons">account_balance</i></li>
+                </a>
+                <a ng-click="ActiveForm='RAF'" href="">
+                    <li><i class="material-icons LHButtons">create_new_folder</i></li>
+                </a>
+                <a ng-click="ActiveForm='DIR'" href="">
+                    <li><i class="material-icons LHButtons">folder_shared</i></li>
+                </a>
+                </a>
+                <a ng-click="ActiveForm=null" href="">
+                    <li><i class="material-icons LHButtons">developer_board</i></li>
+                </a>
+                </a>
+                <a ng-click="ActiveForm='TCK'" href="">
+                    <li><i class="material-icons LHButtons">local_activity</i></li>
+                </a>
+                <a href="{% url 'sorteio' %}">
+                    <li><i class="material-icons LHButtons">casino</i></li>
+                </a>
+                <a href="{% url 'logout' %}">
+                    <li><i class="material-icons LHButtons">exit_to_app</i></li>
+                </a>
+            </ul>
+        </section>
+        <br>
+        <!-- Main -->
+        <section id="main">
+            <header>
+                {% if user.is_superuser %}
+                    {#                    <p>Hello, admin.</p>#}
+                    <!--
+                    https://github.com/handsontable/handsontable
+                    https://handsontable.com/examples?manual-resize&manual-move&conditional-formatting&context-menu&filters&dropdown-menu&headers
+                    -->
+                    <div ng-hide="ActiveForm!='UNI'">
+                        <h2 style="text-align: left;">Cadastro de Universidade</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ UForm.as_p }}
+                            <p><input type="submit"/></p>
+                        </form>
+                    </div>
+                    <div ng-hide="ActiveForm!='TCK'">
+                        <h2 style="text-align: left;">Gerar Tickets</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ TForm.as_p }}
+                            <fieldset>
+                                <p>
+                                    <label>Número de Tickets</label>
+                                    <select name="TCKN">
+                                        <option value="1">1</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="25">25</option>
+                                    </select>
+                                </p>
+                            </fieldset>
+                            <p><input type="submit"/></p>
+                        </form>
+                    </div>
+                    <div ng-hide="ActiveForm!='DIR'">
+                        <h2 style="text-align: left;">Cadastro de Centro Acadêmico</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ SDForm.as_p }}
+                            <br>
+                            <p style="text-align: right;">
+                                <md-button ng-click="ActiveForm='CTY'" class="md-raised md-warn">+Cidade</md-button>
+                                <input type="submit"/>
+                            </p>
+                        </form>
+                    </div>
+                    <div ng-hide="ActiveForm!='RAF'">
+                        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                        {#                      <link rel="stylesheet" href="/resources/demos/style.css">#}
+                        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                        <h2 style="text-align: left;">Cadastro de Sorteio</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ RForm.as_p }}
+                            <br>
+                            <p><input type="submit"/></p>
+                        </form>
+                    </div>
+                    <div ng-hide="ActiveForm!='CTY'">
+                        <h2 style="text-align: left;">Cadastro de Cidade</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ CForm.as_p }}
+                            <br>
+                            <p><input type="submit"/></p>
+                        </form>
+                    </div>
+                {% else %}
+                    <p>Hello, ordinary visitor.</p>
+                {% endif %}
+            </header>
+            <footer>
+                <ul class="icons">
+                    {% block content %}
+                    {% endblock %}
+                </ul>
+            </footer>
+        </section>
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="copyright">
+                <li>&copy; LottoHub</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ TForm.media }}
+{% endblock %}
+
+{% block late_script %}
+    <script>
+        if ('addEventListener' in window) {
+            window.addEventListener('load', function () {
+                document.body.className = document.body.className.replace(/\bis-preload\b/, '');
+            });
+            document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+        }
+        window.history.replaceState( null, null, window.location.href );
+    </script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                beforeShow: function (input, inst) {
+                    let widget = $(inst).datepicker('widget');
+                    widget.css('margin-left', $(input).outerWidth() - widget.outerWidth());
+                },
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block angularJS %}
+    <script>
+        angular.module('LottoApp', ['ngMaterial', 'ngMessages', 'ngSanitize', "ngAnimate", "ngRoute"], function ($interpolateProvider, $httpProvider) {
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            .config(
+                function ($mdIconProvider, $$mdSvgRegistry) {
+                    // Add default icons from angular material
+                    $mdIconProvider
+                        .icon('md-close', $$mdSvgRegistry.mdClose)
+                        .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                        .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                        .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+                }
+            )
+            .filter('ObjectLength', function () {
+                return function (object) {
+                    return Object.keys(object).length;
+                }
+            })
+            .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', '$timeout', function ($scope, $mdDialog, $timeout, $http) {
+                //
+                $scope.ActiveForm = 'DIR';
+                $scope.AngEnv = {
+                    Url: window.location.pathname,
+                    // {#  usrData: {{ usrData }}, #}
+                    // {#  #}adata: {{ angular_data }} #}
+                };
+                //
+                $scope.$watch('ActiveForm', function (newValue, oldValue) {
+                    var someVar;
+                    document.body.className = document.body.className.trim() + " is-preload";
+                    $timeout(function () {
+                        document.body.className = document.body.className.replace(/\bis-preload\b/, '')
+                    }, 100);
+                    angular.copy(someVar, $scope.someVar);
+                });
+                //
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.showConfirm = function (ev) {
+                    // Appending dialog to document.body to cover sidenav in docs app
+                    // TODO MOVE MESSAGE TO SYSTEM CODE
+                    var confirm = $mdDialog.confirm()
+                        .title('Would you like to delete your debt?')
+                        .textContent('All of the banks have agreed to forgive you your debts.')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Please do it!')
+                        .cancel('Sounds like a scam');
+
+                    $mdDialog.show(confirm).then(function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to get rid of your debt.';
+                    }, function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                $scope.nyx = function (code, method) {
+                    $http({
+                        method: 'GET',
+                        url: '/nyx/' + $scope.PostForm.Store + '/' + method + '/' + code + '/',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                    })
+                        .success(function (data) {
+                            $scope.AngEnv[method] = data[method];
+                        })
+                        .finally(function () {
+                            //
+                        });
+                };
+                //
+            }])
+
+    </script>
+{% endblock angularJS %}

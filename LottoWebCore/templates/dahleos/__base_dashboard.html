@@ -1,0 +1,101 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1"/>
+    <script src="/static/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/js/material.min.js"></script>
+    <!-- https://cdn.gitcdn.link/cdn/angular/bower-material/v1.0.8/ -->
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.8/ -->
+    <link rel="stylesheet" href="/static/css/angular-material.min.css"/>
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/angular-animate.min.js"></script>
+    <!-- https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/ -->
+    <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-aria.min.js"></script>
+    <script src="/static/js/angular-messages.min.js"></script>
+    <script src="/static/js/angular-material.js"></script>
+    <!-- <link rel="stylesheet" href="analytics.css"> -->
+    <script src="/static/js/angular-sanitize.min.js"></script>
+    <script src="/static/js/angular-material-calendar.js"></script>
+    <script rel="stylesheet" href="/static/css/angular-material-calendar.css"></script>
+    {% block script %} {% endblock %}
+    <link rel="stylesheet" href="/static/css/dahleos-core.css">
+</head>
+
+<body layout="column" style="background-color: white;" ng-controller="AppCtrl as AngEnv" ng-app="MyApp" id="bg">
+
+<header id="header" class="page_header">
+    <div layout="row" layout-align="space-between center">
+        <div layout="row" style="padding-left: 2%;">
+            <a href="/">
+                <img src="/static/riseup/img/logo-purple.png" alt="" height="50px"
+                     width="50px">
+            </a>
+        </div>
+        <div>Dahleos | Área do Usuário</div>
+        <div layout="row" layout-align="center center">
+            {% include "dahleos/__base__menu.html" %}
+        </div>
+    </div>
+</header>
+<!--
+<section id="panelbar"
+         style="background-color: #f8f5f9;width: 100%; height:25px;">
+</section>
+-->
+<section layout="row" layout-align="space-between start" id="TabPanel">
+    <md-tabs md-autoselect="" md-dynamic-height="">
+        <md-tab label="Agendamento">
+            <div class="fill-tab" layout="row">{% include "dahleos/dashboard/calendar.html" %}</div>
+        </md-tab>
+        <md-tab label="Análise Estatística">
+            <md-card layout="column" layout-align="center center">
+                <md-card-content>
+                    <p>hey</p>
+                </md-card-content>
+            </md-card>
+        </md-tab>
+        <md-tab label="Configurações">
+            <div layout="column" layout-align="space-between space-between">
+                <div layout="row" layout-align="space-between space-between">
+                    <md-card layout="column" layout-align="space-between center">
+                        <h2>{{ request.user }}</h2>
+                        <img src="{{ request.session|get_item:'avatar' }}" id="config-avatar">
+                    </md-card>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab label="Gráficos" ng-click="openURL('/graph/?u=modavaracaju', $event)">
+            <div layout="row" layout-align="center center">
+                <div style="width: 5%;" layout="column" layout-align="center center">
+                    <md-button ng-click="openURL('/graph/?u=modavaracaju&grp_md=0', $event)">Simples</md-button>
+                    <md-button ng-click="openURL('/graph/?u=modavaracaju&grp_md=1', $event)">Múltiplo</md-button>
+                </div>
+                <iframe frameborder="0" scrolling="yes" width="95%" height="650px" id="TabIframe">
+                </iframe>
+            </div>
+        </md-tab>
+        {% block following %}{% endblock %}
+        <md-tab label="Sorteios">
+            <md-card layout="column" layout-align="center center">
+                <md-card-content>
+                    <p>hey</p>
+                </md-card-content>
+            </md-card>
+        </md-tab>
+        <md-tab ng-hide="true" label=""></md-tab>
+    </md-tabs>
+    <md-card id="rss-feed"></md-card>
+</section>
+{% block angular_script %}{% endblock %}
+</body>
+</html>

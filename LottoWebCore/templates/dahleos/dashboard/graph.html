@@ -1,0 +1,39 @@
+{% block graph %}
+    <md-tab label="Progressão" ng-click="getGraphData()">
+        {# <md-tab label="Progressão">  #}
+        <div layout="column" layout-align="center center" style="background-color: white;">
+            <md-toolbar md-scroll-shrink="" class="mini-toolbar">
+            </md-toolbar>
+            <div id="audioLoader" ng-show="!AnalyticsIndividualLayouts" class="animate-show animate-hide">
+                <ul>
+                    <li class="dark-primary-color"></li>
+                    <li class="dark-primary-color"></li>
+                    <li class="dark-primary-color"></li>
+                    <li class="dark-primary-color"></li>
+                    <li class="dark-primary-color"></li>
+                    <li class="dark-primary-color"></li>
+                </ul>
+            </div>
+            <md-button class="md-fab md-raised" ng-click="grpdGraphs=!grpdGraphs"
+                       style="color: indianred !important; position: fixed; z-index: 10000; right: 5px; top: 25px;">
+                <md-tooltip md-direction="left">Alterar exibição</md-tooltip>
+                <i class="material-icons">swap_vert</i>
+            </md-button>
+            <md-grid-list md-cols-gt-md="2" md-cols="1" md-row-height-gt-md="2.5:1" md-row-height="fit"
+                          class="plotly-grid-list" ng-show="!grpdGraphs">
+                <md-grid-tile ng-repeat="key in [0,1,2,3]">
+                    <plotly plotly-data="AnalyticsIndividualData[key]" plotly-layout="AnalyticsIndividualLayouts[key]"
+                            plotly-options="options" class="plotly-grid-container"
+                            ng-show="AnalyticsIndividualLayouts">
+                    </plotly>
+                </md-grid-tile>
+            </md-grid-list>
+            <plotly plotly-data="AnalyticsData" plotly-layout="AnalyticsLayout" plotly-options="options"
+                    class="plotly-container" plotly-full="true" ng-show="grpdGraphs">
+            </plotly>
+            <!--
+              <line-plot graph-plots=graphPlots style="max-height: 80vh;min-height: 80vh; min-width: 98vw;"></line-plot>
+               -->
+        </div>
+    </md-tab>
+{% endblock graph %}

@@ -1,0 +1,43 @@
+{% block config %}
+    <md-tab label="Primeiros Passos">
+        <div layout="column" layout-align="center center">
+            <md-toolbar md-scroll-shrink="" ng-if="true"
+                        style="background-color: white;border-bottom: solid #d3ced4 1px;">
+                <div class="md-toolbar-tools">
+                    <md-button>
+                        <i class="material-icons toolbar-button">face</i>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <div style="height: 73vh;width: 100%;background-color: var(--color-C7);display: inline-grid;
+            margin: 0 !important;transform: none !important;"
+                 layout="column" layout-align="center center">
+                <md-card style="    min-width: 300px;width: 25vw;padding: 25px;display: block;">
+                    <form layout="column" layout-align="space-between space-between">
+                        {% csrf_token %}
+                        {% for p in form %}
+                            {% if p in form.visible_fields %}
+                                <md-input-container>
+                                    <label>{{ p.label }}</label>
+                                    {{ p }}
+                                </md-input-container>
+                            {% else %}
+                                {{ p }}
+                            {% endif %}
+                        {% endfor %}
+                        <div layout="row" layout-align="end end">
+                            <md-button ng-click="setupStore()" type="submit" class="md-primary" ng-disabled="">
+                                <i class="material-icons">send</i>
+                            </md-button>
+                        </div>
+                    </form>
+                </md-card>
+                <div class="loader-wrapper" ng-show="AngEnv.CssLoader">
+                    <div class="cssload-loader"></div>
+                </div>
+
+                <div style="width: 100%;height: 100%;"></div>
+            </div>
+        </div>
+    </md-tab>
+{% endblock config %}

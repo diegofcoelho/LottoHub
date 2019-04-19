@@ -1,0 +1,67 @@
+{% block calendar %}
+    <md-card id="contact" id="contact" class="contact-card">
+        <div class="row">
+            <h2>Contato</h2>
+            <md-divider></md-divider>
+            <p class="text-center to_animate" data-animation="fadeInUp">Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Maecenas ac augue at erat hendrerit dictum. Praesent porta, purus eget sagittis
+                imperdiet.</p>
+        </div>
+        <div class="row">
+            <h2>Mensagem </h2>
+            <form class="contact-form" method="post" action="/contact" layout="column"
+                  layout-align="space-between space-between" name="contactForm">
+                {% csrf_token %}
+                <div layout="column" layout-align="space-between center" layout-gt-xs="row"
+                     layout-align-gt-xs="space-between center">
+                    <md-input-container>
+                        <label for="name">Nome</label>
+                        <input type="text" size="30" value="" name="name" id="name" required md-no-asterisk
+                               ng-model="AngEnv.contact.name" placeholder="Nome">
+                        <div ng-messages="contactForm.name.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The description must be less than 30 characters long.
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label for="email">Email</label>
+                        <input type="email" size="30" value="" name="email" id="email" required md-no-asterisk
+                               ng-model="AngEnv.contact.email" placeholder="Email">
+                        <div ng-messages="contactForm.email.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The description must be less than 30 characters long.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container>
+                    <label for="subject">Assunto</label>
+                    <input type="text" size="30" value="" name="subject" id="subject" required md-no-asterisk
+                           ng-model="AngEnv.contact.subject" placeholder="Assunto">
+                    <div ng-messages="contactForm.subject.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The description must be less than 30 characters long.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label for="message">Mensagem</label>
+                    <textarea rows="8" cols="45" name="message" id="message" required md-no-asterisk
+                              ng-model="AngEnv.contact.message" placeholder="Mensagem"></textarea>
+                    <div ng-messages="contactForm.message.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The description must be less than 30 characters long.
+                        </div>
+                    </div>
+                </md-input-container>
+                <div layout="column" layout-align="space-between center" layout-gt-sm="row"
+                     layout-align-gt-sm="space-between space-between">
+                    {{ contact_form }}
+                    <md-button class="md-primary md-raised" type="submit" ng-disabled="!isFormValid">Enviar
+                    </md-button>
+                </div>
+            </form>
+        </div>
+    </md-card>
+{% endblock %}

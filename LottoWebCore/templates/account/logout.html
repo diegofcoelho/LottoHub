@@ -1,0 +1,55 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+
+{% block head_title %}{% trans "Sair do Sistema" %}{% endblock %}
+{% block page_header %}<b>Dahleos</b> | {% trans "Sair" %}{% endblock %}
+{% block content %}
+    <form method="post" action="{% url 'account_logout' %}" layout="column" layout-align="space-between center"
+          style="min-height: 35vh;position: absolute;top: 30%;max-width: 90vw;">
+        <h1>{% trans "Sair do Sistema" %}</h1>
+
+        <p>{% trans 'Você deseja realmente sair?' %}</p>
+        {% csrf_token %}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <md-button class="md-primary md-raised md-dark-hood" type="submit">{% trans 'Sair' %}</md-button>
+    </form>
+{% endblock %}
+
+{% block script %}
+    {% if not user.is_authenticated %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/20160309_152204.jpg', 5, .15, "white");
+            });
+
+            $(document).ready(function () {
+                var counter = 4;
+                id = setInterval(function () {
+                    counter--;
+                    var counterElement = document.getElementById("countdown");
+                    if (counter < 0) {
+                        window.location = '/dashboard';
+                        clearInterval(id);
+                    } else {
+                        counterElement.innerHTML = "Redirecting you in " + counter.toString() + " seconds.";
+                    }
+                }, 1000);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/20160309_152204.jpg', 5, .15, "white");
+            });
+        </script>
+    {% endif %}
+{% endblock %}

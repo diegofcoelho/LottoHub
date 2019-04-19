@@ -1,0 +1,94 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+{% block head_title %}Dahleos | Área Restrita{% endblock %}
+{% block page_header %}Dahleos | Login{% endblock %}
+
+{% block content %}
+
+    {% get_providers as socialaccount_providers %}
+
+    {% if socialaccount_providers %}
+        <md-card class="FormLikeContainer">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </md-card>
+        {% include "socialaccount/snippets/login_extra.html" %}
+    {% else %}
+        <p>{% blocktrans %}Se você ainda não tem uma conta, por favor
+            <a href="{{ signup_url }}">registre-se</a> primeiro.{% endblocktrans %}</p>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+        <form method="post" action=".">
+            {% csrf_token %}
+            {% for p in form %}
+                {% if not p|field_type == 'BooleanField' %}
+                    <div class="group">
+                        {{ p }}
+                        <!-- <label>{{ p.label }}</label> -->
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                    </div>
+                {% else %}
+                    <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+                        <!--{{ p }}--> {{ p.label }}
+                    </md-checkbox>
+                    {% comment %}
+                    {{ p }}
+                    {% endcomment %}
+                {% endif %}
+            {% endfor %}
+            <md-button class="md-raised md-primary">
+                <input aria-label="{% trans 'Log in' %}" type="submit" value="{% trans 'Log in' %}"/>
+            </md-button>
+            {% comment %} <input type="hidden" name="next" alt="{{ next }}" value="/dashboard"/> {% endcomment %}
+        </form>
+        <md-card style="width: 100%;padding: 25px;margin-bottom: 0;" layout="column" layout-align="center center">
+            <p>{% trans "Esqueceu a senha" %}? <a href="{% url 'account_reset_password' %}">{% trans "Resete-a" %}</a>!
+            </p>
+            <p>{% trans "Ainda não é cliente" %}? <a href="{{ signup_url }}">{% trans "Registre-se" %}</a>!</p>
+        </md-card>
+    {% else %}
+        <md-card style="width: 25vw;padding: 25px;" layout="column" layout-align="center center">
+            <p>Você já está logado.</p>
+            <br>
+            <p id="countdown">Redirecionaremos você em 3 segundos.</p>
+        </md-card>
+    {% endif %}
+{% endblock %}
+
+
+{% block script %}
+    {% if user.is_authenticated %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/15203102498_230d39d6b3_z.jpg', 5, .15, "white");
+            });
+
+            $(document).ready(function () {
+                var counter = 4;
+                id = setInterval(function () {
+                    counter--;
+                    var counterElement = document.getElementById("countdown");
+                    if (counter < 0) {
+                        window.location = '/dashboard';
+                        clearInterval(id);
+                    } else {
+                        counterElement.innerHTML = "Redirecting you in " + counter.toString() + " seconds.";
+                    }
+                }, 1000);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/15203102498_230d39d6b3_z.jpg', 5, .15, "white");
+            });
+        </script>
+    {% endif %}
+{% endblock %}

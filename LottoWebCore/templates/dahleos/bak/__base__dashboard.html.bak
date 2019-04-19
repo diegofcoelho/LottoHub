@@ -1,0 +1,459 @@
+{% extends "dahleos/__base__.html" %}
+{# http://progressbarjs.readthedocs.io/en/latest/#full-examples #}
+{# https://cdnjs.com/libraries/dropzone #}
+{% comment %}...{% endcomment %}
+{% block title %}Dahleos | Gerenciamento de usuários{% endblock %}
+{% block page_header %}Dahleos | Gerenciamento de usuários{% endblock %}
+{% block header %}
+    {% with 'https://dahleos.herokuapp.com/static/riseup/img/logo-purple.png' as logo %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+{% block logo_img %}https://dahleos.herokuapp.com/static/riseup/img/logo-purple.png{% endblock %}
+
+{% block script %}
+    {% load static %}
+    <!-- https://cdnjs.com/libraries/angular-i18n -->
+    <!--suppress JSUnresolvedVariable -->
+    <script src="/static/js/moment-with-locales.min.js"></script>
+    <script src="/static/js/angular-locale_pt-br.min.js"></script>
+    <script src="/static/js/angular-moment-picker.min.js"></script>
+    <link href="/static/css/angular-moment-picker.min.css" rel="stylesheet">
+    <script src="/static/js/blur.min.js"></script>
+    <script type="text/javascript" src="/static/js/dahleos-core.js"></script>
+    <!--
+        <script src="https://angular-file-upload.appspot.com/js/ng-file-upload-shim.js"></script>
+        <script src="https://angular-file-upload.appspot.com/js/ng-file-upload.js"></script>
+    -->
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.7.0/dist/progressbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"/>
+    <link rel="stylesheet" href="/static/css/emojionearea.min.css">
+    <script type="text/javascript" src="/static/js/emojionearea.js"></script>
+    <script type="text/javascript">
+        var $AngScope = $('#bg').scope();
+        var scope = angular.element(document.getElementById('bg')).scope();
+        function AdjTxA(h) {
+            h.style.height = "20px";
+            h.style.height = (h.scrollHeight) + "px";
+        }
+        body.hide();
+        html.hide();
+        $(function () {
+            BgBlur("{% get_static_prefix %}" + 'photos/15203102498_230d39d6b3_z.jpg', 5, .15, "white");
+        });
+        $(document).ready(function () {
+            var $AngScope = $('#bg').scope();
+            $("#id_caption").emojioneArea(
+                {
+                    pickerPosition: "bottom",
+                    filtersPosition: "bottom",
+                    tonesStyle: "square",
+                    events: {
+                        keydown: function (max, e) {
+                            var $CaptionField = $('.emojionearea-editor');
+                            var key_code = e.keyCode;
+                            keys =
+                                (key_code > 47 && key_code < 58) || // number keys
+                                key_code == 32 || key_code == 13 || // spacebar & return key(s) (if you want to allow carriage returns)
+                                (key_code > 64 && key_code < 91) || // letter keys
+                                (key_code > 95 && key_code < 112) || // numpad keys
+                                (key_code > 185 && key_code < 193) || // ;=,-./` (in order)
+                                (key_code > 218 && key_code < 223);   // [\]' (in order)
+                            if (keys) {
+                                // $('#'+content_id).text($('#'+content_id).text().substring(0, max));
+                                // console.log(e.which, $('.emojionearea-editor').text().length);
+                                // TODO ADD LENGTH FROM SERVER
+                                if ($CaptionField.text().length >= 255) {
+                                    e.preventDefault();
+                                } else {
+                                    $AngScope.PostForm.Caption = $('textarea[name=caption]').val();
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+        });
+        //Dropzone.prototype.defaultOptions.dictCancelUpload = '<i class="material-icons" style="red">cancel</i>';
+        //Dropzone.prototype.defaultOptions.dictRemoveFile = '<i class="material-icons" style="red">cancel</i>';
+
+        addEOA = function (eClass, eIcon, btn) {
+            var clone = $('.emojionearea > :nth-child(2) > :nth-child(2)').clone(true);
+            var parent = $('.emojionearea > :nth-child(2)');
+            //
+            var node = document.createElement('i');
+            node.setAttribute('class', "material-icons");
+            node.setAttribute('datanofire', true);
+            text = document.createTextNode(eIcon);
+            node.appendChild(text);
+            //<i class="material-icons">loyalty</i>
+            //<i class="material-icons">delete_forever</i>
+            clone[0].setAttribute('datanofire', true);
+            clone[0].setAttribute('class', eClass);
+            clone[0].appendChild(node);
+            parent.append(clone);
+            //noinspection JSAnnotator
+            $('.' + eClass).css("cssText", `background-image: none !important;top:${ btn * clone[0].clientHeight }px;`);
+        };
+
+        Dropzone.options.PostDropzone = {
+            url: 'http://127.0.0.1:8000/upload',
+            acceptedFiles: "image/*",
+            uploadMultiple: false,
+            maxFilesize: 2,
+            parallelUploads: 1,
+            maxFiles: 1,
+            dictDefaultMessage: 'Clique aqui para enviar o arquivo.',
+            dictCancelUpload: '<md-button class="md-fab md-primary"><i class="material-icons" style="color: red;font-size: xx-large;">cancel</i></md-button>',
+            //dictRemoveFile: "<i class='material-icons' style='red'>cancel</i>",
+            //RemoveLinkTemplate: "<div data-dz-remove><i class=\"material-icons\" style=\"red\">cancel</i></div>",
+            dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+            /*dictRemoveFileConfirmation: "Are you sure you want to remove this photo?",*/
+            dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+            dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+            thumbnailWidth: 250,
+            dictFileTooBig: "Twitter do not allow files greater than 5MB.",
+            thumbnailHeight: 250,
+
+            init: function () {
+                this.on("addedfile", function (file) {
+                    /* document.getElementsByClassName('dz-remove')[0].innerHTML = '<i class="material-icons" style="color: red;font-size: xx-large;">cancel</i>'; */
+                    $('#bg').scope().Dropzone.file = $("#PostDropzone").get(0).dropzone.files[0];
+                });
+                this.on("maxfilesexceeded", function (file) {
+                    this.removeFile(file);
+                });
+                /*
+                 this.on("complete", function (file) {
+                 document.getElementsByClassName('dz-remove')[0].innerHTML = '<i class="material-icons" style="color: red;font-size: xx-large;">cancel</i>';
+                 })
+                 */
+            },
+
+            sending: function (file, xhr, formData) {
+                formData.append('filename', file.name);
+                formData.append('filesize', file.size);
+                $('input[name=method]').val('upload');
+            },
+            /*addRemoveLinks: true,
+             complete: function (file, response) {
+             document.getElementsByClassName('dz-remove')[0].innerHTML = '<i class="material-icons" style="red">cancel</i>';
+             },
+             */
+            success: function (file, response) {
+                file.hash = response.msg;
+                file.name = file.hash;
+                /*
+                 $('input[name=picture]').val(file.hash);
+                 $('input[name=method]').val('posts');
+                 */
+                $('#bg').scope().PostForm.Picture = file.hash;
+                $('#bg').scope().PostForm.Method = 'posts';
+            },
+            processing: function (file) {
+                if (this.files[1] != null) {
+                    this.removeFile(this.files[0]);
+                }
+            },
+            removedfile: function (file) {
+                //x = confirm('Do you want to delete?');
+                //if (x) {
+                //
+                $('#bg').scope().PostForm.Picture = null;
+                _ref = file.previewElement;
+                _ref.parentNode.removeChild(file.previewElement);
+                //
+                $.ajax({
+                    type: 'POST',
+                    url: Dropzone.options.PostDropzone.url,
+                    data: {"filename": file.hash, "method": 'remove'},
+                    dataType: 'html',
+                    success: function (msg, status, jqXHR) {
+                        console.log(msg);
+                        $('#bg').scope().PostForm.Method = 'upload';
+                    }
+                });
+                // }
+            }
+        };
+
+
+    </script>
+{% endblock %}
+
+{% block angular_script %}
+    <script>
+        angular.module('MyApp', ['ngMaterial', 'ngMessages', 'moment-picker', 'ngSanitize', "materialCalendar"], function ($interpolateProvider, $httpProvider) {
+            // Contorna problema de interpolação da renderização de template do django
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', function ($httpProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            /*
+             .config(['momentPickerProvider', function (momentPickerProvider) {
+             momentPickerProvider.options({
+             // Picker properties
+             locale: 'en',
+             format: 'L LTS',
+             minView: 'decade',
+             maxView: 'minute',
+             startView: 'year',
+             autoclose: true,
+             today: false,
+             keyboard: false,
+
+             // Extra: Views properties
+             leftArrow: '&larr;',
+             rightArrow: '&rarr;',
+             yearsFormat: 'YYYY',
+             monthsFormat: 'MMM',
+             daysFormat: 'D',
+             hoursFormat: 'HH:[00]',
+             minutesFormat: moment.localeData().longDateFormat('LT').replace(/[aA]/, ''),
+             secondsFormat: 'ss',
+             minutesStep: 5,
+             secondsStep: 1
+             });
+             }])
+             */
+            // http://stackoverflow.com/questions/18829099/copy-a-variables-value-into-another
+            // http://stackoverflow.com/questions/29849293/ng-repeat-not-updating-on-update-of-array
+
+            .controller('AppCtrl', ['$scope', "$mdDialog", '$timeout', function ($scope, $mdDialog, $timeout, $http, $location, $filter, $q) {
+
+                //$scope.Dropzone = $("#PostDropzone");
+                //$scope.Dropzone.file = $scope.Dropzone.get(0).dropzone.files[0];
+                //$scope.PostDropzone = $scope.Dropzone.get(0).dropzone;
+                $scope.AngEnv.adata ={{ angular_data }};
+                $scope.AngEnv.usrData ={{ usr_data }};
+                $scope.UserPerPage = 18;
+                $scope.isDisabled = true;
+                $scope.userLocale = 'pt-br';
+                $scope.googleUrl = 'http://google.com';
+
+                $scope.page = 1;
+                $scope.AngEnv.Url = window.location.pathname;
+                var now = moment();
+
+                $timeout(function () {
+                    $scope.Dropzone = $("#PostDropzone");
+                    $scope.PostDropzone = $scope.Dropzone.get(0).dropzone;
+                    $scope.Dropzone.file = $scope.PostDropzone.files[0];
+                });
+                $scope.AngSubmit = function () {
+                    var formData = {
+                        'picture': $('input[name=picture]').val(),
+                        'date': $('input[name=date]').val(),
+                        'store': $('input[name=store]').val(),
+                        'method': $('input[name=method]').val(),
+                        'caption': $('textarea[name=caption]').val()
+                    };
+                };
+                $scope.calendarDate = null; //moment()._d;
+                $scope.firstDayOfWeek = 0;
+
+                $scope.PostForm = {};
+                $scope.PostForm.Date = null;
+                $scope.PostForm.Picture = null;
+                $scope.PostForm.Caption = '';
+                $scope.PostForm.Method = 'upload';
+                $scope.PostForm.Store = $scope.AngEnv.usrData.username;
+
+                $scope.delP = function (ev) {
+                    var confirm = $mdDialog.confirm()
+                        .title('Would you like to delete your debt?')
+                        .textContent('All of the banks have agreed to forgive you your debts.')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Confirmar')
+                        .cancel('Cancelar');
+
+                    $mdDialog.show(confirm).then(function () {
+                        $scope.PostDropzone.removeFile($scope.Dropzone.file);
+                        $scope.Dropzone.file = undefined;
+                        $('.dropzone').removeClass('dz-max-files-reached');
+                    }, function () {
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                //$("#PostDropzone").get(0).dropzone.removeFile($("#PostDropzone").get(0).dropzone.files[0])
+                //};
+                $scope.showConfirm = function (ev) {
+                    // Appending dialog to document.body to cover sidenav in docs app
+                    var confirm = $mdDialog.confirm()
+                        .title('Would you like to delete your debt?')
+                        .textContent('All of the banks have agreed to forgive you your debts.')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Please do it!')
+                        .cancel('Sounds like a scam');
+
+                    $mdDialog.show(confirm).then(function () {
+                        $scope.status = 'You decided to get rid of your debt.';
+                    }, function () {
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                //
+                $scope.$watch('calendarDate', function () {
+                    if ($scope.calendarDate != null) {
+                        var c = moment($scope.calendarDate).format('DD');
+                        var s = moment($scope.selectedDate, 'LLLL', 'pt-br').format('DD');
+                        if (c != s) {
+                            $scope.selectedDate = moment($scope.calendarDate).locale($scope.userLocale);
+                        }
+                    }
+                    $scope.PostForm.Date = moment($scope.calendarDate, 'LLLL', 'pt-br').unix();
+                });
+                $scope.dayClick = function (date) {
+                    //$scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+                    var parsed = new Date($scope.calendarDate);
+                    $scope.Day = moment(parsed).locale($scope.userLocale).format('dddd');
+                    $scope.Date = moment(parsed).locale($scope.userLocale).format('DD');
+                    $scope.Month = moment(parsed).locale($scope.userLocale).format('MMMM');
+                    $scope.Year = moment(parsed).locale($scope.userLocale).format('YYYY');
+                };
+                $scope.$watch('selectedDate', function () {
+                    if ($scope.selectedDate != null) {
+                        $scope.calendarDate = moment($scope.selectedDate, 'LLLL', 'pt-br')._d;
+                        $scope.dayClick('');
+                    }
+                });
+                $scope.setDirection = function (direction) {
+                    $scope.direction = direction;
+                };
+                $scope.prevMonth = function (data) {
+                    $scope.msg = "You clicked (prev) month " + data.month + ", " + data.year;
+                };
+                $scope.changeDay = function (n) {
+                    $scope.calendarDate = new Date(moment($scope.calendarDate).add(n, 'd'));
+                    $scope.dayClick(n);
+                };
+                $scope.nextMonth = function (data) {
+                    $scope.msg = "You clicked (next) month " + data.month + ", " + data.year;
+                };
+                $scope.setDayContent = function (date) {
+                    // You would inject any HTML you wanted for
+                    // that particular date here.
+                    return "<p></p>";
+                };
+
+                $scope.AngEnv.validDate = moment().set("date", (now.get("date") + 1)).set({
+                    'h': 0,
+                    'm': 0,
+                    "s": 0,
+                    "ms": 0
+                });
+                if ((($scope.AngEnv.validDate - now) / 60000) < 60) {
+                    $scope.AngEnv.validDate.add(55, 'm');
+                }
+                $scope.AngEnv.isSelectable = function (date, type) {
+                    return date > $scope.AngEnv.validDate;
+                };
+
+                $scope.BrwFlrs = function (n) {
+                    $scope.page += parseInt(n);
+                    var v = ($scope.page - 1) * $scope.UserPerPage;
+                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(v, v + 100);
+                };
+
+                $scope.Scheduler = function (method, mode, idx) {
+
+                    var post_data;
+                    if (mode == 'unfollow') {
+                        post_data = jQuery.param({
+                            method: method,
+                            action: mode,
+                            usr: $scope.AngEnv.Followers[idx].usr
+                        });
+                    } else if (mode == 'white-list') {
+                        post_data = jQuery.param({
+                            method: method,
+                            action: mode,
+                            usr: $scope.AngEnv.Followers[idx].usr
+                        });
+                    }
+
+                    promise = $http({
+                        method: 'POST',
+                        url: '/www-api',
+                        data: post_data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).then(
+                        function (response) {
+                            if (response.data == '200') {
+                                var v = ($scope.page - 1) * $scope.UserPerPage;
+                                //
+                                $scope.AngEnv.Followers.splice(idx, 1);
+                                $scope.AngEnv.adata.splice(idx + v, 1);
+                                //
+                                if (($scope.AngEnv.Followers.length < 100) && ($scope.AngEnv.adata >= 100)) {
+                                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(v, v + 100);
+                                }
+                            }
+                            return response.data;
+                        }
+                    )
+
+                    ;
+                    //$http.post('/hndlr', data);//.then(successCallback, errorCallback);
+                };
+
+                $scope.openURL = function (url, ev) {
+                    if (document.getElementById("TabIframe").src.indexOf(url) == -1) {
+                        if (url.indexOf('/graph/?u=') != -1) {
+                            url = url.concat('&w=' + $(window).width());
+                        } else if (url.indexOf('/graph/') != -1) {
+                            url = url.concat('?w=' + $(window).width());
+                        }
+                        // var originatorEv = ev;
+                        // console.log(url);
+                        document.getElementById("TabIframe").src = url;
+                    }
+                };
+
+                $scope.openMenu = function ($mdOpenMenu, ev) {
+                    originatorEv = ev;
+                    $mdOpenMenu(ev);
+                };
+            }
+            ])
+
+            .directive('errSrc', function () {
+                return {
+                    link: function (scope, element, attrs) {
+                        element.bind('error', function () {
+                            if (attrs.src != attrs.onErrorSrc) {
+                                attrs.$set('src', attrs.onErrorSrc);
+                                // TODO FIND A WAY TO IDENTIFY THAT ERROR OCCURED HERE AND SUBMIT TO REVIEW
+                                // console.log(attrs.ngSrc);
+                            }
+                        });
+                    }
+                }
+            });
+        /*
+         .directive('errSrc', function () {
+         return {
+         link: function (scope, element, attrs) {
+         scope.$watch(function () {
+         return attrs['ngSrc'];
+         }, function (value) {
+         if (!value) {
+         element.attr('src', attrs.errSrc);
+         }
+         });
+         element.bind('error', function () {
+         element.attr('src', attrs.errSrc);
+         element.attr('style', "height: 100%;");
+         });
+         }
+         }
+         });
+         */
+    </script>
+{% endblock %}

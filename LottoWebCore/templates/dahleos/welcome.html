@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en" style="background-color: #fff;font-family: 'Roboto', sans-serif;overflow-y: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+    <script src="/static/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/js/material.min.js"></script>
+    <link rel="stylesheet" href="/static/css/angular-material.min.css"/>
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/angular-route.js"></script>
+    <script src="/static/js/angular-animate.min.js"></script>
+    <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-aria.min.js"></script>
+    <script src="/static/js/angular-messages.min.js"></script>
+    <script src="/static/js/angular-material.min.js"></script>
+    <script src="/static/js/angular-sanitize.min.js"></script>
+    <link rel="stylesheet" href="/static/css/core.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
+    <title>Dahleos | Introdução</title>
+</head>
+<body style="height: 100%;" layout="column" layout-align="center center" ng-controller="dataCtrl as AngEnv"
+      ng-app="WelcomeAPP" id="bg">
+
+{% include "dahleos/welcome/header.html" %}
+
+<div style="overflow-y: auto;overflow-x: hidden;font-family: 'Quicksand', sans-serif;display: block"
+     id="dahleos-panel-container"
+     layout="row" layout-align="center center" class="unselectable">
+    <div ng-show="page==1" layout="row" layout-align="center center" class="animate-show animate-hide dahleos-panels"
+         id="hello-msg">Olá
+    </div>
+    <div ng-show="page==2" id="welcome-msg" layout="column" layout-gt-md="row" layout-align="space-between end"
+         class="animate-show animate-hide dahleos-panels" layout-fill="">
+        <div layout-fill="" hide show-gt-md flex="100" flex-gt-md="50" layout="row" layout-align="center center">
+            <img src="{% static 'photos/dahleos-logo.svg' %}" alt="" style="height:60vh">
+        </div>
+        <div flex-gt-md="50" layout-fill="" layout="column" layout-align="space-between space-between"
+             class="dahleos-letter">
+            <p style="text-align: justify;">
+                Tudo bem?<br><br> Estamos muito contentes por ter
+                decidido se juntar a nossa comunidade.<br><br>
+                As etapas a seguir servirão para configurar sua conta de forma apropriada e garantir que você tirará
+                máximo proveito dos serviços oferecidos.<br><br> Caso precise interromper o processo, você continuará a
+                partir da última etapa salva.<br><br>Clique para prosseguir assim que desejar.
+            </p>
+            <p class="team-signature">Equipe Dahleos</p>
+        </div>
+    </div>
+    <div ng-show="page==3" id="terms-condition" layout-gt-md="row" layout="column" layout-align="space-between center"
+         class="animate-show animate-hide dahleos-panels" layout-fill="">
+        {% include "dahleos/welcome/terms.html" %}
+        <div style="text-align: justify;margin-bottom: 10vh;" layout="column" layout-align="center center" flex="50"
+             flex-lt-lg="100">
+            {% include "dahleos/welcome/instagram.html" %}
+        </div>
+        <div></div>
+    </div>
+    <!--
+    Show features / system specs / will email when setup process is done
+    tell what is being done at the moment
+    scheduling post is already available recomend 2h wait for other functions
+    -->
+    <div ng-show="page==4" id="features-msg" layout="column" layout-align="space-between end"
+         class="animate-show animate-hide dahleos-panels">
+        <div layout="row" layout-sm="column" layout-xs="column" layout-fill=""
+             style="/* left: 0; max-height: 77vh; position: absolute; */margin-top: 64px;margin-bottom: 64px;"
+             layout-align="space-between space-between">
+            <div class="dahleos-textbox">
+                <h2>Acompanhamento</h2>
+                <p>A medida que o sistema impulsiona seu perfil, você pode avaliar a taxa de conversão dos usuários
+                    em novos seguidores e o efeito que curtir fotos de outros usuários pode trazer para seu
+                    negócio.</p>
+                <h2>Agendamento</h2>
+                <p>Para complementar o Instagram em si, oferecemos a possibilidade de agendar postagens nos horários
+                    mais adequados. O limite de posts agendados dependerá do plano escolhido durante a contratação
+                    do
+                    serviço.</p>
+                <h2>Análise Estatística</h2>
+                <p>O uso contínuo de nossas ferramentas permitirá que te recomendemos os melhores horários e
+                    <i>hashtags</i> e desta forma impulsionar o seu perfil.</p>
+            </div>
+            <div class="dahleos-textbox">
+                <h2>Feedback</h2>
+                <p>No entanto, é essencial que todos os erros observados sejam reportados imediatamente. Nossa
+                    equipe trabalhará para solucionar possíveis <i>bugs</i> de imediato.</p>
+                <h2>Pessoas que Sigo</h2>
+                <p>Uma das ferramentas disponíveis permitirá ao usuário observar quais perfis são seguidos por ele
+                    sem que haja reciprocidade, de modo que possa reduzir o número de usuários seguidos.</p>
+                <h2>Sorteios</h2>
+                <p>Nós desenvolvemos uma ferramenta de altíssima confiabilidade que permite verificar se
+                    participantes de sorteios e concursos cumpriram todos os requisitos e determinar o vencedor
+                    (seja ele aleatório ou não).</p>
+            </div>
+        </div>
+    </div>
+    <div ng-show="page==5" id="references-categories" layout="column" layout-align="space-between end"
+         class="animate-show animate-hide dahleos-panels" layout-fill="">
+        <div layout="row" layout-sm="column" layout-xs="column" layout-fill="">
+            <!-- <div layout-fill="" hide show-gt-sm flex="50" layout="column" layout-align="start center"> -->
+            <div layout="column" layout-align="space-between space-between" flex-lt-lg="100">
+                <div class="dahleos-tooltip scrolless-tooltip">
+                    <h4 style="margin-top: 0;">Referências</h4>
+                    Embora não seja mandatório, pedimos aos nossos usuários para informar Instagram's relevantes
+                    para
+                    que possamos utilizar durante o processo de sugestão de usuários.
+                    <br>
+                    <br>
+                    Perfis do Instagram são ditos relevantes quando estão em ascenção rápida (<i>trending</i>);
+                    quando
+                    são concorrentes diretos do cliente em questão e portanto compartilham do meesmo público-alvo;
+                    ou
+                    simplesmente são da mesma localidade de atuação do cliente.
+                    <br>
+                    <br>
+                    Desencorajamos a inserção de perfils de famosos e marcas mundiais, uma vez que a chance de
+                    induzir
+                    seus seguidores é bem reduzida.
+                    <br>
+                    <br>
+                    <h4>Categoria</h4>
+                    Classificar sua conta em uma dada categoria nos ajuda a direcionar a audiência adequada ao seu
+                    perfil.
+                    Assim, apenas usuários do Instagram cujo interesse seja relacionado à categoria selecionada será
+                    utilizado durante o tratamento de sua conta.
+                    <br>
+                    <br>
+                    Se a categoria desejada não exista no sistema, você terá a oportunidade de requerer sua inclusão
+                    posteriormente.
+                    <br>
+                    <br>
+                    Ambos campos podem ser preenchidos com multiplos valores, basta digitar alguns caracteres que
+                    você receberá sugestões.
+                    <br>
+                    <br>
+                </div>
+            </div>
+            {% include "dahleos/welcome/competitors.html" %}
+        </div>
+    </div>
+    <!--
+    Tell user the setup process is complete, that they will be transferred to complete profile personal data but
+    that is optional at the moment
+    -->
+    <div ng-show="page==6" id="final-msg" layout="row" layout-sm="column" layout-xs="column"
+         layout-align="space-between end" class="animate-show animate-hide dahleos-panels">
+        <div layout-fill="" hide show-gt-sm flex="50" layout="column" layout-align="start center">
+            <img src="{% static 'photos/welcome-dataflow.svg' %}" height="100%" alt="" style="height:70vh">
+        </div>
+        {% include "dahleos/welcome/end.html" %}
+    </div>
+</div>
+
+{% include "dahleos/welcome/footer.html" %}
+{{ refForm.media }}
+{{ catForm.media }}
+<script type="text/javascript" src="{% static 'autocomplete_light/autocomplete.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'autocomplete_light/select2.js' %}"></script>
+</body>
+<script>
+    angular.module('WelcomeAPP', ['ngMaterial', 'ngMessages', 'ngSanitize', "ngAnimate", "ngRoute"], function ($interpolateProvider, $httpProvider) {
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    })
+        .config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }])
+        .config(
+            function ($mdIconProvider, $$mdSvgRegistry) {
+                // Add default icons from angular material
+                $mdIconProvider
+                    .icon('md-close', $$mdSvgRegistry.mdClose)
+                    .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                    .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                    .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+            }
+        )
+        .filter('ObjectLength', function () {
+            return function (object) {
+                return Object.keys(object).length;
+            }
+        })
+        .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', function ($scope, $mdDialog, $timeout, $http, $mdToast, $location, $window) {
+            $scope.range = function (a, b, c) {
+                c = [];
+                while (a--)c[a] = a + b;
+                return c
+            };
+            $scope.LowerKeys = function (obj) {
+                for (var idx in obj) {
+                    obj[idx.toLowerCase()] = obj[idx];
+                    delete obj[idx];
+                }
+                return obj;
+            };
+            $scope.openMenu = function ($mdOpenMenu, ev) {
+                $mdOpenMenu(ev);
+            };
+            $scope.AngEnv = {
+                Url: window.location.pathname,
+                usrData: {{ usrData }},
+                LoadingSpinner: false
+            };
+            //
+            $scope.page = {{ page }};
+            $scope.setup = {
+                instagram: false,
+                state: false
+            };
+            $scope.SetupForm = {
+                StoreState: false,
+                StoreCats: [],
+                StoreRefs: [],
+                ToS: false
+            };
+            $scope.last_page = $("#dahleos-panel-container").children().length;
+            var last = {
+                bottom: true,
+                top: false,
+                left: false,
+                right: true
+            };
+            $scope.toastPosition = angular.extend({}, last);
+            $scope.getToastPosition = function () {
+                return Object.keys($scope.toastPosition)
+                    .filter(function (pos) {
+                        return $scope.toastPosition[pos];
+                    })
+                    .join(' ');
+            };
+            $scope.showToastMessage = function (msg) {
+                var pinTo = $scope.getToastPosition();
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(msg)
+                        .position(pinTo)
+                        .hideDelay(5000)
+                );
+            };
+            $scope.setupStore = function (ev) {
+                $http({
+                    method: 'POST',
+                    url: '/www-api',
+                    data: JSON.stringify($scope.LowerKeys($scope.SetupForm)),
+                })
+                    .success(function (data) {
+                        //
+                        $scope.message = data.msg;
+                        //
+                        if (data.code === 666) {
+                            $scope.setup.instagram = false;
+                            $scope.setup.state = false;
+                            $scope.SetupForm.Method = 'setup';
+                        } else {
+                            if (data['store'] !== undefined) {
+                                $scope.SetupForm.Store = data['store'];
+                            }
+                            $scope.setup.state = $scope.SetupForm.StoreState !== undefined;
+                            $scope.SetupForm.ToS = true;
+                            $scope.setup.instagram = true;
+                            $scope.page += 1;
+                        }
+                        //
+                    })
+                    .finally(function () {
+                        $scope.showToastMessage($scope.message);
+                    });
+            };
+            $scope.isStepComplete = function () {
+                var pages = $scope.range($scope.last_page, $scope.page);
+                pages.splice(pages.indexOf(3), 1);
+                pages.splice(pages.indexOf(5), 1);
+                if ($scope.page === 3 && $scope.setup.instagram && $scope.SetupForm.ToS) {
+                    return true;
+                } else if ($scope.page === 5 && $scope.SetupForm.StoreState && $scope.setup.state) {
+                    return true;
+                } else if ($.inArray($scope.page, pages) > -1) {
+                    return true;
+                }
+            };
+            $scope.NextPage = function () {
+                if ($scope.page !== $scope.last_page) {
+                    $scope.page += 1;
+                } else {
+                    $window.location.href = '/dashboard';
+                }
+            }
+        }]);
+    $(function () {
+        $('body').css('opacity', 1);
+    }); // end ready
+</script>
+</html>

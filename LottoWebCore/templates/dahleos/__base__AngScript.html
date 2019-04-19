@@ -1,0 +1,145 @@
+{% block angular_script %}
+    <script>
+        angular.module('MyApp', ['ngMaterial', 'ngMessages', 'moment-picker', 'ngSanitize', "materialCalendar"], function ($interpolateProvider, $httpProvider) {
+            // Contorna prroblema de interpolação da renderização de template do django
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', function ($httpProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            // http://stackoverflow.com/questions/18829099/copy-a-variables-value-into-another
+            // http://stackoverflow.com/questions/29849293/ng-repeat-not-updating-on-update-of-array
+
+            .controller('AppCtrl', function ($scope, $http, $location, $filter, $q) {
+
+                $scope.UserPerPage = 18;
+                $scope.isDisabled = true;
+                $scope.googleUrl = 'http://google.com';
+                $scope.page = 1;
+                $scope.AngEnv.Url = window.location.pathname;
+                var now = moment();
+
+                $scope.selectedDate = null; //moment()._d;
+                $scope.firstDayOfWeek = 0;
+
+                $scope.setDirection = function (direction) {
+                    $scope.direction = direction;
+                };
+                $scope.dayClick = function (date) {
+                    $scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+                    var parsed = new Date($scope.selectedDate);
+                    $scope.Day = moment(parsed).format('dddd');
+                    $scope.Date = moment(parsed).format('DD');
+                    $scope.Month = moment(parsed).format('MMMM');
+                    $scope.Year = moment(parsed).format('YYYY');
+                };
+                $scope.prevMonth = function (data) {
+                    $scope.msg = "You clicked (prev) month " + data.month + ", " + data.year;
+                };
+                $scope.nextMonth = function (data) {
+                    $scope.msg = "You clicked (next) month " + data.month + ", " + data.year;
+                };
+                $scope.setDayContent = function (date) {
+                    // You would inject any HTML you wanted for
+                    // that particular date here.
+                    return "<p></p>";
+                };
+
+                $scope.AngEnv.validDate = moment().set("date", (now.get("date") + 1)).set({
+                    'h': 0,
+                    'm': 0,
+                    "s": 0,
+                    "ms": 0
+                });
+                if ((($scope.AngEnv.validDate - now) / 60000) < 60) {
+                    $scope.AngEnv.validDate.add(55, 'm');
+                }
+                $scope.AngEnv.isSelectable = function (date, type) {
+                    return date > $scope.AngEnv.validDate;
+                };
+
+                $scope.BrwFlrs = function (n) {
+                    $scope.page += parseInt(n);
+                    var v = ($scope.page - 1) * $scope.UserPerPage;
+                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(v, v + 100);
+                };
+
+                $scope.Scheduler = function (mode, idx) {
+
+                    var post_data;
+                    if (mode == 'unfollow') {
+                        post_data = jQuery.param({
+                            method: 'schedule',
+                            action: mode,
+                            usr: $scope.AngEnv.Followers[idx].usr
+                        });
+                    } else if (mode == 'white-list') {
+                        post_data = jQuery.param({
+                            method: 'schedule',
+                            action: mode,
+                            usr: $scope.AngEnv.Followers[idx].usr
+                        });
+                    }
+
+                    promise = $http({
+                        method: 'POST',
+                        url: '/www-api',
+                        data: post_data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).then(
+                        function (response) {
+                            if (response.data == '200') {
+                                var v = ($scope.page - 1) * $scope.UserPerPage;
+                                //
+                                $scope.AngEnv.Followers.splice(idx, 1);
+                                $scope.AngEnv.adata.splice(idx + v, 1);
+                                //
+                                if (($scope.AngEnv.Followers.length < 100) & ($scope.AngEnv.adata >= 100)) {
+                                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(v, v + 100);
+                                }
+                            }
+                            return response.data;
+                        }
+                    )
+
+                    ;
+                    //$http.post('/hndlr', data);//.then(successCallback, errorCallback);
+                };
+
+                $scope.openURL = function (url, ev) {
+                    if (document.getElementById("TabIframe").src.indexOf(url) == -1) {
+                        if (url.indexOf('/graph/?u=') != -1) {
+                            url = url.concat('&w=' + $(window).width());
+                        } else if (url.indexOf('/graph/') != -1) {
+                            url = url.concat('?w=' + $(window).width());
+                        }
+                        // var originatorEv = ev;
+                        // console.log(url);
+                        document.getElementById("TabIframe").src = url;
+                    }
+                };
+                // TODO REMOVE METHOD BELOW
+                $scope.openMenu = function ($mdOpenMenu, ev) {
+                    originatorEv = ev;
+                    $mdOpenMenu(ev);
+                };
+
+            })
+
+            .directive('errSrc', function () {
+                return {
+                    link: function (scope, element, attrs) {
+                        element.bind('error', function () {
+                            if (attrs.src != attrs.onErrorSrc) {
+                                attrs.$set('src', attrs.onErrorSrc);
+                                // TODO FIND A WAY TO IDENTIFY THAT ERROR OCCURED HERE AND SUBMIT TO REVIEW
+                                // console.log(attrs.ngSrc);
+                            }
+                        });
+                    }
+                }
+            });
+    </script>
+{% endblock %}

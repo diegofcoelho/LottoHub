@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <!-- -->
+    <script
+            src="https://code.jquery.com/jquery-3.4.0.js"
+            integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+            crossorigin="anonymous">
+    </script>
+    <script src="/static/assets/js/material.min.js"></script>
+    <script src="/static/assets/js/angular.js"></script>
+    <script src="/static/assets/js/angular-animate.min.js"></script>
+    <script src="/static/assets/js/angular-route.min.js"></script>
+    <script src="/static/assets/js/angular-aria.min.js"></script>
+    <script src="/static/assets/js/angular-messages.min.js"></script>
+    <script src="/static/assets/js/angular-material.min.js"></script>
+    <script src="/static/assets/js/angular-sanitize.min.js"></script>
+    <!-- -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/angular-material.min.css">
+    <!-- -->
+    {% block styles %}{% endblock %}
+    {% block theme_style %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="is-preload" ng-controller="dataCtrl as AngEnv" ng-app="LottoApp" id="bg">
+{% block body %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block late_script %}{% endblock %}
+{% block angularJS %}{% endblock %}
+</body>
+</html>

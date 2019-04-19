@@ -1,0 +1,159 @@
+{% extends "dahleos/__base_dashboard.html" %}
+
+{% block title %}Dahleos | Gerenciamento de usuários{% endblock %}
+
+
+{% block script %}
+    {% load static %}
+    <!--suppress ALL -->
+    <script src="/static/js/blur.min.js"></script>
+    <script type="text/javascript" src="/static/js/dahleos-core.js"></script>
+    <script type="text/javascript">
+        body.hide();
+        html.hide();
+        $(function () {
+            BgBlur("{% get_static_prefix %}" + 'photos/15203102498_230d39d6b3_z.jpg', 5, .15, "white");
+        });
+    </script>
+{% endblock %}
+
+{% block following %}
+    <div layout="row" layout-align="center center"
+         style="height: 100%;">
+        <div class='md-padding' layout="row" layout-wrap flex-xs="" flex-gt-xs="85"
+             layout-align="space-between space-between">
+            {% for usr in usrs %}
+                {% with d=data|get_item:usr %}
+                    <md-card style="overflow: visible;" layout="column" layout-align="space-between center">
+                        <md-card-title layout="column" layout-align="space-between center">
+                            <md-card-title-text>
+                                <span class="md-headline">{{ usr }}</span>
+                            </md-card-title-text>
+                            <br>
+                            <md-card-title-media>
+                                <div class="md-media-md card-media">
+                                    <a href="https://www.instagram.com/{{ usr }}" target="_blank" class="instamedia">
+                                        <img ng-src="{{ d|get_item:'user_profile_pic_url' }}"
+                                             err-src="">
+                                        <!--
+                                        err-src="http://google.com/favicon.ico"
+                                        https://material.angularjs.org/latest/demo/card
+                                        -->
+                                        {% verbatim %}
+                                        <span class="md-subhead">Followers: {{ d|get_item:'followers' }}</span>
+                                        <span class="md-subhead">Following: {{ d|get_item:'following' }}</span>
+                                        {% endverbatim %}
+                                    </a>
+                                </div>
+                            </md-card-title-media>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button ng-click="Scheduler('{{ usr }}', 'white-list')"
+                                       style="background-color: #e6ffe6;">Manter
+                            </md-button>
+                            <md-button ng-click="Scheduler('{{ usr }}', 'unfollow')" style="background-color: #ffe6ff;">
+                                Remover
+                            </md-button>
+                        </md-card-actions>
+                    </md-card>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+
+        angular.module('MyApp', ['ngMaterial', 'ngMessages'], function ($interpolateProvider, $httpProvider) {
+            // Contorna prroblema de interpolação da renderização de template do django
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', function ($httpProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            // http://stackoverflow.com/questions/18829099/copy-a-variables-value-into-another
+            // http://stackoverflow.com/questions/29849293/ng-repeat-not-updating-on-update-of-array
+            /*
+             .run(function run($http, $cookies) {
+             // Evita problemas relacionados ao CSRF
+             $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
+             })
+             */
+            .controller('AppCtrl', function ($scope, $http) {
+                $scope.title1 = 'Button';
+                $scope.isDisabled = true;
+                $scope.googleUrl = 'http://google.com';
+
+                $scope.Scheduler = function (usr, mode, idx) {
+                    var post_data;
+                    if (mode == 'unfollow') {
+                        post_data = jQuery.param({
+                            method: 'schedule',
+                            action: mode,
+                            usr: usr
+                        });
+                    } else if (mode == 'white-list') {
+                        post_data = jQuery.param({
+                            method: 'schedule',
+                            action: mode,
+                            usr: usr
+                        });
+                    }
+                    /*
+                    response = $http({
+                        method: 'POST',
+                        url: '/www-api',
+                        data: post_data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    });
+                    */
+                    if ((true) ){
+                        //$scope.apply();
+                        $scope.AngEnv.adata.splice(idx, 1)
+                        //$scope.$apply();
+                    }
+                    //$http.post('/hndlr', data);//.then(successCallback, errorCallback);
+                };
+
+                $scope.openURL = function (url, ev) {
+                    if (document.getElementById("ifr").src.indexOf(url) == -1) {
+                        if (url.indexOf('/graph/?u=') != -1) {
+                            url = url.concat('&w=' + $(window).width());
+                        } else if (url.indexOf('/graph/') != -1) {
+                            url = url.concat('?w=' + $(window).width());
+                        }
+                        // var originatorEv = ev;
+                        console.log(url);
+                        document.getElementById("ifr").src = url;
+                    }
+                };
+
+                $scope.openMenu = function ($mdOpenMenu, ev) {
+                    originatorEv = ev;
+                    $mdOpenMenu(ev);
+                };
+
+            })
+            .directive('errSrc', function () {
+                return {
+                    link: function (scope, element, attrs) {
+
+                        scope.$watch(function () {
+                            return attrs['ngSrc'];
+                        }, function (value) {
+                            if (!value) {
+                                element.attr('src', attrs.errSrc);
+                            }
+                        });
+
+                        element.bind('error', function () {
+                            element.attr('src', attrs.errSrc);
+                            element.attr('style', "height: 100%;");
+
+                        });
+                    }
+                }
+            });
+
+    </script>
+{% endblock %}

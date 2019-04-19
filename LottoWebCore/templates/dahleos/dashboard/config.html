@@ -1,0 +1,41 @@
+{% block config %}
+    <md-tab label="Configurações & Perfil">
+        <div layout="column" layout-align="center center">
+            <md-toolbar md-scroll-shrink="" ng-if="true"
+                        style="background-color: white;border-bottom: solid #d3ced4 1px;">
+                <div class="md-toolbar-tools">
+                    <!-- <img src="{{ request.session|get_item:'avatar' }}" id="config-avatar"> -->
+                    <md-button ng-click="blockL('/accounts/profile/')">
+                        <i class="material-icons toolbar-button">face</i>
+                    </md-button>
+                    <md-button>
+                        <i class="material-icons toolbar-button">contacts</i>
+                    </md-button>
+                    <md-button>
+                        <i class="material-icons toolbar-button">person_pin</i>
+                    </md-button>
+                    <md-button>
+                        <i class="material-icons toolbar-button">settings</i>
+                    </md-button>
+                    <md-button ng-click="blockL('/accounts/social/connections/')">
+                        <i class="material-icons toolbar-button">share</i>
+                    </md-button>
+                    <md-button>
+                        <i class="material-icons toolbar-button">poll</i>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <!-- http://fuse-angular-material.withinpixels.com/dashboard-project addImportLink('/accounts/social/connections/') -->
+            <div style="height: 73vh;width: 100%;background-color: var(--color-C7);margin: 0 !important;transform: none !important;"
+                 layout="column" layout-align="center center">
+
+                <div class="loader-wrapper" ng-show="AngEnv.CssLoader">
+                    <div class="cssload-loader"></div>
+                </div>
+
+                <div ng-include="AngEnv.hContainer" style="width: 100%;height: 100%;"
+                     onload="blockS()" id="hContainer" ng-show="AngEnv.hostView"></div>
+            </div>
+        </div>
+    </md-tab>
+{% endblock config %}

@@ -1,0 +1,57 @@
+{% block following %}
+    <md-tab label="Seguindo" ng-click="getFollowing()">
+        <md-toolbar md-scroll-shrink="" class="mini-toolbar">
+        </md-toolbar>
+        <md-toolbar md-scroll-shrink="" ng-if="true">
+            <div layout="row" layout-align="space-between center" style="font-size: .85em;" class="md-toolbar-tools">
+                <md-button ng-click="BrwFlrs(-1)" ng-disabled="page == 1" class="md-raised md-primary md-light-hood">
+                    <i class="material-icons">first_page</i>
+                </md-button>
+                <b>{[{ AngEnv.adata.length }]} usuários</b>
+                <md-button ng-click="BrwFlrs(1)" class="md-raised md-primary md-light-hood"
+                           ng-disabled="((AngEnv.adata.length <= (page*UserPerPage)) || ($AngScope.AngEnv.adata.length == null) || ($AngScope.AngEnv.adata.length == 0))">
+                    <i class="material-icons">last_page</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <!-- http://fuse-angular-material.withinpixels.com/dashboard-project -->
+        <md-content flex="" style="height: 82vh;background-color: var(--color-C10);">
+            <div class='md-padding' layout="row" layout-wrap flex-xs="" flex-gt-xs="100"
+                 layout-align="space-between space-between">
+                <md-card ng-if="AngEnv.adata.length > 0" style="overflow: visible;" layout="column"
+                         layout-align="space-between center"
+                         ng-repeat="ausr in AngEnv.Followers|limitTo: UserPerPage">
+                    <md-card-title layout="column" layout-align="space-between center" class="fit-md-card">
+                        <md-card-title-text>
+                            <span class="md-headline">{[{ ausr.usr }]}</span>
+                        </md-card-title-text>
+                        <br>
+                        <md-card-title-media layout="row" layout-align="center start">
+                            <div class="md-media-md card-media">
+                                <a href="https://www.instagram.com/{[{ ausr.usr }]}" target="_blank" class="instamedia">
+                                    <!--suppress RequiredAttributes -->
+                                    <img fallback-src='/static/riseup/img/default-profile.png'
+                                         ng-src="{[{ ausr.user_profile_pic_url }]}">
+                                </a>
+                            </div>
+                            <span ng-if="ausr.follow_back != 'true'">
+                                <i class="material-icons tab-warn-sign">error</i>
+                            </span>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button ng-click='Scheduler("following", "white-list", $index)'
+                                   class="fit-md-button fit-md-button-green">
+                            Manter
+                        </md-button>
+                        <md-button ng-click='Scheduler("following","unfollow", $index)'
+                                   class="fit-md-button fit-md-button-red">
+                            Remover
+                        </md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </md-content>
+    </md-tab>
+{% endblock %}
+

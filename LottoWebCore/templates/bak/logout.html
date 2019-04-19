@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <md-card style="width: 25vw;padding: 25px;" layout="column" layout-align="center center">
+        <p>{% trans "Logged out" %}</p>
+        <br>
+        <p id="countdown">Redirecting you in 3 seconds.</p>
+    </md-card>
+{% endblock %}
+
+{% block script %}
+    {% if not user.is_authenticated %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/15389342602_cfe4154264_z.jpg', 5, .15, "white");
+            });
+
+            $(document).ready(function () {
+                var counter = 4;
+                id = setInterval(function () {
+                    counter--;
+                    var counterElement = document.getElementById("countdown");
+                    if (counter < 0) {
+                        window.location = '/';
+                        clearInterval(id);
+                    } else {
+                        counterElement.innerHTML = "Redirecting you in " + counter.toString() + " seconds.";
+                    }
+                }, 1000);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + '/photos/15389342602_cfe4154264_z.jpg', 5, .15, "white");
+            });
+        </script>
+    {% endif %}
+{% endblock %}

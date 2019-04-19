@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>Dahleos | Painel Estatístico</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static '/static/favicon.ico' %}"/>
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Coming+Soon|Cookie|Lobster+Two:400,400i,700,700i|Satisfy" rel="stylesheet">
+    -->
+    <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overlock" rel="stylesheet">
+    <script src="/static/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/js/material.min.js"></script>
+    <script src="/static/js/angular.min.js"></script>
+    <script src="/static/js/angular-animate.min.js"></script>
+    <script src="/static/js/angular-aria.min.js"></script>
+    <script src="/static/js/angular-material.js"></script>
+    <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-messages.min.js"></script>
+    <script src="/static/js/angular-sanitize.min.js"></script>
+    <script src="/static/js/angular-feeds.min.js"></script>
+    <script src="/static/js/analytics.js"></script>
+    <link rel="stylesheet" href="/static/css/angular-material.min.css"/>
+    <link rel="stylesheet" href="/static/riseup/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/riseup/css/animations.css">
+    <link rel="stylesheet" href="/static/riseup/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/angular-feeds.min.css">
+    <link rel="stylesheet" href="/static/css/feeds-demo.css">
+    <link rel="stylesheet" href="/static/css/prettify.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+    <!-- Google Feeds API script -->
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D">
+    </script>
+    <link rel="stylesheet" href="/static/css/dahleos-core.css">
+    <!-- <link rel="stylesheet" href="/static/css/analytics.css"> -->
+</head>
+<body ng-app="DahleosApp" ng-controller="MainController">
+<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<header id="header" class="light_section">
+    <div class="container">
+        <div layout="row" layout-align="space-between center">
+            <a href="/">
+                <img src="/static/riseup/img/logo-white.png" alt="" height="40" width="40">
+            </a>
+            <div>
+                <nav>
+                    <ul id="mainmenu" class="nav menu sf-menu responsive-menu superfish" layout="row"
+                        layout-align="space-between center">
+                        <li class="">
+                            <a href="#land">Home</a>
+                        </li>
+                        <li class="">
+                            <a href="#about">About Us</a>
+                        </li>
+                        <li class="">
+                            <a href="#team">Team</a>
+                        </li>
+                        <li class="">
+                            <a href="#service">Service</a>
+                        </li>
+                        <li class="">
+                            <a href="#portfolio">Gallery</a>
+                        </li>
+                        <li class="">
+                            <a href="#blog">News</a>
+                        </li>
+                        <li class="">
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div layout="row" layout-align="space-between center" ng-cloak>
+                <a href="#contact" class="menu-icons">
+                    <i class="material-icons menu-icon">person</i>
+                </a>
+                <a href="#contact" class="menu-icons">
+                    <i class="material-icons menu-icon">settings</i>
+                </a>
+                <a href="#contact" class="menu-icons" ng-show="!notification">
+                    <i class="material-icons menu-icon">notifications</i>
+                </a>
+                <a href="#contact" class="menu-icons" ng-show="notification">
+                    <blink style="color:#FFF;">
+                        <i class="material-icons menu-icon">notifications_active</i>
+                    </blink>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<div id="overlay">
+</div>
+<br><br>
+<div layout="row" layout-align="space-between start">
+    <section style="width: 20%;height: 100vh;">
+        <md-card layout="column" layout-align="center center" style="margin-top: 0;">
+            <md-toolbar class="md-ds-toolbar">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                        <i class="material-icons">dehaze</i>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+            </md-card-content>
+        </md-card>
+    </section>
+    <section layout="column" layout-align="start center" style="width: 60%;min-height: 90vh;">
+        <md-tabs md-autoselect="" md-dynamic-height="" md-border-bottom="">
+            <md-tab label="Planilha de dados">
+                {% if graphs %}
+                    {% for graph in graphs %}
+                        <md-card layout="column" layout-align="center center">
+                            {% if forloop.counter == 1 %}
+                                <md-toolbar class="md-ds-toolbar-child">
+                                    <div class="md-toolbar-tools">
+                                        <i class="material-icons">more_vert</i>
+                                        <span flex=""></span>
+                                        <md-button class="md-icon-button" aria-label="Settings" ng-disabled="false">
+                                            <a href="{% if graphs|length > 1 %}/graph/?u=fluir_personalizados&grp_md=0{% else %}/graph/?u=fluir_personalizados&grp_md=1{% endif %}">
+                                                <i class="material-icons">swap_horiz</i>
+                                            </a>
+
+                                        </md-button>
+                                    </div>
+                                </md-toolbar>
+                            {% endif %}
+                            <md-card-content>
+                                {{ graph|safe }}
+                            </md-card-content>
+                        </md-card>
+                    {% endfor %}
+                {% endif %}
+            </md-tab>
+            <md-tab label="Gerenciador de Projetos">
+            </md-tab>
+            <md-tab label="Configurações">
+            </md-tab>
+        </md-tabs>
+        <!-- <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Stack Overflow <i>AngularJS</i> Questions</h3>
+            </div>
+        -->
+        <!-- </div> -->
+
+    </section>
+    <section class="container" ng-controller="FeedTesterController" style="width: 20%; margin-right: 0;">
+        <md-card layout="column" layout-align="center center" style="margin-top: 0;">
+            <md-toolbar class="md-ds-toolbar">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                        <i class="material-icons">dehaze</i>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <feed summary="true"
+                      url="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+                      count="6">
+                </feed>
+            </md-card-content>
+        </md-card>
+    </section>
+</div>
+</body>
+</html>

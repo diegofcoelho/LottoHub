@@ -1,0 +1,40 @@
+{% block stats %}
+    {# md-tab label="Status" ng-click="getStats()" layout-fill="" layout="column" flex> #}
+    <md-tab label="Status" layout-fill="" layout="column" flex>
+        <md-toolbar md-scroll-shrink="" ng-if="true" class="mini-toolbar">
+            <div class="md-toolbar-tools">
+                <h3>
+                    <span>{{ title }}</span>
+                </h3>
+            </div>
+        </md-toolbar>
+        {# http://fuse-angular-material.withinpixels.com/dashboard-project #}
+        <div class="dark-content-board ">
+            <div class="sk-cube-grid" ng-show="!AngEnv.storeStats">
+                <div class="sk-cube sk-cube1 light-primary-color"></div>
+                <div class="sk-cube sk-cube2 light-primary-color"></div>
+                <div class="sk-cube sk-cube3 light-primary-color"></div>
+                <div class="sk-cube sk-cube4 light-primary-color"></div>
+                <div class="sk-cube sk-cube5 light-primary-color"></div>
+                <div class="sk-cube sk-cube6 light-primary-color"></div>
+                <div class="sk-cube sk-cube7 light-primary-color"></div>
+                <div class="sk-cube sk-cube8 light-primary-color"></div>
+                <div class="sk-cube sk-cube9 light-primary-color"></div>
+            </div>
+            <div class='md-padding' layout="row" layout-wrap flex-xs="100" flex-gt-xs="100"
+                 layout-align="space-between space-between">
+                <md-card layout="column" layout-align="space-between center" class="stat-card unselectable"
+                         ng-class="{'last-card':$last}"
+                         ng-repeat="(key, value) in AngEnv.storeStats" ng-hide="value==0">
+                    <div></div>
+                    <md-card-content style="padding: 0;">
+                        <p class="stat-card-content">{[{ value }]}</p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="center center" class="stat-card-actions">
+                        {[{ AngEnv.glossary[key] }]}
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+    </md-tab>
+{% endblock stats %}

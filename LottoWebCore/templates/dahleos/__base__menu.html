@@ -1,0 +1,107 @@
+<!--suppress ALL -->
+{% load static %}
+{% load i18n %}
+{% block menu %}
+    {% if user.is_authenticated %}
+        <md-menu style="padding:0;" md-offset="0 70">
+            <md-button aria-label="{% trans "Logged in" %}: {{ user.username }}" class="md-fab menu-button"
+                       ng-click="$mdMenu.open()">
+                <!-- {#  <img src="{{ request.session|get_item:'avatar' }}" style="height: inherit;width: inherit;margin-top: 0px;vertical-align: super;">  #} -->
+            </md-button>
+            <md-menu-content width="4" style="z-index: 15000;">
+                <md-menu-item ng-hide="true">
+                    <a href=""
+                       style="text-decoration: None;color: var(--color-C9); height: 100%; outline: None;">
+                        <div layout="row" layout-align="space-between center" style="height: 100%;">
+                            <i style="font-weight: 500;text-decoration: None;"
+                               class="material-icons">
+                                person_pin
+                            </i>
+                            Perfil
+                        </div>
+                    </a>
+                </md-menu-item>
+                <md-menu-divider ng-hide="true"></md-menu-divider>
+                <md-menu-item ng-if="AngEnv.Url.indexOf('dashboard') == -1 && AngEnv.Url.indexOf('welcome') == -1">
+                    <a href="/dashboard"
+                       style="text-decoration: None;color: var(--color-C9); height: 100%; outline: None;">
+                        <div layout="row" layout-align="space-between center" style="height: 100%;">
+                            <i style="font-weight: 500;text-decoration: None;"
+                               class="material-icons">
+                                dashboard
+                            </i>
+                            Dashboard
+                        </div>
+                    </a>
+                </md-menu-item>
+                <md-menu-divider ng-if="AngEnv.Url.indexOf('dashboard') == -1 && AngEnv.Url.indexOf('welcome') == -1">
+                </md-menu-divider>
+                {% if customersForm %}
+                    <md-menu-item>
+                        <div layout="row" layout-align="space-between center" style="height: 100%;">
+                            <i class="material-icons">store</i>
+                            {{ customersForm.as_p }}
+                        </div>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                    <md-menu-item>
+                        <a href="/admin/" target="_blank"
+                           style="text-decoration: None;color: var(--color-C9); height: 100%; outline: None;">
+                            <div layout="row" layout-align="space-between center" style="height: 100%;">
+                                <i class="material-icons">supervisor_account</i>
+                                Administração
+                            </div>
+                        </a>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                {% endif %}
+                <md-menu-item>
+                    <!--
+
+                    {#<a href="{% url 'account_change_password' %}" #}
+                       style="text-decoration: None;color: var(--color-C9); height: 100%; outline: None;">
+                        <div layout="row" layout-align="space-between center" style="height: 100%;">
+                            <i style="font-weight: 500;text-decoration: None;"
+                               aria-label="{% trans "Sair" %}"
+                               class="material-icons">
+                                vpn_key
+                            </i>
+                            {% trans "Alterar senha" %}
+                        </div>
+                    </a>
+                    -->
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <!--
+                    {# <a href="{% url 'account_logout' %}"  #}
+                       style="text-decoration: None;color: var(--color-C9); height: 100%; outline: None;">
+                        <div layout="row" layout-align="space-between center" style="height: 100%;">
+                            <i style="font-weight: 500;text-decoration: None;"
+                               aria-label="{% trans "Sair" %}"
+                               class="material-icons">
+                                exit_to_app
+                            </i>
+                            {% trans "Sair" %}
+                        </div>
+                    </a>
+                    -->
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    {% else %}
+        <!--
+        {#  <a href="{% url 'account_login' %}" style="color: white;"> #}
+            <i aria-label="{% trans "Acessar" %}" class="material-icons header-pin">
+                person_pin
+            </i>
+        </a>
+        -->
+    {% endif %}
+    <script type="text/javascript" src="{% static 'autocomplete_light/autocomplete.init.js' %}">
+    </script>
+    <script type="text/javascript" src="{% static 'autocomplete_light/select2.js' %}">
+    </script>
+{% endblock %}

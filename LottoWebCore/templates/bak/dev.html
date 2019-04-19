@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Lottery</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .lotterybox{
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lotterybox"></div>
+
+    <!-- Zepto or jQuery -->
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+<!--
+    <link rel="stylesheet" href="./dist/lottery.min.css" />
+    <script src="./dist/lottery.compact.min.js.1"></script>
+-->
+    <!-- <script src="./dist/lottery.compact.min.js"></script> -->
+    <script src="../static/assets/js/confetti.js"></script>
+    <script src="../static/assets/js/move.min.js"></script>
+    <script src="../static/assets/js/material-avatar.js"></script>
+    <script src="../static/assets/js/lottery.min.js"></script>
+    <link rel="stylesheet" href="../static/assets/css/lottery.min.css" />
+
+    <!-- ROCK ON -->
+    <script>
+      $.lottery({
+        el: '.lotterybox',
+        api: '../static/assets/data/sample-data.json',
+        once: true,
+        title: "name",
+        subtitle: "company",
+        // desc: "title",
+        timeout: 5,
+        speed: 250
+      });
+    </script>
+
+</body>
+
+</html>

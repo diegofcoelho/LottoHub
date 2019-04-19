@@ -1,0 +1,986 @@
+{% extends "dahleos/__base__.html" %}
+
+{% load static %}
+
+{% block title %}Dahleos | Área do Usuário{% endblock %}
+
+
+{% block scripts %}
+    <!--suppress ALL -->
+    <!--
+    <script src="/static/js/angular-material-calendar.js"></script> -->
+    <script src="/static/js/moment-with-locales.min.js"></script>
+    <script src="/static/js/angular-locale_pt-br.min.js"></script>
+    <script src="/static/js/angular-moment-picker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+    <script type="text/javascript" src="/static/js/emojionearea.js"></script>
+    <script type="text/javascript" src="/static/js/angular-material-calendar.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="/static/js/angular-plotly.js"></script>
+    <script type="text/javascript" src="/static/js/graph-plotter.js"></script>
+    <script type="text/javascript">
+        {% if not isEmpty %}
+            $(document).ready(function () {
+                var $AngScope = $('#bg').scope();
+                $("#id_caption").emojioneArea(
+                    {
+                        pickerPosition: "bottom",
+                        filtersPosition: "bottom",
+                        tonesStyle: "square",
+                        events: {
+                            keydown: function (max, e) {
+                                var $CaptionField = $('.emojionearea-editor');
+                                var key_code = e.keyCode;
+                                var keys =
+                                    (key_code > 47 && key_code < 58) || // number keys
+                                    key_code === 32 || key_code === 13 || // spacebar & return key(s) (if you want to allow carriage returns)
+                                    (key_code > 64 && key_code < 91) || // letter keys
+                                    (key_code > 95 && key_code < 112) || // numpad keys
+                                    (key_code > 185 && key_code < 193) || // ;=,-./` (in order)
+                                    (key_code > 218 && key_code < 223);   // [\]' (in order)
+                                if (keys) {
+                                    // TODO ADD LENGTH FROM SERVER
+                                    if ($CaptionField.text().length >= 255) {
+                                        e.preventDefault();
+                                    } else {
+                                        $AngScope.PostForm.Caption = $('textarea[name=caption]').val();
+                                        $AngScope.FormValidation();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+            });
+        {% endif %}
+        addEOA = function (eClass, eIcon, btn) {
+            var clone = $('.emojionearea > :nth-child(2) > :nth-child(2)').clone(true);
+            var parent = $('.emojionearea > :nth-child(2)');
+            //
+            var node = document.createElement('i');
+            node.setAttribute('class', "material-icons");
+            node.setAttribute('datanofire', true);
+            var text = document.createTextNode(eIcon);
+            node.appendChild(text);
+            //<i class="material-icons">loyalty</i>
+            //<i class="material-icons">delete_forever</i>
+            clone[0].setAttribute('datanofire', true);
+            clone[0].setAttribute('class', eClass);
+            clone[0].appendChild(node);
+            parent.append(clone);
+            //noinspection JSAnnotator
+            $('.' + eClass).css("cssText", `background-image: none !important;top:${ btn * clone[0].clientHeight }px;`);
+        };
+        Dropzone.options.PostDropzone = {
+            url: '/upload',
+            acceptedFiles: "image/*",
+            uploadMultiple: false,
+            maxFilesize: 2,
+            parallelUploads: 1,
+            maxFiles: 1,
+            dictDefaultMessage: 'Clique aqui para enviar o arquivo.',
+            dictCancelUpload: '<md-button class="md-fab md-primary"><i class="material-icons" style="color: red;font-size: xx-large;">cancel</i></md-button>',
+            dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+            dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+            dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+            thumbnailWidth: 250,
+            dictFileTooBig: "Twitter do not allow files greater than 5MB.",
+            thumbnailHeight: 250,
+
+            init: function () {
+                this.on("addedfile", function (file) {
+                    $('#bg').scope().Dropzone.file = $("#PostDropzone").get(0).dropzone.files[0];
+                });
+                this.on('maxfilesreached', function () {
+                    this.removeEventListeners();
+                });
+                this.on("maxfilesexceeded", function (file) {
+                    this.removeFile(file);
+                    this.removeEventListeners();
+                });
+            },
+
+            sending: function (file, xhr, formData) {
+                formData.append('filename', file.name);
+                formData.append('filesize', file.size);
+                $('input[name=method]').val('upload');
+            },
+            success: function (file, response) {
+                file.hash = response.msg;
+                file.name = file.hash;
+                var $AngScope = $('#bg').scope();
+                $AngScope.PostForm.Picture = file.hash;
+                $AngScope.PostForm.Method = 'posts';
+                $AngScope.FormValidation();
+            },
+            processing: function (file) {
+                if (this.files[1] != null) {
+                    this.removeFile(this.files[0]);
+                }
+            },
+            removedfile: function (file) {
+                this.setupEventListeners();
+                var $AngScope = $('#bg').scope();
+                $AngScope.PostForm.Picture = null;
+                var _ref = file.previewElement;
+                _ref.parentNode.removeChild(file.previewElement);
+                //
+                if ($AngScope.statusCode == 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: Dropzone.options.PostDropzone.url,
+                        data: {"filename": file.hash, "method": 'remove', store: $AngScope.AngEnv.usrData.username},
+                        dataType: 'html',
+                        success: function (msg, status, jqXHR) {
+                            $AngScope.PostForm.Method = 'upload';
+                            $AngScope.FormValidation();
+                            // TODO MOVE MESSAGE TO SYSTEM CODE
+                            $AngScope.showToastMessage("The picture was removed.");
+                        }
+                    });
+                } else {
+                    $AngScope.statusCode = 0;
+                }
+            }
+        };
+    </script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="/static/css/angular-moment-picker.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/dropzone.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/emojionearea.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/angular-material-calendar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/csshake-slow.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'tellme/feedback.min.css' %}">
+{% endblock %}
+
+{% block theme_style %}
+    {{ customersForm.media }}
+    <link rel="stylesheet" type="text/css" href="/static/css/blue-grey.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/dahleos-dashboard.css">
+{% endblock %}
+
+{% block header %}
+    <header id="header" layout="column" layout-align="center center">
+        <div layout="row" layout-align="space-between center" layout-fill="">
+            <div></div>
+            {% include "dahleos/__base__logo.html" %}
+            <div></div>
+            <div class="unselectable header-title"><b>@{[{ AngEnv.usrData.store}]}</b> | Área do Usuário
+                {% if request.user.is_superuser %}
+                    <b class="superscript">ADMIN</b>
+                {% endif %}
+            </div>
+            <div></div>
+            <div layout="row" layout-align="center center">
+                <md-tooltip md-direction="left">
+                    Olá, {{ request.user.first_name }}!
+                </md-tooltip>
+                {% include "dahleos/__base__menu.html" %}
+            </div>
+            <div></div>
+        </div>
+        <md-divider style="color: #e2e2e2;width: 100%;"></md-divider>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section layout="row" layout-align="space-between start" id="TabPanel" layout-fill="">
+        <md-tabs md-autoselect layout-fill="">
+            {% include "dahleos/dashboard/calendar.html" %}
+            {% if False == True %}
+                {% include "dahleos/dashboard/config.html" %}
+            {% endif %}
+            {% include "dahleos/dashboard/graph.html" %}
+            {% if True %} {# if angular_data #}
+                {% include "dahleos/dashboard/following.html" %}
+            {% endif %}
+            {% if True %}
+                {% include "dahleos/dashboard/raffle.html" %}
+            {% endif %}
+            {% include "dahleos/dashboard/stats.html" %}
+            <md-tab ng-hide="true" label="" ng-disabled="true"></md-tab>
+        </md-tabs>
+        <!-- <md-card id="rss-feed" hide show-gt-md flex="18"></md-card> -->
+    </section>
+{% endblock %}
+
+{% block angularJS %}
+    <script>
+        angular.module('DahleosApp', ['ngMaterial', 'ngMessages', 'ngSanitize', "materialCalendar", "ngAnimate", "ngRoute", 'moment-picker', 'plotly', 'graphPlotter'], function ($interpolateProvider, $httpProvider) {
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            .config(
+                function ($mdIconProvider, $$mdSvgRegistry) {
+                    // Add default icons from angular material
+                    $mdIconProvider
+                        .icon('md-close', $$mdSvgRegistry.mdClose)
+                        .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                        .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                        .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+                }
+            )
+            .filter('ObjectLength', function () {
+                return function (object) {
+                    return Object.keys(object).length;
+                }
+            })
+            .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', function ($scope, $mdDialog, $timeout, $http, $mdToast, $location, $window) {
+                //
+                $scope.AngEnv = {
+                    Url: window.location.pathname,
+                    usrData: {{ usrData }},
+                    LoadingSpinner: false,
+
+                    adata: {{ angular_data }},
+                    CssLoader: false,
+                    hostView: false,
+                    cTask: null,
+
+                    raffleOptions: ['Tag', 'Like', 'Hashtag'],
+                    readOnly: false,
+                    raffleSelected: [],
+                    raffleTagNumber: 1,
+                    raffleHashTags: []
+                };
+                $scope.calendarDate = null; //moment()._d;
+                $scope.firstDayOfWeek = 0;
+                $scope.googleUrl = 'http://google.com';
+                $scope.isDisabled = true;
+                $scope.isFormValid = false;
+                $scope.grpdGraphs = true;
+                $scope.minDate = moment().add(2, 'hour');
+                $scope.next_day = moment().add(1, 'd');
+                $scope.page = {{ page }};
+                $scope.ScheduledPosts = {};
+                $scope.statusCode = 0;
+                $scope.Updating = true;
+                $scope.userLocale = 'pt-br';
+                $scope.UserPerPage = 18;
+                //
+                $scope.PostForm = {
+                    Date: moment($scope.minDate, 'LLLL', $scope.userLocale).unix(),
+                    Picture: null,
+                    Draft: false,
+                    Caption: '',
+                    Method: 'upload',
+                    Store: $scope.AngEnv.usrData.username
+                };
+                $scope.setup = {
+                    instagram: false,
+                    state: false
+                };
+                $scope.SetupForm = {
+                    StoreState: false,
+                    StoreCats: [],
+                    StoreRefs: [],
+                    ToS: false
+                };
+                $scope.toastPosition = angular.extend({}, ToastAbsolutePosition);
+                $scope.EmptyForm = (JSON.parse(JSON.stringify($scope.PostForm)));
+                $scope.colorTiles = (function () {
+                    var tiles = [];
+                    for (var i = 0; i < 46; i++) {
+                        tiles.push({
+                            color: randomColor(),
+                            colspan: randomSpan(),
+                            rowspan: randomSpan()
+                        });
+                    }
+                    return tiles;
+                })();
+                //
+                // http://stackoverflow.com/questions/39198798/how-can-i-restrict-characters-of-a-md-chip-value
+                $scope.requestUpdate = function (store, method, post_data) {
+                    $http({
+                        method: 'POST',
+                        url: '/nyx/' + store + '/' + method + '/',
+                        data: post_data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).success(function (data) {
+                    }).finally(function () {
+                    });
+                }
+                $scope.validateChip = function ($chip) {
+                    if (!$chip) return;
+                    // check if the current string length is greater than or equal to a character limit.
+                    if ($chip.length >= characterLimit) {
+                        alert('whooaaa, you breached the limit yo!');
+                        // remove the last added item.
+                        $scope.AngEnv.raffleHashTags.pop();
+                    }
+                }
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.showConfirm = function (ev) {
+                    // Appending dialog to document.body to cover sidenav in docs app
+                    // TODO MOVE MESSAGE TO SYSTEM CODE
+                    var confirm = $mdDialog.confirm()
+                        .title('Would you like to delete your debt?')
+                        .textContent('All of the banks have agreed to forgive you your debts.')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Please do it!')
+                        .cancel('Sounds like a scam');
+
+                    $mdDialog.show(confirm).then(function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to get rid of your debt.';
+                    }, function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                $scope.raffleToggle = function (item, list) {
+                    var idx = list.indexOf(item);
+                    if (idx > -1) {
+                        list.splice(idx, 1);
+                    }
+                    else {
+                        list.push(item);
+                    }
+                };
+                $scope.openMenu = function ($mdOpenMenu, ev) {
+                    $mdOpenMenu(ev);
+                };
+                $scope.setCustomer = function () {
+                    $("#id_customer").html("<option value='text'>" + $scope.AngEnv.usrData.username + "</option>");
+                    $('#id_customer').change(function () {
+                            $scope.AngEnv.ActiveCustomer = $('#id_customer option:selected').text()
+                        }
+                    );
+                };
+                $scope.$watch('AngEnv.ActiveCustomer', function () {
+                    if (($scope.AngEnv.ActiveCustomer != '') && ($scope.AngEnv.ActiveCustomer != undefined)) {
+                        $.post("/dashboard/", {customer: $scope.AngEnv.ActiveCustomer}, function (data) {
+                            /* location.reload(true); */
+                            window.location.replace("/dashboard");
+                        });
+                    }
+                });
+                $scope.openURL = function (url, ev) {
+                    if (document.getElementById("TabIframe").src.indexOf(url) == -1) {
+                        if (url.indexOf('/graph/?u=') != -1) {
+                            url = url.concat('&w=' + $(window).width());
+                        } else if (url.indexOf('/graph/') != -1) {
+                            url = url.concat('?w=' + $(window).width());
+                        }
+                        document.getElementById("TabIframe").src = url;
+                    }
+                };
+                $scope.EmojiTextArea = function (id) {
+                    $(id).emojioneArea(
+                        {
+                            pickerPosition: "bottom",
+                            filtersPosition: "bottom",
+                            tonesStyle: "square",
+                            events: {
+                                keydown: function (max, e) {
+                                    var $CaptionField = $('.emojionearea-editor');
+                                    var key_code = e.keyCode;
+                                    keys =
+                                        (key_code > 47 && key_code < 58) || // number keys
+                                        key_code == 32 || key_code == 13 || // spacebar & return key(s) (if you want to allow carriage returns)
+                                        (key_code > 64 && key_code < 91) || // letter keys
+                                        (key_code > 95 && key_code < 112) || // numpad keys
+                                        (key_code > 185 && key_code < 193) || // ;=,-./` (in order)
+                                        (key_code > 218 && key_code < 223);   // [\]' (in order)
+                                    if (keys) {
+                                        // TODO ADD LENGTH FROM SERVER
+                                        if ($CaptionField.text().length >= 255) {
+                                            e.preventDefault();
+                                        } else {
+                                            if (id === "#editCaption") {
+                                                $scope.PostForm.Caption = $('textarea[name=eCaption]').val();
+                                            } else if (id === "#id_caption") {
+                                                $scope.PostForm.Caption = $('textarea[name=caption]').val();
+                                                $scope.FormValidation();
+                                            }
+                                        }
+                                    }
+                                },
+                                change: function (e) {
+                                    if (id === "#editCaption") {
+                                        $scope.PostForm.Caption = $('textarea[name=eCaption]').val();
+                                    } else if (id === "#id_caption") {
+                                        $scope.PostForm.Caption = $('textarea[name=caption]').val();
+                                        $scope.FormValidation();
+                                    }
+                                }
+                            }
+                        }
+                    );
+                    $('.emojionearea-editor').text($scope.PostForm.Caption);
+                };
+                $scope.isToday = function (date) {
+                    $scope.tmp = [$scope.Date, $scope.Month, $scope.Year].join("-");
+                    $scope.calendar = moment($scope.tmp, 'DD-MMMM-YYYY', $scope.userLocale);
+                    return !moment($scope.calendar).isAfter(moment(), 'day');
+                };
+                $scope.getToastPosition = function () {
+                    return Object.keys($scope.toastPosition)
+                        .filter(function (pos) {
+                            return $scope.toastPosition[pos];
+                        })
+                        .join(' ');
+                };
+                $scope.showToastMessage = function (msg) {
+                    var pinTo = $scope.getToastPosition();
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent(msg)
+                            .position(pinTo)
+                            .hideDelay(5000)
+                    );
+                };
+                $scope.setupStore = function (ev) {
+                    $http({
+                        method: 'POST',
+                        url: '/www-api',
+                        data: JSON.stringify(LowerKeys($scope.SetupForm)),
+                    })
+                        .success(function (data) {
+                            //
+                            $scope.message = data.msg;
+                            //
+                            if (data.code === 666) {
+                                $scope.setup.instagram = false;
+                                $scope.setup.state = false;
+                                $scope.SetupForm.Method = 'setup';
+                            } else {
+                                if (data['store'] !== undefined) {
+                                    $scope.SetupForm.Store = data['store'];
+                                }
+                                $scope.setup.state = $scope.SetupForm.StoreState !== undefined;
+                                $scope.SetupForm.ToS = true;
+                                $scope.setup.instagram = true;
+                                $scope.page += 1;
+                            }
+                        })
+                        .finally(function () {
+                            $scope.SetupForm.STORE = undefined;
+                            $scope.SetupForm.PWD = undefined;
+                            $scope.showToastMessage($scope.message);
+                        });
+                };
+                $scope.literalDate = function (date) {
+                    return moment(date).locale($scope.userLocale).format('LLLL');
+                };
+                $scope.getPost = function () {
+                    url = $scope.AngEnv.raffleUrl;
+                    if (url) {
+                        var postRegexp = /(?:[A-Z])\w+/;
+                        var code = postRegexp.exec(url)[0];
+                        $scope.nyx(code, 'post')
+                        //return code;
+                    } else if ($scope.raffleDisplay) {
+                        return $scope.raffleDisplay
+                    }
+                };
+                $scope.getFollowing = function () {
+                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(0, $scope.UserPerPage);
+                }
+                //
+                $scope.blockL = function (url) {
+
+                    if ($scope.AngEnv.hContainer != null) {
+                        $scope.AngEnv.hostView = false;
+                        //var container = $('#hContainer');
+                        //container[0].innerHTML = ''
+                    }
+
+                    if (url != $scope.AngEnv.hContainer) {
+                        $scope.AngEnv.CssLoader = true;
+                        $scope.AngEnv.hContainer = url;
+                    }
+                };
+                $scope.nyx = function (code, method) {
+                    $http({
+                        method: 'GET',
+                        url: '/nyx/' + $scope.PostForm.Store + '/' + method + '/' + code + '/',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                    })
+                        .success(function (data) {
+                            $scope.AngEnv[method] = data[method];
+                        })
+                        .finally(function () {
+                            //
+                        });
+                }
+                $scope.getStats =
+                    function () {
+                        $http({
+                            method: 'GET',
+                            url: '/nyx/' + $scope.PostForm.Store + '/',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                        })
+                            .success(function (data) {
+                                $scope.AngEnv.glossary = data.glossary;
+                                $scope.AngEnv.storeStats = data.analytics;
+                            })
+                            .finally(function () {
+                            });
+                    }
+                $scope.splitGraphData = function () {
+                    indexes = ['', 2, 3, 4];
+                    layout = {
+                        xaxis: {
+                            domain: [0.01, .95],
+                        },
+                        title: undefined,
+                        yaxis: {
+                            title: undefined,
+                            titlefont: undefined,
+                            tickfont: undefined,
+                            tick0: undefined,
+                            dtick: undefined
+                        }
+                    }
+                    $scope.AnalyticsIndividualLayouts = [];
+                    $scope.AnalyticsIndividualData = [];
+                    var temp_data = (JSON.parse(JSON.stringify($scope.AnalyticsData)));
+                    indexes.forEach(function (item, index) {
+                        var temp = $scope.AnalyticsLayout['yaxis' + item];
+                        var temp_layout = (JSON.parse(JSON.stringify(layout)));
+                        temp_layout.title = temp.title;
+                        temp_layout.yaxis.title = temp.title;
+                        temp_layout.yaxis.titlefont = temp.titlefont;
+                        temp_layout.yaxis.tickfont = temp.tickfont;
+                        temp_layout.yaxis.tick0 = temp.tick0;
+                        temp_layout.yaxis.dtick = temp.dtick;
+                        $scope.AnalyticsIndividualLayouts.push(temp_layout);
+                        delete temp_data[index].yaxis;
+                        $scope.AnalyticsIndividualData.push([temp_data[index]]);
+                    })
+                }
+                $scope.getGraphData = function () {
+                    $timeout(function () {
+                        $http({
+                            method: 'GET',
+                            url: '/nyx/{{  request.session.customer }}/graph/',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        }).success(function (data) {
+                            $scope.$evalAsync(function () {
+                                $scope.AnalyticsData = data['data'];
+                            });
+                            $scope.$evalAsync(function () {
+                                $scope.AnalyticsLayout = data['layout'];
+                            });
+                            $scope.$evalAsync(function () {
+                                $scope.splitGraphData();
+                            });
+                        }).finally(function () {
+                        });
+                    }, 2000);
+                };
+                $scope.blockN = function () {
+                    //if (document.readyState === "complete") {
+                    if (document.getElementById('holdy')) {
+                        var d = document.getElementById('holdy');
+                        d.parentNode.removeChild(d);
+                    } else {
+
+                        if (isVisible(document.getElementById("PostContainer"))) {
+                            var offsets = document.getElementById('PostContainer').getBoundingClientRect();
+                        } else {
+                            var offsets = document.getElementById('Posts').getBoundingClientRect();
+                        }
+
+                        var $div = $('<div />').appendTo('body');
+                        $div.attr('id', 'holdy');
+
+                        var d = document.getElementById('holdy');
+                        d.style.position = "absolute";
+                        d.style.left = offsets.left + 'px';
+                        d.style.top = offsets.top + 'px';
+                        d.style.height = offsets.height + 'px';
+                        d.style.width = offsets.width + 'px';
+
+                        d.style.display = 'flex';
+                        d.style.flexDirection = 'row';
+                        d.style.flexWrap = 'wrap';
+                        d.style.justifyContent = 'center';
+                        d.style.alignItems = 'center';
+
+                        var $l_div = $('<div />').appendTo(d);
+                        $l_div.attr('id', 'loader_holder');
+                        $l_div.attr('class', 'cssload-loader');
+                        var e = document.getElementById('loader_holder');
+                    }
+                    //}
+                };
+                $scope.blockS = function () {
+                    $scope.AngEnv.hostView = true;
+                    $scope.AngEnv.CssLoader = false;
+                };
+                $scope.FormValidation = function () {
+                    var arr = [];
+                    var obj = $scope.PostForm;
+                    for (var k in obj) {
+                        arr.push((obj[k] === null || obj[k] === undefined))
+                    }
+                    $scope.isFormValid = !arr.some(function (i) {
+                        return i === true;
+                    });
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                };
+                $scope.processForm = function (save_draft, ev) {
+
+                    $scope.PostForm.Draft = save_draft;
+
+                    if ($scope.PostForm.Draft) {
+                        var t_msg = "Deseja salvar como rascunho?";
+                        var msg = "O post ficará guardado no sistema para edição."
+                    } else {
+                        var t_msg = "Confirma o agendamento do post?";
+                        var msg = '\rA foto será postada na(o) ' + $scope.pickerDate;
+                    }
+                    var confirm = $mdDialog.confirm()
+                        .title(t_msg)
+                        .textContent(msg)
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Confirmar')
+                        .cancel('Cancelar');
+
+                    $mdDialog.show(confirm).then(function () {
+                        $scope.blockN();
+                        $http({
+                            method: 'POST',
+                            url: '/www-api',
+                            data: $.param(LowerKeys(JSON.parse(JSON.stringify($scope.PostForm)))),  // pass in data as strings
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                        })
+                            .success(function (data) {
+                                $scope.ScheduledPosts = {}
+                                $scope.postHandler('d_posts', $scope.PostForm.Store, $scope.PostForm.Date);
+                                //
+                                $scope.PostForm = (JSON.parse(JSON.stringify($scope.EmptyForm)));
+                                //
+                                var $CaptionField = $('.emojionearea-editor');
+                                $CaptionField.text('')
+                                //
+                                if (data.code === 666) {
+                                    // if not successful, bind errors to error variables
+                                    $scope.statusCode = 0;
+                                    $scope.message = data.msg;
+                                } else {
+                                    // if successful, bind success message to message
+                                    //$scope.PostForm.Picture = null;
+                                    $scope.statusCode = 1;
+                                    $scope.message = data.msg;
+                                }
+                                //
+                                $scope.PostDropzone.removeAllFiles()
+                                $scope.Dropzone.file = undefined;
+                                $('.dropzone').removeClass('dz-max-files-reached');
+                                $scope.showToastMessage($scope.message);
+                                $scope.FormValidation();
+                            })
+                            .finally(function () {
+                                $scope.blockN();
+                            });
+                    }, function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                $scope.deletePost = function (post_image, ev) {
+                    $scope.PostForm.Picture = post_image;
+                    $scope.PostForm.Method = 'e_posts';
+                    $scope.PostForm.Remove = true;
+                    //var temp_date = $scope.PostForm.Date;
+                    var msg = "Confirma remoção do agendamento?";
+                    var confirm = $mdDialog.confirm()
+                        .textContent(msg)
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Confirmar')
+                        .cancel('Cancelar');
+
+                    $mdDialog.show(confirm).then(function () {
+                        $scope.ScheduledPosts = {}
+                        $http({
+                            method: 'POST',
+                            url: '/www-api',
+                            data: $.param(LowerKeys(JSON.parse(JSON.stringify($scope.PostForm)))),  // pass in data as strings
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                        })
+                            .success(function (data) {
+                                $scope.PostForm = (JSON.parse(JSON.stringify($scope.EmptyForm)));
+                                $scope.message = data.msg;
+                                $scope.showToastMessage($scope.message);
+                                //$scope.PostForm.Date = temp_date;
+                            })
+                            .finally(function () {
+                                $scope.postHandler('d_posts', $scope.PostForm.Store, $scope.PostForm.Date)
+                            });
+                    }, function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'Seu post foi mantido sem modificações.';
+                    });
+                }
+                $scope.EditPost = function (post) {
+                    $scope.PostForm.Edit = true;
+                    $scope.PostForm.Picture = post.picture;
+                    $scope.PostForm.Caption = post.caption;
+                    $scope.PostForm.Method = 'posts';
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        scope: $scope,
+                        preserveScope: true,
+                        templateUrl: 'EditPost.Dialog.html',
+                        controller: function ($scope) {
+                            //var $CaptionField = $('.emojionearea-editor');
+                            $scope.hotPost = post;
+                            //$CaptionField.text($scope.PostForm.Caption)
+                            // $scope.EmojiTextArea('#editCaption');
+                            //  $CaptionField.text('')
+                        }
+                    }).then(function () {
+                    }, function () {
+                        $scope.status = 'Nenhuma modificação foi feita no post.';
+                        $scope.hotPost = undefined;
+                        $scope.PostForm = (JSON.parse(JSON.stringify($scope.EmptyForm)));
+                        $('.emojionearea-editor').text('');
+                    });
+                };
+                $scope.EditRaffle = function () {
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        scope: $scope,
+                        preserveScope: true,
+                        templateUrl: 'EditRaffle.Dialog.html',
+                        controller: function ($scope) {
+                        }
+                    }).then(function () {
+                    }, function () {
+                    });
+                };
+                //
+                {% if not isEmpty %}
+                    $timeout(function () {
+                        $scope.Dropzone = $("#PostDropzone");
+                        $scope.PostDropzone = $scope.Dropzone.get(0).dropzone;
+                        $scope.Dropzone.file = $scope.PostDropzone.files[0];
+                        $scope.EmojiTextArea("#id_caption");
+                    });
+                {%  endif %}
+                $scope.delP = function (ev) {
+                    var confirm = $mdDialog.confirm()
+                        .title('Deletar rascunho?')
+                        .textContent('Deseja deletar a imagem enviada e recomeçar?')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Confirmar')
+                        .cancel('Cancelar');
+
+                    $mdDialog.show(confirm).then(function () {
+                        $scope.PostDropzone.removeFile($scope.Dropzone.file);
+                        $scope.Dropzone.file = undefined;
+                        $('.dropzone').removeClass('dz-max-files-reached');
+                    }, function () {
+                        // TODO MOVE MESSAGE TO SYSTEM CODE
+                        $scope.status = 'You decided to keep your debt.';
+                    });
+                };
+                //
+                $scope.$watch('pickerDate', function () {
+                    if ($scope.pickerDate !== undefined) {
+                        if ($scope.selectedDate != null) {
+                            //if ($scope.selectedDate != null && $scope.calendarDate) {
+                            $scope.selectedDate = moment($scope.pickerDate, 'LLLL', $scope.userLocale);
+                            //}
+                        }
+                    }
+
+                });
+                $scope.$watch('selectedDate', function () {
+                    if ($scope.selectedDate != null) {
+                        $scope.Day = $scope.selectedDate.format('dddd');
+                        $scope.Date = $scope.selectedDate.format('DD');
+                        $scope.Month = $scope.selectedDate.format('MMMM');
+                        $scope.Year = $scope.selectedDate.format('YYYY');
+                        $scope.PostForm.Date = moment($scope.selectedDate, 'LLLL', 'pt-br').unix();
+                        $scope.FormValidation();
+                        $scope.postHandler('d_posts', $scope.PostForm.Store, $scope.PostForm.Date)
+
+                    }
+                });
+                $scope.$watch('AngEnv.cTask', function () {
+                    if ($scope.AngEnv.cTask === 1) {
+                        $scope.Updating = true;
+                        $scope.postHandler('d_posts', $scope.PostForm.Store, $scope.PostForm.Date);
+                    } else if ($scope.AngEnv.cTask === 0) {
+                        $scope.Updating = false;
+                    }
+                });
+                //
+                $scope.dayClick = function (date) {
+                    $scope.selectedDate = moment($scope.calendarDate).locale($scope.userLocale);
+                    //.selectedDate = moment().add(50, 'd').locale($scope.userLocale)
+                    //$scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+                };
+                $scope.setDirection = function (direction) {
+                    $scope.direction = direction;
+                };
+                $scope.prevMonth = function (data) {
+                    // TODO MOVE MESSAGE TO SYSTEM CODE OR REMOVE FUNCTION
+                    $scope.msg = "You clicked (prev) month " + data.month + ", " + data.year;
+                };
+                $scope.changeDay = function (n) {
+                    //$scope.calendarDate = moment($scope.calendarDate).add(n, 'd')._d;
+                    if ($scope.selectedDate == null) {
+                        $scope.tmp = [$scope.Date, $scope.Month, $scope.Year].join("-");
+                        $scope.selectedDate = moment($scope.tmp, 'DD-MMMM-YYYY', $scope.userLocale);
+                    }
+                    if (!moment($scope.calendar).isAfter($scope.next_day, 'day') && n < 0) {
+                        $scope.pickerDate = $scope.minDate.locale($scope.userLocale).format('LLLL')
+                    } else {
+                        $scope.selectedDate.add(n, 'd');
+                    }
+                };
+                $scope.nextMonth = function (data) {
+                    // TODO MOVE MESSAGE TO SYSTEM CODE OR REMOVE FUNCTION
+                    $scope.msg = "You clicked (next) month " + data.month + ", " + data.year;
+                };
+                $scope.setDayContent = function (date) {
+                    // You would inject any HTML you wanted for
+                    // that particular date here.
+                    return "<p></p>";
+                };
+                //
+                $scope.AngEnv.isSelectable = function (date, type) {
+                    if (date.date() == $scope.minDate.date()) {
+                        if (date.hour() >= $scope.minDate.hour()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return date >= $scope.minDate;
+                    }
+                };
+                $scope.BrwFlrs = function (n) {
+                    $scope.page += parseInt(n);
+                    var v = ($scope.page - 1) * $scope.UserPerPage;
+                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(v, v + 100);
+                };
+                $scope.XdFr = function (date) {
+                    return moment(date).locale($scope.userLocale).format('DD/MM/YYYY - HH:mm:ss');
+                };
+                $scope.postHandler = function (method, store, date) {
+                    $scope.ScheduledPosts = {};
+                    if ($scope.AngEnv.cTask === 1) {
+                        $scope.Updating = true;
+                        $scope.blockN();
+                        post_data = jQuery.param({
+                            method: method,
+                            date: date,
+                            store: store
+                        });
+                        promise = $http({
+                            method: 'POST',
+                            url: '/www-api',
+                            data: post_data,
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        }).then(
+                            function (response) {
+                                if (response.status == '200') {
+                                    $scope.ScheduledPosts = JSON.parse(response.data);
+                                }
+                                $scope.blockN();
+                                $scope.Updating = false;
+                            }
+                        );
+                        //$http.post('/hndlr', data);//.then(successCallback, errorCallback);
+                    }
+                };
+                $scope.Scheduler = function (method, mode, idx) {
+                    var post_data;
+                    var resp_msg;
+                    //
+                    if (mode == 'unfollow') {
+                        resp_msg = ' será removido no próximo processamento.';
+                        post_data = jQuery.param({
+                            method: method,
+                            action: mode,
+                            usr: $scope.AngEnv.Followers[idx].usr
+                        });
+                    } else if (mode == 'white-list') {
+                        resp_msg = ' será ignorando no próximo processamento.';
+                        post_data = jQuery.param({
+                            method: method,
+                            action: mode,
+                            usr: $scope.AngEnv.Followers[idx].usr
+                        });
+                    }
+                    promise = $http({
+                        method: 'POST',
+                        url: '/www-api',
+                        data: post_data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).then(
+                        function (response) {
+                            if (response.data == '200') {
+                                var v = ($scope.page - 1) * $scope.UserPerPage;
+                                //
+                                $scope.AngEnv.Followers.splice(idx, 1);
+                                $scope.AngEnv.adata.splice(idx + v, 1);
+                                //
+                                if (($scope.AngEnv.Followers.length < 100) && ($scope.AngEnv.adata >= 100)) {
+                                    $scope.AngEnv.Followers = $scope.AngEnv.adata.slice(v, v + 100);
+                                }
+                                //
+                                $scope.showToastMessage($scope.AngEnv.Followers[idx].usr + resp_msg);
+                            } else {
+                                resp_msg = 'Um erro inesperado ocorreu. Contate o suporte caso o problema persista.';
+                                $scope.showToastMessage(resp_msg);
+                            }
+                            return response.data;
+                        }
+                    )
+
+                    ;
+                    //$http.post('/hndlr', data);//.then(successCallback, errorCallback);
+                };
+                //
+                $(function () {
+                    $timeout(function () {
+                        $scope.$evalAsync(function () {
+                            $scope.getStats();
+                        });
+                    }, 1000);
+                    setInterval(function () {
+                        $scope.$evalAsync(function () {
+                            $scope.getStats();
+                        });
+                    }, 60000);
+                });
+            }])
+            .directive('fallbackSrc', function () {
+                return {
+                    link: function postLink(scope, iElement, iAttrs) {
+                        iElement.bind('error', function () {
+                            var data = jQuery.param({
+                                model: 'user',
+                                field: 'profile_picture',
+                                value: angular.element(this)[0].src
+                            });
+                            scope.requestUpdate(scope.PostForm.Store, 'update', data)
+                            angular.element(this).attr("src", iAttrs.fallbackSrc);
+                        });
+                    }
+                };
+            });
+    </script>
+{% endblock angularJS %}

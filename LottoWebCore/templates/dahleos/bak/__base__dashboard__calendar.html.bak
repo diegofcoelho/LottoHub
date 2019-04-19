@@ -1,0 +1,101 @@
+{% block calendar %}
+    <!--suppress CssInvalidPropertyValue -->
+    <md-tab label="Agendamento">
+        <div class="fill-tab" layout="row">
+            <div id="PRMCalendar" ng-hide="calendarDate" class='animate-hide'>
+                <calendar-md flex layout layout-fill
+                             calendar-direction="direction"
+                             on-prev-month="prevMonth"
+                             on-next-month="nextMonth"
+                             on-day-click="dayClick"
+                             title-format="'MMMM y'"
+                             ng-model='calendarDate'
+                             day-format="'d'"
+                             day-label-format="'EEE'"
+                             day-label-tooltip-format="'EEEE'"
+                             day-tooltip-format="'fullDate'"
+                             week-starts-on="firstDayOfWeek"
+                             disable-past-selection="true"
+                             day-content="setDayContent">
+                </calendar-md>
+            </div>
+            <div id="IDCalendar" ng-hide="!calendarDate" class='animate-hide' layout="row">
+                <div id="SDate">
+                    <md-toolbar id="bodyToolbar" layout="row" layout-align="center center">
+                        {[{Day}]}
+                    </md-toolbar>
+                    <md-content layout="column" layout-align="space-between center" id="dateBox">
+                        <div class="md-date-toolbar-tools" layout="row" layout-align="space-between center">
+                            <md-button class="md-icon-button" aria-label="dayBefore" ng-click="changeDay(-1)">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                            </md-button>
+                            <p class="box-header">{[{Date}]}</p>
+                            <md-button class="md-icon-button" aria-label="dayAfter" ng-click="changeDay(1)">
+                                <i class="material-icons">keyboard_arrow_right</i>
+                            </md-button>
+                        </div>
+                        <p class="box-subheader">{[{Month}]}</p>
+                        <p class="box-subheader">{[{Year}]}</p>
+                    </md-content>
+                    <div layout="column" class="under-menu">
+                        <md-button class="md-raised md-primary md-hooded">Agendar Post</md-button>
+                        <md-button class="md-raised md-primary md-hooded" ng-click="calendarDate=null">Voltar
+                        </md-button>
+                    </div>
+                </div>
+                <div id="SchEvContainer" layout="column">
+                    <div id="PostContainer" layout="row" layout-align="space-between center">
+                        <form class="dropzone custom-dropzone" id="PostDropzone" layout="column"
+                              layout-align="center center">
+                            <div class="fallback">
+                                <input name="file" type="file"/>
+                            </div>
+                        </form>
+                        <div id="FormFields" layout="column" layout-align="space-between space-beween">
+                            <form method="POST" id="PostScheduleForm" class="post-form" style="width: 100%;">{% csrf_token %}
+                                <!--
+                                http://stackoverflow.com/questions/169506/obtain-form-input-fields-using-jquery
+                                http://stackoverflow.com/questions/16616250/form-submit-with-ajax-passing-form-data-to-php-without-page-refresh
+                                https://scotch.io/tutorials/submitting-ajax-forms-the-angularjs-way
+                                -->
+                                <p>
+                                    <span moment-picker="selectedDate" format="LLLL" autoclose="true"
+                                          min-view="year" max-view="hour" start-view="month" locale="pt-br"
+                                          selectable="AngEnv.isSelectable(date, type)">
+                                    {[{ selectedDate || 'Click here to select a date' }]}
+                                    </span>
+                                </p>
+                                {{ form.as_p }}
+                                <md-switch ng-model="AngEnv.HashTag" aria-label="Switch 1" class="md-primary">
+                                    Hashtags: {[{ AngEnv.HashTag }]}
+                                </md-switch>
+                                <div layout="row" layout-align="space-between space-between">
+                                    <md-button type="submit" class="md-hooded">Agendar</md-button>
+                                    <md-button class="md-raised md-primary md-hooded" ng-click="delP()"
+                                               ng-hide="!Dropzone.file">Remover Foto
+                                    </md-button>
+                                    <!-- TODO ADD EMOTICONS ADD HASHTAGS
+                                    http://mervick.github.io/emojionearea/
+                                    https://github.com/mervick/emojionearea/issues?page=2&q=is%3Aissue+is%3Aopen
+                                    -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="DynamicContent" layout="row" layout-align="space-between center" class="data-container" ng-show="AngEnv.HashTag">
+                        <p layout="column" layout-align="space-between space-between">
+                            <label>Hashtags</label>
+                            <md-radio-group ng-model="AngEnv.HashGroup" layout="row"
+                                            layout-align="space-between space-between" style="margin: 5px;">
+                                <md-radio-button value="history" class="md-primary">Histórico
+                                </md-radio-button>
+                                <md-radio-button value="suggestion" class="md-primary">Sugestões
+                                </md-radio-button>
+                            </md-radio-group>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-tab>
+{% endblock calendar %}

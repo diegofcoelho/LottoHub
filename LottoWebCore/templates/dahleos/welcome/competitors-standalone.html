@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="/static/js/material.min.js"></script>
+    <link rel="stylesheet" href="/static/css/angular-material.min.css"/>
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/angular-animate.min.js"></script>
+    <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-aria.min.js"></script>
+    <script src="/static/js/angular-messages.min.js"></script>
+    <script src="/static/js/angular-material.min.js"></script>
+    <script src="/static/js/angular-sanitize.min.js"></script>
+
+    <link href="/static/autocomplete_light/vendor/select2/dist/css/select2.css" type="text/css" media="all"
+          rel="stylesheet"/>
+    <link href="/static/autocomplete_light/select2.css" type="text/css" media="all" rel="stylesheet"/>
+    <title>Title</title>
+</head>
+<body id="bg" ng-controller="dataCtrl as AngEnv" ng-app="WelcomeAPP">
+<div style="text-align: justify;" layout-fill="">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ catform.as_p }}
+        <input type="submit"/>
+    </form>
+</div>
+{{ refForm.media }}
+{{ catForm.media }}
+<script type="text/javascript" src="{% static 'autocomplete_light/autocomplete.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'autocomplete_light/select2.js' %}"></script>
+<script>
+    angular.module('WelcomeAPP', ['ngMaterial', 'ngMessages', 'ngSanitize', "ngAnimate"], function ($interpolateProvider, $httpProvider) {
+
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    })
+        .config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }])
+        .config(
+            function ($mdIconProvider, $$mdSvgRegistry) {
+                // Add default icons from angular material
+                $mdIconProvider
+                    .icon('md-close', $$mdSvgRegistry.mdClose)
+                    .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                    .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                    .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+            }
+        )
+        .filter('ObjectLength', function () {
+            return function (object) {
+                return Object.keys(object).length;
+            }
+        })
+        .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', function ($scope, $mdDialog, $timeout, $http, $mdToast) {
+            $scope.openMenu = function ($mdOpenMenu, ev) {
+                $mdOpenMenu(ev);
+            };
+            $scope.AngEnv = {
+                Url: window.location.pathname,
+                LoadingSpinner: false
+            };
+            $scope.page = 1;
+            var last = {
+                bottom: true,
+                top: false,
+                left: false,
+                right: true
+            };
+            $scope.toastPosition = angular.extend({}, last);
+            $scope.getToastPosition = function () {
+                return Object.keys($scope.toastPosition)
+                    .filter(function (pos) {
+                        return $scope.toastPosition[pos];
+                    })
+                    .join(' ');
+            };
+            $scope.showToastMessage = function (msg) {
+                var pinTo = $scope.getToastPosition();
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(msg)
+                        .position(pinTo)
+                        .hideDelay(5000)
+                );
+            };
+            $scope.setupStore = function (ev) {
+                $http({
+                    method: 'POST',
+                    url: '/www-api',
+                    data: $.param($scope.LowerKeys(JSON.parse(JSON.stringify($scope.SetupForm)))),  // pass in data as strings
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                })
+                    .success(function (data) {
+                        //
+                        $scope.message = data.msg;
+                        //
+                        if (data.code === 666) {
+                            // if not successful, bind errors to error variables
+                        } else {
+                            // if successful, bind success message to messag
+                        }
+                        //
+                        $scope.showToastMessage($scope.message);
+                    })
+                    .finally(function () {
+                        /*
+                         *
+                         *
+                         * */
+                    });
+            };
+        }]);
+
+</script>
+</body>
+</html>
+
+
+

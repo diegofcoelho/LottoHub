@@ -1,0 +1,59 @@
+<br>
+<md-grid-list md-cols="{[{ AngEnv.isAdmin() && 6 || 2 }]}" md-cols-gt-md="{[{ AngEnv.isAdmin() && 6 || 4 }]}"
+              md-row-height="fit" md-gutter="25px" ng-class="AngEnv.isAdmin()?'custom-grid-list':''">
+    <md-grid-tile>
+        <md-card layout="column" layout-align="center center" class="counter-grid-card unselectable">
+            <md-card-content count-to="{{ relationship }}" value="0" duration="{[{ AngEnv.counterDuration }]}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                Interconections
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+    <md-grid-tile>
+        <md-card layout="column" layout-align="center center" class="counter-grid-card unselectable">
+            <md-card-content count-to="{{ users }}" value="0" duration="{[{ AngEnv.counterDuration }]}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                Users
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+    <md-grid-tile ng-if="AngEnv.isAdmin()">
+        <md-card layout="column" layout-align="center center" class="counter-grid-card unselectable">
+            <md-card-content count-to="{{ artificial }}" value="0" duration="{[{ AngEnv.counterDuration }]}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                Followed
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+    <md-grid-tile ng-if="AngEnv.isAdmin()">
+        <md-card layout="column" layout-align="center center" class="counter-grid-card unselectable">
+            <md-card-content count-to="{{ followbacks }}" value="0" duration="{[{ AngEnv.counterDuration }]}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                FollowBacks
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+    <md-grid-tile>
+        <md-card layout="column" layout-align="center center" class="counter-grid-card unselectable">
+            <md-card-content count-to="{{ hubs }}" value="0" duration="{[{ AngEnv.counterDuration }]}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                Instagrams
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+    <md-grid-tile>
+        <md-card layout="column" layout-align="center center" class="counter-grid-card unselectable">
+            <md-card-content count-to="{{ category }}" value="0" duration="{[{ AngEnv.counterDuration }]}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                Categories
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+</md-grid-list>
+<br>

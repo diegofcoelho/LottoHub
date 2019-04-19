@@ -1,0 +1,40 @@
+{% block instagram %}
+    <fieldset class="dahleos-instagram-login">
+        <br>
+        <legend class="roboto-text">Conecte seu Instagram</legend>
+        <form layout="column" layout-align="space-between space-between"
+              style="min-height: 25vh;margin: 0 2% 2% 2%;">
+            {% csrf_token %}
+            {% for p in form %}
+                {% if p in form.visible_fields %}
+                    <md-input-container>
+                        <label>{{ p.label }}</label>
+                        {{ p }}
+                    </md-input-container>
+                {% else %}
+                    {{ p }}
+                {% endif %}
+            {% endfor %}
+            <md-input-container class="md-block" style="font-size: 0.8em;">
+                <md-checkbox name="tos" ng-model="SetupForm.ToS" required="" style="font-size: 0.85em;">
+                    Eu aceito os termos de Serviço.
+                </md-checkbox>
+                <div ng-messages="SetupForm.ToS.$error" multiple="" md-auto-hide="false">
+                    <div ng-message="required">
+                        You must accept the terms of service before you can proceed.
+                    </div>
+                </div>
+            </md-input-container>
+            <div layout="row" layout-align="end center" class="button-caption">
+                <md-button ng-click="setupStore()" type="submit" class="md-primary md-raised"
+                           ng-disabled="!SetupForm.ToS || !SetupForm.STORE || !SetupForm.PWD">
+                    <i class="material-icons">send</i>
+                </md-button>
+            </div>
+        </form>
+        <div layout-fill=""></div>
+    </fieldset>
+    <div class="loader-wrapper" ng-show="AngEnv.LoadingSpinner">
+        <div class="cssload-loader"></div>
+    </div>
+{% endblock %}

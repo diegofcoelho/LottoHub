@@ -1,0 +1,143 @@
+{% block raffle %}
+    <md-tab label="Sorteios">
+        <script type="text/ng-template" id="EditRaffle.Dialog.html">
+            <md-dialog class="raffle-dialog fade-In">
+                <md-toolbar>
+                    <div style="background-color: var(--color-C5);" class="md-toolbar-tools">
+                        <h2><i class="material-icons">today</i> Editar Sorteio</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <i class="material-icons">clear</i>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-dialog-content style="height: 100%;padding: 25px;">
+                    <fieldset class="standard" style="height: 95%;" layout="column" layout-align="space-between end">
+                        <legend>Opções do Sorteio</legend>
+                        <div layout="row" layout-wrap="" flex="">
+                            <div flex="33" ng-repeat="item in AngEnv.raffleOptions" layout="row"
+                                 layout-align="space-between center">
+                                <md-checkbox ng-checked="exists(item, AngEnv.raffleSelected)" style="margin: 0;"
+                                             ng-click="raffleToggle(item, AngEnv.raffleSelected)">
+                                    {[{ item }]}
+                                </md-checkbox>
+                            </div>
+                        </div>
+                        <md-input-container flex="25" layout-align="end end" layout="column"
+                                            style="margin: 35px 0 25px 0;">
+                            <label style="overflow: visible;">Número de Tags</label>
+                            <!--suppress HtmlFormInputWithoutLabel -->
+                            <input type="number" step="any" name="rate" min="1" max="10" ng-pattern="/^1234$/"
+                                   ng-model="AngEnv.raffleTagNumber"
+                                   ng-disabled="!exists('Tag', AngEnv.raffleSelected)">
+                        </md-input-container>
+                        <md-input-container style="width: 100%;margin-top: 30px;" flex="">
+                            <label>Hashtags Monitoradas</label>
+                            <md-chips ng-model="AngEnv.raffleHashTags" md-on-add="validateChip($chip)"
+                                      readonly="!exists('Hashtag', AngEnv.raffleSelected)" md-max-chips="5"
+                                      md-removable="AngEnv.removableTags" md-enable-chip-edit="true">
+                            </md-chips>
+                        </md-input-container>
+                    </fieldset>
+                </md-dialog-content>
+                <md-dialog-actions layout="row">
+                    <md-button ng-click="cancel()">
+                        Cancelar
+                    </md-button>
+                    <md-button>
+                        Salvar
+                    </md-button>
+                    <md-button>
+                        Agendar
+                    </md-button>
+                </md-dialog-actions>
+            </md-dialog>
+        </script>
+        <md-toolbar md-scroll-shrink="" ng-if="true" class="mini-toolbar">
+        </md-toolbar>
+        <md-toolbar md-scroll-shrink="" ng-if="true" layout="row" layout-xs="column"
+                    layout-align="space-between center" layout-sm="column">
+            <md-input-container class="md-block hide-error-msg raffle-search">
+                <label class="custom-label">Endereço do Post</label>
+                <!--suppress HtmlFormInputWithoutLabel -->
+                <input ng-model="AngEnv.raffleUrl">
+            </md-input-container>
+            <md-input-container class="md-block raffle-calendar" layout="row"
+                                layout-align="space-between space-between">
+                <div moment-picker="AngEnv.raffleDisplay" format="LL" autoclose="true" min-view="year" max-view="month"
+                     start-view="day" locale="pt-br" layout="row" ng-model="AngEnv.raffleDate" today="true"
+                     layout-align="center center" class="raffle-moment-picker">
+                    <i class="material-icons">event</i>
+                    {[{ AngEnv.raffleDisplay || 'Data do Sorteio' }]}
+                </div>
+                <div flex></div>
+                <md-button class="md-raised md-primary md-hooded" ng-click="getPost()"
+                           ng-disabled="!AngEnv.raffleUrl && !AngEnv.raffleDisplay">
+                    <i class="material-icons" style="font-weight: bold;">search</i>
+                </md-button>
+            </md-input-container>
+            <!--</div>-->
+        </md-toolbar>
+        <md-content flex="" style="height: 80vh;background-color: var(--color-C10);"
+                    layout-align="space-between start" layout="column">
+            <div ng-show="!AngEnv.post" style="min-width: 15%;left: 44%;top: 30%;position: relative;">
+                {# {% include "dahleos/dashboard/raffle_svg.html" %} #}
+            </div>
+            <md-card class="raffle-post" ng-show="AngEnv.post"
+                     layout="column"
+                     layout-align="space-between space-between">
+                <md-toolbar class="raffle-headline" layout="row" layout-align="center center"
+                            ng-bind="AngEnv.post.date | date:'dd/MM/yyyy'">
+                </md-toolbar>
+                <md-card-title-media layout="row" layout-align="center start">
+                    <div class="md-media-md card-media raffle-media">
+                        <a href="{[{ AngEnv.raffleUrl }]}" target="_blank" class="instamedia">
+                            <!--suppress RequiredAttributes -->
+                            <img fallback-src='/static/riseup/img/default-profile.png'
+                                 ng-src="{[{ AngEnv.post.image }]}">
+                        </a>
+                    </div>
+                </md-card-title-media>
+                <md-card-content layout="row" layout-align="center center">
+                    <p>{[{ AngEnv.post.caption }]}</p>
+                </md-card-content>
+                <md-card-content layout="row" layout-align="space-between space-between" style="width: 100%;">
+                    <md-button style="width: 20%;" class="md-raised md-primary" ng-disabled="true">
+                        <md-tooltip>
+                            Likes recebidos
+                        </md-tooltip>
+                        <i class="material-icons">thumb_up</i> {[{ AngEnv.post.like_count }]}
+                    </md-button>
+                    <md-button style="width: 20%;" class="md-raised md-primary" ng-disabled="true">
+                        <md-tooltip>
+                            Comentários recebidos
+                        </md-tooltip>
+                        <i class="material-icons">comment</i> {[{ AngEnv.post.comment_count }]}
+                    </md-button>
+                    <md-button style="width: 40%;" class="md-raised md-dark-hood" ng-click="EditRaffle()">
+                        <md-tooltip>
+                            Criar um sorteio utilizando o post selecionado
+                        </md-tooltip>
+                        Criar
+                    </md-button>
+                </md-card-content>
+            </md-card>
+            <div class='md-padding' layout="column" layout-wrap flex-xs="" flex-gt-xs="100"
+                 style="margin: 8px;padding: 0;min-height: 51.7vh;max-height: 51.7vh;" ng-show="AngEnv.post"
+                 layout-align="space-between space-between">
+                <md-card style="overflow: visible;width: 99%;height: 50.1vh;" layout="column"
+                         layout-align="space-between center">
+                    <md-card-title layout="column" layout-align="space-between center" class="fit-md-card">
+                        <md-card-title-text layout="column" layout-align="center center">
+                        </md-card-title-text>
+                        <br>
+                        <md-card-title-media layout="row" layout-align="center start">
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-content>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </md-content>
+    </md-tab>
+{% endblock raffle %}

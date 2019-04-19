@@ -1,0 +1,130 @@
+{% extends "dahleos/__base__.html" %}
+{% load i18n %}
+{% load static %}
+{% block scripts %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="/static/js/angular-plotly.js"></script>
+    <script type="text/javascript" src="/static/js/angular-countTo.js"></script>
+{% endblock %}
+
+<!-- <script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>-->
+<!--
+https://github.com/angular/angular.js/issues/4608
+http://builtbybuffalo.com/about
+-->
+
+{% block title %}Dahleos | Home{% endblock %}
+{% block angularJS %}
+    <!--suppress JSUnusedLocalSymbols, JSUnfilteredForInLoop, JSUnresolvedVariable, JSUnresolvedFunction -->
+    <script>
+        var vReCaptcha = function (response) {
+            var $AngScope = $('#bg').scope();
+            $AngScope.AngEnv.contact.recaptcha = response;
+            if (!$AngScope.$$phase) {
+                $AngScope.$apply();
+            }
+        };
+        angular.module('DahleosApp', ['ngMaterial', 'ngMessages', 'plotly', 'countTo'], function ($interpolateProvider) {
+            // Contorna problema de interpolação da renderização de template do django
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .controller('dataCtrl', function ($scope) {
+                $scope.AngEnv = {};
+                $scope.AngEnv.counterDuration = 2;
+                $scope.AngEnv.contact = {
+                    recaptcha: undefined,
+                    name: undefined,
+                    email: undefined,
+                    subject: undefined,
+                    message: undefined,
+                    isValid: false
+                };
+                $scope.AngEnv.Url = window.location.pathname;
+                console.log($scope.AngEnv.Url);
+                $scope.AngEnv.isAdmin = (function () {
+                    return /^\/admin/.test($scope.AngEnv.Url);
+                });
+                $scope.AngEnv.AnalyticsData = {{ SCP_data|safe  }};
+                $scope.AngEnv.AnalyticsLayout = {{ SCP_layout|safe  }};
+                $scope.openMenu = function ($mdOpenMenu, ev) {
+                    var originatorEv = ev;
+                    $mdOpenMenu(ev);
+                };
+                $scope.FormValidation = function () {
+                    var arr = [];
+                    var obj = $scope.AngEnv.contact;
+                    for (var k in obj) {
+                        arr.push((obj[k] === null || obj[k] === undefined))
+                    }
+                    $scope.isFormValid = !arr.some(function (i) {
+                        return i === true;
+                    });
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                };
+                $scope.$watch('AngEnv.contact', function (newVal, oldVal) {
+                    $scope.FormValidation();
+                }, true);
+            })
+            .directive('ngScroll', function () {
+                return {
+                    restrict: 'A',
+                    link: function (scope, $elm, attrs) {
+                        var idToScroll = attrs.href;
+                        $elm.on('click', function () {
+                            var $target;
+                            if (idToScroll) {
+                                $target = $(idToScroll);
+                            } else {
+                                $target = $elm;
+                            }
+                            $("body").animate({scrollTop: $target.offset().top}, "slow");
+                        });
+                    }
+                }
+            });
+    </script>
+{% endblock %}
+
+{% block header %}
+    <header id="homeheader" layout="column" layout-align="center center">
+        <div layout="row" layout-align="space-between center" layout-fill="">
+            <div></div>
+            <a href="/" style="color: white;height: var(--header-height);">
+                <i class="material-icons header-pin">
+                    blur_on
+                </i>
+            </a>
+            <div class="header-text unselectable">Galeria</div>
+            <div layout="row" class="header-home-logo">
+                <a href="/">
+                    <img src="/static/svg/dahleos-logo.svg" alt="" height="75px" width="75px">
+                </a>
+            </div>
+            <div class="header-text unselectable" ng-scroll href="#contact" rel="">Contato</div>
+            <div layout="row" layout-align="center center">
+                {% include "dahleos/__base__menu.html" %}
+            </div>
+            <div></div>
+        </div>
+        <md-divider style="color: #e2e2e2;width: 100%;"></md-divider>
+    </header>
+{% endblock %}
+
+
+{% block body %}
+    {% include "dahleos/home/system_stats.html" %}
+    {% include "dahleos/home/random_graph.html" %}
+    {% include "dahleos/home/contato.html" %}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="/static/css/dahleos-home.css">
+{% endblock %}
+
+{% block footer %}
+    {% include "dahleos/footer.html" %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
+
+{% block content %}
+    <div style="padding-top: 25px;padding-right: 50px;padding-left: 50px;padding-bottom: 50px;
+    background-color: #ef3e35;
+    width: 600px;
+    min-width: 700px;
+    max-width: 600px;
+    height: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    transform: rotate(5deg);
+    /* box-shadow:0 0 0 10px white inset; */
+    border: 20px white solid;
+    box-sizing: border-box;
+    border-radius: 5px;"
+         layout="column" layout-align="space-between center">
+        <h1 style="font-size: 600%;color: white;font-weight: 800;">{% trans "SORRY," %}</h1>
+        <h1 style="font-size: 400%;color: white;">{% trans "We're" %}</h1>
+        <h1 style="font-size: 600%;color: white;font-weight: 900">{% trans "CLOSED." %}</h1>
+
+        <p style="color: white;">{% trans "We are sorry, but the sign up is currently invitation-only." %}</p>
+    </div>
+    <div></div>
+{% endblock %}
+
+{% block script %}
+    {% if user.is_authenticated %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/14590463475_71813765ce_z.jpg', 5, .15, "white");
+            });
+
+            $(document).ready(function () {
+                var counter = 4;
+                id = setInterval(function () {
+                    counter--;
+                    var counterElement = document.getElementById("countdown");
+                    if (counter < 0) {
+                        window.location = '/dashboard';
+                        clearInterval(id);
+                    } else {
+                        counterElement.innerHTML = "Redirecting you in " + counter.toString() + " seconds.";
+                    }
+                }, 1000);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/14590463475_71813765ce_z.jpg', 5, .15, "white");
+            });
+        </script>
+    {% endif %}
+{% endblock %}

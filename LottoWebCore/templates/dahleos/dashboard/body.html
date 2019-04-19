@@ -1,0 +1,30 @@
+{% block body %}
+    <md-button type="button" id="feedback-btn"
+               class="md-fab md-raised btn btn-info feedback-widget shake-slow shake-constant shake-constant--hover">
+        <!-- Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> -->
+        <md-tooltip md-direction="left">Feedback</md-tooltip>
+        <i class="material-icons">feedback</i>
+    </md-button>
+    <section layout="row" layout-align="space-between start" id="TabPanel" layout-fill>
+        <md-tabs md-autoselect md-dynamic-height>
+            {% if not usr_data|lookup:isEmpty %}
+                {% include "dahleos/dashboard/calendar.html" %}
+                {% include "dahleos/dashboard/stats.html" %}
+                {% if False == True %}
+                    {% include "dahleos/dashboard/config.html" %}
+                {% endif %}
+                {% include "dahleos/dashboard/graph.html" %}
+                {% if angular_data %}
+                    {% include "dahleos/dashboard/following.html" %}
+                {% endif %}
+                {% if False == True %}
+                    {% include "dahleos/dashboard/raffle.html" %}
+                {% endif %}
+            {% else %}
+                {% include "dahleos/dashboard/config__setup.html" %}
+            {% endif %}
+            <md-tab ng-hide="true" label="" ng-disabled="true"></md-tab>
+        </md-tabs>
+        <!-- <md-card id="rss-feed" hide show-gt-md flex="18"></md-card> -->
+    </section>
+{% endblock %}

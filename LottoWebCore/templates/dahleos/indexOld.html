@@ -1,0 +1,1063 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Dahleos | Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <script src="/static/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="/static/js/material.min.js"></script>
+    <link rel="stylesheet" href="/static/css/angular-material.min.css"/>
+
+    <script src="/static/js/angular.min.js"></script>
+    <script src="/static/js/angular-animate.min.js"></script>
+    <script src="/static/js/angular-aria.min.js"></script>
+    <script src="/static/js/angular-material.js"></script>
+    <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-messages.min.js"></script>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <link rel="stylesheet" href="/static/riseup/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/riseup/css/animations.css">
+    <link rel="stylesheet" href="/static/riseup/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/dahleos-core.css">
+    <link rel="stylesheet" href="/static/riseup/css/main.css">
+    <script src="/static/riseup/js/vendor/modernizr-2.6.2.min.js"></script>
+    <!--[if lt IE 9]>
+            <script src="/static/riseup/js/vendor/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+<body ng-controller="AppCtrl" ng-app="DahleosApp">
+<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+<header id="header" class="light_section">
+    <div class="container">
+        <div layout="row" layout-align="space-between center">
+            <!--suppress HtmlUnknownAnchorTarget -->
+            <a href="#top">
+                <!--suppress CheckImageSize -->
+                <img src="/static/riseup/img/logo-white.png" alt="" height="40px" width="40px">
+            </a>
+            <div class="mainmenu_wrap">
+                <div class="main-menu-icon visible-xs">
+                </div>
+                <nav>
+                    <ul id="mainmenu" class="nav menu sf-menu responsive-menu superfish">
+                        <li class="">
+                            <a href="#land">Home</a>
+                        </li>
+                        <li class="">
+                            <a href="#about">Sobre nós</a>
+                        </li>
+                        <li class="">
+                            <a href="#team">Equipe</a>
+                        </li>
+                        <li class="">
+                            <a href="#service">Serviço</a>
+                        </li>
+                        <li class="">
+                            <a href="#portfolio">Galeria</a>
+                        </li>
+                        <li class="">
+                            <a href="#blog">Notícias</a>
+                        </li>
+                        <li class="">
+                            <a href="#contact">Contato</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            {% include "dahleos/__base__menu.html" %}
+        </div>
+    </div>
+</header>
+
+
+<section id="land" class="parallax text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 block">
+                <div id="top_slider">
+                    <ul class="bxslider">
+                        <li>
+                            <h4 class="fs_title">Paixão pela Web!</h4>
+                            <p class="fs_description">Os nossos serviços se baseiam nas melhores tecnologias
+                                disponíveis, oferecendo toda a segurança e confiabilidade. Nossa constante busca pelo
+                                aperfeiçoamento de nossos produtos faz com que acompanhemos os avanços mais
+                                recentes.</p>
+                        </li>
+                        <li>
+                            <h4 class="fs_title">Nós Amamos Design!</h4>
+                            <p class="fs_description">O design de suas postagens possuem um grande impacto na imagem de
+                                sua empresa e na popularidade da sua página. Nossa equipe conta com as mais criativas
+                                ferramentas para impulsionar sua atividade de forma consistente.</p>
+                        </li>
+                        <li>
+                            <h4 class="fs_title">Soluções Criativas</h4>
+                            <p class="fs_description">Nós, da Dahleos, acreditamos que todo bom desafio pode ser
+                                conquistado com soluções criativas e elegantes.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="next_section" href="#about"></a>
+</section>
+
+<section id="about" class="">
+    <div class="container">
+        <div class="row ">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">Sobre nós</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Nossa plataforma de serviços é robusta e com
+                    capacidade expansiva virtualmente infinita. Nossos serviços estão em atualização contínua:
+                    A cada produto criado, as informações obtidas durante seu uso são retroalimentadas ao sistema e
+                    aumentam progressivamente as taxas de sucesso.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="block col-sm-8 to_animate" data-animation="fadeInLeftBig">
+                <h3 class="content-title text-center"><strong>Nossa História</strong></h3>
+                <p>
+                    <strong>10 Years long run, we are working for the welfare of children. It was a little step, but
+                        it's now a big organization and worldwide activity as a child welfare non-profit
+                        organization.</strong>
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, debitis, nam, iste, maxime
+                    officiis saepe esse facere aspernatur dolore nisi libero ut pariatur modi expedita voluptas impedit
+                    odit eum reprehenderit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique,
+                    debitis, nam, iste, maxime officiis saepe esse facere aspernatur dolore nisi libero ut pariatur modi
+                    expedita voluptas impedit odit eum reprehenderit.Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit. Similique, debitis, nam, iste, maxime officiis saepe esse facere aspernatur dolore nisi libero
+                    ut pariatur modi expedita voluptas impedit odit eum reprehenderit. Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit.
+                </p>
+            </div>
+            <div class="col-sm-4 to_animate text-center" data-animation="fadeInRightBig">
+                <div id="carousel-fullwidth" class="carousel slide block">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-fullwidth" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-fullwidth" data-slide-to="1"></li>
+                        <li data-target="#carousel-fullwidth" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img alt="" src="/static/riseup/example/about_01.jpg">
+                        </div>
+                        <div class="item">
+                            <img alt="" src="/static/riseup/example/about_02.jpg">
+                        </div>
+                        <div class="item">
+                            <img alt="" src="/static/riseup/example/about_03.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="grey_section">
+    <div class="container">
+        <div class="row">
+            <!-- TODO REMOVE?
+            <div class="col-sm-4 to_animate text-center" data-animation="fadeInLeft">
+                <iframe width="450" height="253" src="//www.youtube.com/embed/WTAHzO1i6Mw" allowfullscreen></iframe>
+            </div>
+            -->
+            <div class="block col-sm-8 to_animate" data-animation="fadeInRight">
+                <h3 class="content-title text-center"><strong>Our Mission</strong></h3>
+                <p>
+                    <strong>10 Years long run, we are working for the welfare of children. It was a little step, but
+                        it's now a big organization and worldwide activity as a child welfare non-profit
+                        organization.</strong>
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, debitis, nam, iste, maxime
+                    officiis saepe esse facere aspernatur dolore nisi libero ut pariatur modi expedita voluptas impedit
+                    odit eum reprehenderit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique,
+                    debitis, nam, iste, maxime officiis saepe esse facere aspernatur dolore nisi libero ut pariatur modi
+                    expedita voluptas impedit odit eum reprehenderit.Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit. Similique, debitis, nam, iste, maxime officiis saepe esse facere aspernatur dolore nisi libero
+                    ut pariatur modi expedita voluptas impedit odit eum reprehenderit. Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="some-fact" class="color_section parallax">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="parallax-title text-center to_animate" data-animation="slideDown">We are happy if you become
+                    richer with our help</h3>
+                <hr class="parallax-border to_animate" data-animation="fadeInUp">
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-6 col-md-3 to_animate" data-animation="fadeInUpBig">
+                <div class="single_teaser icons style2">
+                    <div class="icons_introimg image-icon">
+                        <i class="rt-icon-user3"></i>
+                    </div>
+                    <h3>Usuários Analisados</h3>
+                    <h2 class="counter" data-from="0" data-to="{{ users }}" data-speed="2500"></h2>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3 to_animate" data-animation="fadeInUpBig">
+                <div class="single_teaser icons style2">
+                    <div class="icons_introimg image-icon">
+                        <i class="rt-icon-bulb"></i>
+                    </div>
+                    <h3>Páginas Monitoradas</h3>
+                    <h2 class="counter" data-from="0" data-to="{{ stores }}" data-speed="2000"></h2>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3 to_animate" data-animation="fadeInUpBig">
+
+                <div class="single_teaser icons style2">
+                    <div class="icons_introimg image-icon">
+                        <i class="rt-icon-paperplane"></i>
+                    </div>
+                    <h3>Interconexões</h3>
+                    <h2 class="counter" data-from="0" data-to="{{ relationship }}" data-speed="2500"></h2>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3 to_animate" data-animation="fadeInUpBig">
+                <div class="single_teaser icons style2">
+                    <div class="icons_introimg image-icon">
+                        <i class="rt-icon-pen2"></i>
+                    </div>
+                    <h3>Categorias de Páginas</h3>
+                    <h2 class="counter" data-from="0" data-to="{{ category }}" data-speed="2000"></h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section id="team">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">Meet Our Team</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Maecenas ac augue at erat hendrerit dictum. Praesent porta, purus eget sagittis
+                    imperdiet.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 to_animate" data-animation="fadeInUp">
+                <div id="carousel-team-fullwidth" class="carousel slide block">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-team-fullwidth" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-team-fullwidth" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team1.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Karl Anderson</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team2.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Kevin Harmon</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team3.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Selena Stefan</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team4.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Sarah Marsh</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team1.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Karl Anderson</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team2.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Kevin Harmon</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team3.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Sarah Marsh</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <img alt="Team member" src="/static/riseup/example/team/team4.jpg"
+                                                 class="img-responsive">
+                                        </div>
+                                        <div class="overlay">
+                                            <h4>Lena Bing</h4>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                                eirmod. Praesent faucibus</p>
+                                            <ul class="social-icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="skills" class="grey_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">Aptidão e Competência</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Nossa plataforma foi construída utilizando
+                    as linguagens de programação e sistemas mais seguros e confiáveis disponíveis. Desde sua concepção,
+                    milhares de usuários vêm sendo processados, conferindo ao sistema a capacidade de direcionar os
+                    esforços de sua página para um público alvo altamente selecionado.</p>
+            </div>
+        </div>
+        <br>
+        <div layout="row" layout-align="space-between center">
+            <img src="/static/riseup/img/mysql.svg" alt="" height="120px" class="to_animate"
+                 data-animation="fadeInLeft">
+            <img src="/static/riseup/img/django.svg" alt="" height="70px" class="to_animate"
+                 data-animation="fadeInLeft">
+            <!--suppress CheckImageSize -->
+            <img src="/static/riseup/img/web.png" alt="" height="120px" class="to_animate" data-animation="fadeInRight">
+            <img src="/static/riseup/img/python.svg" alt="" height="100px" class="to_animate"
+                 data-animation="fadeInRight">
+        </div>
+    </div>
+</section>
+
+
+<section id="service" class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">Pricing Table</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Maecenas ac augue at erat hendrerit dictum. Praesent porta, purus eget sagittis
+                    imperdiet.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-3 pricing-table to_animate" data-animation="fadeIn">
+                <div class="single-table">
+                    <h2>Starter</h2>
+                    <p class="price"><span class="dollar-icon">$</span><span>19</span> monthly</p>
+                    <ul>
+                        <li>5 Domain Names</li>
+                        <li>1GB Dedicated Ram</li>
+                        <li>5 Sub Domain</li>
+                        <li>10 Addon Domain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                    <a class="btn-signup" href="#">Sign-up</a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 pricing-table to_animate" data-animation="fadeIn">
+                <div class="single-table">
+                    <h2>Business</h2>
+                    <p class="price"><span class="dollar-icon">$</span><span>129</span> monthly</p>
+                    <ul>
+                        <li>5 Domain Names</li>
+                        <li>1GB Dedicated Ram</li>
+                        <li>5 Sub Domain</li>
+                        <li>10 Addon Domain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                    <a class="btn-signup" href="#">Sign-up</a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 pricing-table to_animate" data-animation="fadeIn">
+                <div class="single-table">
+                    <h2>Basic</h2>
+                    <p class="price"><span class="dollar-icon">$</span><span>49</span> monthly</p>
+                    <ul>
+                        <li>5 Domain Names</li>
+                        <li>1GB Dedicated Ram</li>
+                        <li>5 Sub Domain</li>
+                        <li>10 Addon Domain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                    <a class="btn-signup" href="#">Sign-up</a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 pricing-table to_animate" data-animation="fadeIn">
+                <div class="single-table">
+                    <h2>Ultra</h2>
+                    <p class="price"><span class="dollar-icon">$</span><span>199</span> monthly</p>
+                    <ul>
+                        <li>5 Domain Names</li>
+                        <li>1GB Dedicated Ram</li>
+                        <li>5 Sub Domain</li>
+                        <li>10 Addon Domain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                    <a class="btn-signup" href="#">Sign-up</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="testimonials" class="color_section parallax">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="carousel-testimonial-fullwidth" class="carousel slide block">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-testimonial-fullwidth" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-testimonial-fullwidth" data-slide-to="1"></li>
+                        <li data-target="#carousel-testimonial-fullwidth" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner text-center">
+                        <div class="item active">
+                            <div>
+                                <h1>
+                                    Masha Bull
+                                </h1>
+                                <p><strong>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quam consectetur
+                                    deserunt delectus, maxime natus aperiam libero molestiae beatae
+                                </strong>
+                                </p>
+                                <div>
+                                    <img alt="" src="/static/riseup/example/team/01.jpg" class="img-circle">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div>
+                                <h1>
+                                    Lena Johns
+                                </h1>
+                                <p>
+                                    <strong>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quam
+                                        consectetur deserunt delectus, maxime natus aperiam libero molestiae beatae
+                                    </strong>
+                                </p>
+                                <div>
+                                    <img alt="carousel image" src="/static/riseup/example/team/02.jpg"
+                                         class="img-circle">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div>
+                                <h1>
+                                    Shena Anderson
+                                </h1>
+                                <p><strong>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quam consectetur
+                                    deserunt delectus, maxime natus aperiam libero molestiae beatae
+                                </strong>
+                                </p>
+                                <div>
+                                    <img alt="carousel image" src="/static/riseup/example/team/03.jpg"
+                                         class="img-circle">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio" class="fullwidth_portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">Gallery</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Maecenas ac augue at erat hendrerit dictum. Praesent porta, purus eget sagittis
+                    imperdiet.</p>
+            </div>
+        </div>
+    </div>
+    <div id="portfolio_wrapper">
+        <div class="text-center filters">
+            <ul id="filtrable">
+                <li><a class="selected" data-filter="*" href="#">All</a></li>
+                <li><a data-filter=".video" href="#" class="">Video</a></li>
+                <li><a data-filter=".photography" href="#" class="">Photography</a></li>
+                <li><a data-filter=".webdesign" href="#" class="">Web Design</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+
+        <ul class="items-row row portfolio filtrable clearfix isotope" id="portfolioContainer">
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img1.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img1.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item photography webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img2.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img2.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item photography webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img3.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img3.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img4.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img4.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img5.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img5.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img6.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img6.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item photography webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img7.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img7.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img8.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img8.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img9.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img9.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img10.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img10.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img11.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img11.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="item isotope-item video webdesign">
+                <div class="portfolio_item_image portfolio-content">
+                    <img alt="" src="/static/riseup/example/gallery/intro_img12.jpg">
+                    <div class="overlay text-left">
+                        <a class="folio-detail prettyPhoto " title="" data-gal="prettyPhoto[gal]"
+                           href="/static/riseup/example/gallery/intro_img12.jpg"><i class="fa fa-camera"></i></a>
+                        <h2>Birdy Ambush</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac augue at erat hendrerit
+                            dictum. Praesent porta, purus eget sagittis</p>
+                        <a href="#" class="folio-link"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section id="subscribe" class="color_section parallax">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="parallax-title text-center to_animate" data-animation="slideDown">Subscribe to our
+                    Newsletter</h3>
+                <hr class="parallax-border to_animate" data-animation="fadeInUp">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <form id="signup" class="text-center to_animate" data-animation="fadeInUp" action="/" method="get">
+                    <div class="form-group">
+                        <input name="email" id="mailchimp_email" type="email" class="form-control"
+                               placeholder="your email address">
+                    </div>
+                    <button type="submit" class="theme_btn2">Singup</button>
+                    <div id="response"></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">News</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Maecenas ac augue at erat hendrerit dictum. Praesent porta, purus eget sagittis
+                    imperdiet.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="single-blog">
+                    <div class="blog-image">
+                        <a href="#"><img alt="" src="/static/riseup/example/post1.jpg"></a>
+                        <div class="post-date">
+                            <p>13<span>March</span></p>
+                        </div>
+                    </div>
+                    <div class="entry-content">
+                        <a href="#"><h2>Standard post with preview picture</h2></a>
+                        <div class="entry-meta">
+                            <span><a href="#"><i class="fa fa-user"></i> Posted By: Admin</a></span>
+                            <span><a href="#"><i class="fa fa-comments"></i> 12</a></span>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's</p>
+                        <a class="btn btn-primary" href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="single-blog">
+                    <div class="blog-image">
+                        <a href="#"><img alt="" src="/static/riseup/example/post2.jpg" class="img-responsive"></a>
+                        <div class="post-date">
+                            <p>02<span>June</span></p>
+                        </div>
+                    </div>
+                    <div class="entry-content">
+                        <a href="#"><h2>Standard post with preview picture</h2></a>
+                        <div class="entry-meta">
+                            <span><a href="#"><i class="fa fa-user"></i> Posted By: Admin</a></span>
+                            <span><a href="#"><i class="fa fa-comments"></i> 27</a></span>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's</p>
+                        <a class="btn btn-primary" href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="single-blog">
+                    <div class="blog-image">
+                        <a href="#"><img alt="" src="/static/riseup/example/post3.jpg" class="img-responsive"></a>
+                        <div class="post-date">
+                            <p>28<span>April</span></p>
+                        </div>
+                    </div>
+                    <div class="entry-content">
+                        <a href="#"><h2>Standard post with preview picture</h2></a>
+                        <div class="entry-meta">
+                            <span><a href="#"><i class="fa fa-user"></i> Posted By: Admin</a></span>
+                            <span><a href="#"><i class="fa fa-comments"></i> 15</a></span>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's</p>
+                        <a class="btn btn-primary" href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="single-blog">
+                    <div class="blog-image">
+                        <a href="#"><img alt="" src="/static/riseup/example/post4.jpg" class="img-responsive"></a>
+                        <div class="post-date">
+                            <p>15<span>July</span></p>
+                        </div>
+                    </div>
+                    <div class="entry-content">
+                        <a href="#"><h2>Standard post with preview picture</h2></a>
+                        <div class="entry-meta">
+                            <span><a href="#"><i class="fa fa-user"></i> Posted By: Admin</a></span>
+                            <span><a href="#"><i class="fa fa-comments"></i> 5</a></span>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's </p>
+                        <a class="btn btn-primary" href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="light_section">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h3 class="head-title text-center to_animate" data-animation="slideDown">Contate-nos</h3>
+                <hr class="title-border">
+                <p class="text-center to_animate" data-animation="fadeInUp">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Maecenas ac augue at erat hendrerit dictum. Praesent porta, purus eget sagittis
+                    imperdiet.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="block col-sm-6">
+                <h3>Envie-nos uma mensagem </h3>
+                <form class="contact-form" method="post" action="/contact">
+                    {% csrf_token %}
+                    <p class="contact-form-name">
+                        <label for="name">Nome <span class="required">*</span></label>
+                        <input type="text" aria-required="true" size="30" value="" name="name" id="name"
+                               class="form-control" placeholder="Nome">
+                    </p>
+                    <p class="contact-form-email">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" aria-required="true" size="30" value="" name="email" id="email"
+                               class="form-control" placeholder="Email">
+                    </p>
+                    <p class="contact-form-subject">
+                        <label for="subject">Assunto <span class="required">*</span></label>
+                        <input type="text" aria-required="true" size="30" value="" name="subject" id="subject"
+                               class="form-control" placeholder="Assunto">
+                    </p>
+                    <p class="contact-form-message">
+                        <label for="message">Mensagem</label>
+                        <textarea aria-required="true" rows="8" cols="45" name="message" id="message"
+                                  class="form-control" placeholder="Mensagem"></textarea>
+                    </p>
+                    <div class="contact-form-submit vertical-margin-40" layout="row"
+                         layout-align="space-between center">
+                        <div class="g-recaptcha" data-sitekey="6Lcx2REUAAAAADiXMq6lfYtLnBCPH-7MdqsS1Nr_"></div>
+                        <input type="submit" value="Enviar" id="contact_form_submit" name="contact_submit"
+                               class="btn btn-primary">
+                    </div>
+
+                </form>
+            </div>
+            <div class="block widget_text col-sm-6">
+                <h3>Informações de contato</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, aspernatur, velit. Adipisci,
+                    animi, molestiae, neque voluptatum non voluptas atque aperiam nam sed quidem quae harum ipsum sit
+                    veritatis expedita. Laudantium.</p>
+                <p>
+                    <strong>Endereço:</strong> 8605 Santa Monica Blvd, LA, CA 97845, US<br>
+                    <strong>Telefone: </strong>+28 356 859 4857<br>
+                    <strong>Email: </strong><a href="mailto:info@company.com">info@rise_up.net</a><br>
+                    <strong>Website: </strong><a href="./">www.rise_up.net</a>
+                </p>
+                <h3>Find Us On</h3>
+                <p id="social-bottom">
+                    <a class="socialico-facebook monochrome" href="#" title="Facebook">#</a>
+                    <a class="socialico-twitter monochrome" href="#" title="Twitter">#</a>
+                    <a class="socialico-google monochrome" href="#" title="Google">#</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="copyright" class="color_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                &copy; Copyright 2014 - Rise Up
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="preloader">
+    <div class="preloaderimg"></div>
+</div>
+
+<script src="/static/riseup/js/vendor/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/riseup/js/vendor/bootstrap.min.js"></script>
+<script src="/static/riseup/js/vendor/placeholdem.min.js"></script>
+<script src="/static/riseup/js/vendor/hoverIntent.js"></script>
+<script src="/static/riseup/js/vendor/superfish.js"></script>
+
+<script src="/static/riseup/js/vendor/jquery.actual.min.js"></script>
+<script src="/static/riseup/js/vendor/jquery.appear.js"></script>
+<script src="/static/riseup/js/vendor/jquerypp.custom.js"></script>
+<script src="/static/riseup/js/vendor/jquery.elastislide.js"></script>
+<script src="/static/riseup/js/vendor/jquery.flexslider-min.js"></script>
+<script src="/static/riseup/js/vendor/jquery.prettyPhoto.js"></script>
+<script src="/static/riseup/js/vendor/jquery.easing.1.3.js"></script>
+<script src="/static/riseup/js/vendor/jquery.ui.totop.js"></script>
+<script src="/static/riseup/js/vendor/jquery.isotope.min.js"></script>
+<script src="/static/riseup/js/vendor/jquery.easypiechart.min.js"></script>
+
+<script src='/static/riseup/js/vendor/jflickrfeed.min.js'></script>
+<script src="/static/riseup/js/vendor/jquery.sticky.js"></script>
+
+<script src='/static/riseup/js/vendor/owl.carousel.min.js'></script>
+
+<script src='/static/riseup/js/vendor/jquery.nicescroll.min.js'></script>
+<script src='/static/riseup/js/vendor/jquery.fractionslider.min.js'></script>
+<script src='/static/riseup/js/vendor/jquery.scrollTo-min.js'></script>
+<script src='/static/riseup/js/vendor/jquery.localscroll-min.js'></script>
+<script src='/static/riseup/js/vendor/jquery.parallax-1.1.3.js'></script>
+<script src='/static/riseup/js/vendor/jquery.bxslider.min.js'></script>
+<script src='/static/riseup/js/vendor/jquery.funnyText.min.js'></script>
+<script src='/static/riseup/js/vendor/jquery.countTo.js'></script>
+
+<script src="/static/riseup/js/vendor/grid.js"></script>
+<script src="/static/riseup/js/plugins.js"></script>
+<script src="/static/riseup/js/main.js"></script>
+<!--
+<script src='/static/riseup/twitter/jquery.tweet.min.js'></script>
+-->
+
+<script>
+    angular.module('DahleosApp', ['ngMaterial', 'ngMessages'], function ($interpolateProvider) {
+        // Contorna problema de interpolação da renderização de template do django
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    })
+        .controller('AppCtrl', function ($scope, $location) {
+            $scope.AngEnv = {};
+            $scope.AngEnv.Url = window.location.pathname;
+            $scope.openMenu = function ($mdOpenMenu, ev) {
+                originatorEv = ev;
+                $mdOpenMenu(ev);
+            };
+        });
+</script>
+</body>
+</html>

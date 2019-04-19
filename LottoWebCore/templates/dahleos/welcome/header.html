@@ -1,0 +1,12 @@
+{% block header %}
+    <header id="header" layout="column" layout-align="center center">
+        <div layout="row" layout-align="space-between center" layout-fill="">
+            {% include "dahleos/__base__logo.html" %}
+            <div class="unselectable header-title"><b>Dahleos</b> | Área do Usuário</div>
+            <div layout="row" layout-align="center center">
+                {% include "dahleos/__base__menu.html" %}
+            </div>
+        </div>
+        <md-divider style="color: #e2e2e2;width: 100%;"></md-divider>
+    </header>
+{% endblock %}

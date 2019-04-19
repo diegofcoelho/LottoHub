@@ -1,7 +1,28 @@
 <component name="ProjectDictionaryState">
   <dictionary name="dfcoelho">
     <words>
+      <w>collectstatic</w>
+      <w>contato</w>
+      <w>corpo</w>
+      <w>departamento</w>
+      <w>docente</w>
+      <w>dyno</w>
+      <w>endereco</w>
+      <w>graduacao</w>
+      <w>hexdigest</w>
+      <w>labam</w>
+      <w>lotterybox</w>
       <w>nostatic</w>
+      <w>perfil</w>
+      <w>postgresql</w>
+      <w>pythonpath</w>
+      <w>sendgrid</w>
+      <w>showbtn</w>
+      <w>siape</w>
+      <w>sigaa</w>
+      <w>smtp</w>
+      <w>sorteio</w>
+      <w>turmas</w>
       <w>whitenoise</w>
     </words>
   </dictionary>

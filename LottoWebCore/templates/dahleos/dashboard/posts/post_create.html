@@ -1,0 +1,64 @@
+<div id="PostContainer" layout="row" layout-align="space-between space-between"
+     ng-show="AngEnv.cTask==0 && (calendarDate!=null)" class="fade-in">
+    <form class="dropzone custom-dropzone" id="PostDropzone" layout="column" layout-gt-md="row"
+          layout-align="space-between center" layout-align-gt-md="space-between space-between">
+        <div class="dropzone-previews" style="width: 0;"></div>
+        {% csrf_token %}
+        <div class="fallback">
+            <input name="file" type="file"/>
+        </div>
+        <div layout="column" layout-align="space-between space-between" class="exempt"
+             style="/*width: 100%;padding: 0 14px 0 0;*/">
+            <div class="generic-holder date-picker">
+                                    <span moment-picker="pickerDate" format="LLLL" autoclose="true"
+                                          min-view="year" max-view="hour" start-view="day" locale="pt-br"
+                                          ng-model="selectedDate" today="true" min-date="minDate">
+                                    {[{ pickerDate || 'Click here to select a date' }]}
+                                    </span>
+            </div>
+            <div>{{ form.as_p }}</div>
+            <div layout="row" layout-align="space-between space-between" class="generic-holder"
+                 style="min-height: 50px;">
+                <md-switch ng-model="AngEnv.HashTag" aria-label="Switch 1"
+                           class="md-primary clickIt">
+                    Hashtags
+                </md-switch>
+                <div layout="row" layout-align="end center">
+                    <md-button class="md-warn clickIt" ng-click="delP()" ng-disabled="PostForm.Picture==null">
+                        <i class="material-icons">
+                            delete_sweep
+                        </i>
+                    </md-button>
+                    <md-button type="submit" class="md-primary clickIt"
+                               ng-disabled="!isFormValid">
+                        <i class="material-icons">archive</i>
+                    </md-button>
+                    <md-button ng-click="processForm()" type="submit" class="md-primary"
+                               ng-disabled="!isFormValid">
+                        <i class="material-icons">send</i>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+        <div class="dz-message" data-dz-message layout="column" layout-align="center center">
+            <i class="material-icons" style="font-size: 700%;">file_upload</i>
+            <span>Clique aqui para enviar o arquivo.</span>
+        </div>
+        <input type="hidden" name="method" ng-value="PostForm.Method" value="posts">
+        <input type="hidden" name="date" ng-value="PostForm.Date" required>
+    </form>
+</div>
+<div id="DynamicContent" layout="row" layout-align="space-between center" class="data-container"
+     ng-show="AngEnv.HashTag">
+    <div layout="column" layout-align="space-between space-between">
+        <label>Hashtags</label>
+        <md-radio-group ng-model="AngEnv.HashGroup" layout="row"
+                        layout-align="start center">
+            <md-radio-button value="history" class="md-primary">Histórico
+            </md-radio-button>
+            <md-radio-button value="suggestion" class="md-primary">Sugestões
+            </md-radio-button>
+        </md-radio-group>
+        <div id="hashtags"></div>
+    </div>
+</div>

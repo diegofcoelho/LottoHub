@@ -1,0 +1,75 @@
+{% load i18n %}
+{% load static %}
+<html>
+<head>
+    <title>LottoHub - Sorteio</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .lotterybox {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="lotterybox"></div>
+<!-- Zepto or jQuery -->
+<script src="../static/assets/js/zepto.min.js"></script>
+
+<link rel="stylesheet" href="../static/assets/css/lottery.min.css"/>
+<script src="../static/assets/js/lottery.compact.min.js"></script>
+
+<!-- ROCK ON -->
+<script>
+    tickets = function (url) {
+        $.ajax({
+            type: "GET", url: url, dataType: "json", success: function (e) {
+                var tickets_num = e.length;
+                let w = window.innerWidth * 0.8;
+                let h = window.innerHeight * 0.745;
+                let r = w / h;
+                let l = Math.sqrt(tickets_num / r);
+                let d = Math.round(h / l);
+                var tickets_size = ((d > 128) ? 128 : d);
+                console.log(tickets_size);
+                console.log(tickets_size / 128);
+                var obj1 = $(".dh-lottery .avatar .image");
+                obj1.css("height", tickets_size);
+                obj1.css("width", tickets_size);
+                var obj2 = $("#dh-lottery-selector .image");
+                obj2.css("height", tickets_size);
+                obj2.css("width", tickets_size);
+                var obj3 = $(".dh-lottery .dh-name-avatar canvas");
+                obj3.css("height", tickets_size);
+                obj3.css("width", tickets_size);
+                var obj4 = $(".dh-lottery .column ");
+                obj4.css("padding", tickets_size / 128 + "vw");
+            }, error: function (e, t) {
+                alert("Lottery: Load player list error!\n" + t + "\n" + t)
+            }
+        });
+    };
+    $.lottery({
+        el: '.lotterybox',
+        api: '../static/assets/data/sample-data2.json',
+        once: true,
+        subtitle: "company",
+        // desc: "title",
+        timeout: 5,
+        number: 5,
+        confetti: true,
+        showbtn: true,
+    });
+</script>
+
+</body>
+
+</html>

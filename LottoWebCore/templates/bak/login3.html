@@ -1,0 +1,68 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    {% if not user.is_authenticated %}
+        <form method="post" action="../registration">
+            {% csrf_token %}
+            {% for p in form %}
+                <div class="group">
+                    {{ p }}
+                    <label>{{ p.label }}</label>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+            {% endfor %}
+            <md-button class="md-raised md-primary">
+                <input aria-label="{% trans 'Log in' %}" type="submit" value="{% trans 'Log in' %}"/>
+            </md-button>
+            <input type="hidden" name="next" alt="{{ next }}" value="/dashboard"/>
+        </form>
+        <md-card style="width: 100%;padding: 25px;" layout="column" layout-align="center center">
+            <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+            <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+        </md-card>
+    {% else %}
+        <md-card style="width: 25vw;padding: 25px;" layout="column" layout-align="center center">
+            <p>User is already logged.</p>
+            <br>
+            <p id="countdown">Redirecting you in 3 seconds.</p>
+        </md-card>
+    {% endif %}
+{% endblock %}
+
+
+{% block script %}
+    {% if user.is_authenticated %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/15203102498_230d39d6b3_z.jpg', 5, .15, "white");
+            });
+
+            $(document).ready(function () {
+                var counter = 4;
+                id = setInterval(function () {
+                    counter--;
+                    var counterElement = document.getElementById("countdown");
+                    if (counter < 0) {
+                        window.location = '/dashboard';
+                        clearInterval(id);
+                    } else {
+                        counterElement.innerHTML = "Redirecting you in " + counter.toString() + " seconds.";
+                    }
+                }, 1000);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            body.hide();
+            html.hide();
+            $(function () {
+                BgBlur("{% get_static_prefix %}" + 'photos/15203102498_230d39d6b3_z.jpg', 5, .15, "white");
+            });
+        </script>
+    {% endif %}
+{% endblock %}

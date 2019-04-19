@@ -1,0 +1,228 @@
+<!-- http://csshake.surge.sh/ -->
+{% block calendar %}
+    <!--suppress ALL, JSUnresolvedVariable -->
+    <md-tab label="Agendamento" style="background-color: var(--color-C10);" layout="column">
+        <md-toolbar md-scroll-shrink="" ng-if="true" class="mini-toolbar">
+        </md-toolbar>
+        <div layout="row" layout-fill="" style="background-color: var(--color-C10);">
+            <div id="PRMCalendar" ng-hide="calendarDate" layout-fill layout="column">
+                <calendar-md flex layout layout-fill
+                             calendar-direction="direction"
+                             on-prev-month="prevMonth"
+                             on-next-month="nextMonth"
+                             on-day-click="dayClick"
+                             title-format="'MMMM y'"
+                             ng-model='calendarDate'
+                             day-format="'d'"
+                             day-label-format="'EEE'"
+                             day-label-tooltip-format="'EEEE'"
+                             day-tooltip-format="'fullDate'"
+                             week-starts-on="firstDayOfWeek"
+                             min-date="minDate"
+                             day-content="setDayContent"
+                             ng-hide="calendarDate"
+                             class="animate-show animate-hide">
+                </calendar-md>
+            </div>
+            <div id="IDCalendar" ng-show="calendarDate" layout="row">
+                <div id="SDate">
+                    <md-toolbar id="bodyToolbar" layout="row" layout-align="center center"
+                                class="default-primary-color">
+                        {[{Day}]}
+                    </md-toolbar>
+                    <md-content layout="column" layout-align="space-between center" id="dateBox">
+                        <div class="md-date-toolbar-tools" layout="row" layout-align="space-between center">
+                            <md-button class="md-icon-button md-no-margin" aria-label="dayBefore"
+                                       ng-click="changeDay(-1)" ng-disabled="isToday()">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                            </md-button>
+                            <p class="box-header">{[{Date}]}</p>
+                            <md-button class="md-no-margin md-icon-button" aria-label="dayAfter"
+                                       ng-click="changeDay(1)">
+                                <i class="material-icons">keyboard_arrow_right</i>
+                            </md-button>
+                        </div>
+                        <p class="box-subheader">{[{Month}]}</p>
+                        <p class="box-subheader">{[{Year}]}</p>
+                    </md-content>
+                    <div layout="column" class="under-menu">
+                        <md-button class="md-raised md-primary md-dark-hood" ng-click="AngEnv.cTask=0">
+                            Agendar
+                        </md-button>
+                        <md-button class="md-raised md-primary md-dark-hood" ng-click="AngEnv.cTask=1">Editar
+                        </md-button>
+                        <md-button class="md-raised md-primary md-dark-hood"
+                                   ng-click="AngEnv.cTask=calendarDate=null">
+                            Voltar
+                        </md-button>
+                    </div>
+                </div>
+                <div id="SchEvContainer" ng-show="calendarDate && (calendarDate!=null)" layout="column"
+                     class="animate-show animate-hide">
+                    <div id="PostContainer" layout="column" layout-align="space-between space-between"
+                         ng-show="AngEnv.cTask==0" class="animate-show animate-hide">
+                        <!-- <div layout="row" layout-align="space-between space-between" class="generic-holder"
+                             style="min-height: 50px;">
+                            <md-switch ng-model="AngEnv.HashTag" aria-label="Switch 1"
+                                       class="md-primary clickIt">
+                                Hashtags
+                            </md-switch>
+                            -->
+                        <div layout="row" layout-align="space-between space-between" class="generic-holder">
+                            <md-button class="md-warn clickIt" ng-click="delP()"
+                                       ng-disabled="PostForm.Picture==null">
+                                <md-tooltip>
+                                    Deletar Figura
+                                </md-tooltip>
+                                <i class="material-icons">
+                                    delete_sweep
+                                </i>
+                            </md-button>
+                            <md-button type="submit" class="md-primary clickIt"
+                                       ng-disabled="!isFormValid" ng-click="processForm(true)">
+                                <md-tooltip>
+                                    Arquivar post
+                                </md-tooltip>
+                                <i class="material-icons">archive</i>
+                            </md-button>
+                            <md-button ng-click="processForm(false)" type="submit" class="md-primary"
+                                       ng-disabled="!isFormValid">
+                                <md-tooltip>
+                                    Agendar post
+                                </md-tooltip>
+                                <i class="material-icons">send</i>
+                            </md-button>
+                        </div>
+                        <!-- </div> -->
+                        <form class="dropzone custom-dropzone" id="PostDropzone" layout="column" layout-gt-md="row"
+                              layout-align="space-between center" layout-align-gt-md="space-between space-between">
+                            <div class="dropzone-previews" style="width: 0;"></div>
+                            {% csrf_token %}
+                            <div class="fallback">
+                                <input name="file" type="file"/>
+                            </div>
+                            <div layout="column" layout-align="space-between space-between" class="exempt">
+                                <div class="post-moment-picker" moment-picker="pickerDate" format="LLLL"
+                                     autoclose="true"
+                                     min-view="year" max-view="hour" start-view="day" locale="pt-br"
+                                     ng-model="selectedDate" today="true" min-date="minDate">
+                                    {[{ pickerDate || 'Clique aqui para selecionar uma data' }]}
+                                </div>
+                                <div>{{ form.as_p }}</div>
+                            </div>
+                            <div class="dz-message" data-dz-message layout="column" layout-align="center center">
+                                <i class="material-icons" style="font-size: 8em;color: var(--color-C8);">file_upload</i>
+                                <span>Clique aqui para enviar o arquivo.</span>
+                            </div>
+                            <input type="hidden" name="method" ng-value="PostForm.Method" value="posts">
+                            <input type="hidden" name="date" ng-value="PostForm.Date" required>
+                        </form>
+                    </div>
+                    <div id="Posts" layout="row" layout-wrap flex-xs="" flex-gt-xs="100" ng-show="AngEnv.cTask!=0"
+                         layout-align="space-between space-between" class="animate-show animate-hide">
+                        <md-card ng-if="(ScheduledPosts | ObjectLength)> 0"
+                                 style="overflow: visible; max-height: 220px; min-width: 15%; max-width: 100%;"
+                                 layout="row" layout-align="space-between space-between"
+                                 ng-repeat="(usr_key,usr_post) in ScheduledPosts">
+                            <md-card-title layout="column" layout-align="space-between space-between"
+                                           class="fit-md-card">
+                                <br>
+                                <md-card-title-media layout="row" layout-align="center start">
+                                    <div class="md-media-md card-media">
+                                        <!--suppress HtmlUnknownTarget -->
+                                        <a href="{[{ usr_post.cdn }]}{[{ usr_post.picture }]}"
+                                           target="_blank"
+                                           class="instamedia">
+                                            <!--suppress RequiredAttributes -->
+                                            <img ng-src="{[{ usr_post.cdn }]}{[{ usr_post.picture }]}" err-src="">
+                                        </a>
+                                    </div>
+                                </md-card-title-media>
+                                <md-card-title-text>
+                                    <span class="md-headline">
+                                       {[{ XdFr(usr_post.date_target) }]}
+                                    </span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-actions layout="column" layout-align="space-between space-between">
+                                <md-button class="md-icon-button" ng-disabled="'{[{ usr_post.caption }]}'==''">
+                                    <md-tooltip>
+                                        {[{ usr_post.caption }]}
+                                    </md-tooltip>
+                                    <i class="material-icons">comment</i>
+                                </md-button>
+                                <md-button class="md-icon-button" ng-click="EditPost(usr_post)">
+                                    <i class="material-icons">mode_edit</i>
+                                </md-button>
+                                <md-button class="md-icon-button" ng-click="deletePost(usr_post.picture)">
+                                    <i class="material-icons" style="color: red;">delete_forever</i>
+                                </md-button>
+                            </md-card-actions>
+                        </md-card>
+                        <script type="text/ng-template" id="EditPost.Dialog.html"
+                                ng-if="(ScheduledPosts | ObjectLength)> 0">
+                            <md-dialog style="width: 25%;height: 25%; min-height: 550px;" ng-init="cDate=selectedDate;"
+                                       class="fade-In">
+                                <md-toolbar>
+                                    <div class="md-toolbar-tools">
+                                        <h2><i class="material-icons">today</i> Editar Post</h2>
+                                        <span flex></span>
+                                        <md-button class="md-icon-button" ng-click="cancel()">
+                                            <i class="material-icons">clear</i>
+                                        </md-button>
+                                    </div>
+                                </md-toolbar>
+                                <md-dialog-content style="height: 100%;padding: 25px;">
+                                    <span moment-picker="pDate" format="LLLL"
+                                          autoclose="true" ng-model="cDate"
+                                          min-view="year" max-view="hour"
+                                          start-view="day" locale="pt-br"
+                                          min-date="minDate">
+                                        {[{ pDate || 'Clique aqui para selecionar uma data' }]}
+                                    </span>
+                                    <br>
+                                    <textarea id="editCaption" rows="10" cols="51" name="eCaption" class="dialog_edit">
+                                    </textarea>
+                                </md-dialog-content>
+                                <md-dialog-actions layout="row">
+                                    <md-button ng-click="cancel()">
+                                        Cancelar
+                                    </md-button>
+                                    <md-button ng-click="processForm(hotPost.draft)">
+                                        Salvar
+                                    </md-button>
+                                    <md-button ng-if="!hotPost.draft" ng-click="processForm(true)">
+                                        Rascunho
+                                    </md-button>
+                                    <md-button ng-if="hotPost.draft" ng-click="processForm(false)">
+                                        Postar
+                                    </md-button>
+                                </md-dialog-actions>
+                            </md-dialog>
+                        </script>
+                        <div style="width: 100%;height: 100%;" layout="row" layout-align="center center">
+                            <div class="dark-content-text" ng-hide="((ScheduledPosts | ObjectLength)> 0) || (Updating)">
+                                Nenhum post foi agendado para a data selecionada ({[{ selectedDate.format('DD/MM/YYYY')
+                                }]}).
+                            </div>
+                        </div>
+                    </div>
+                    <div id="DynamicContent" layout="row" layout-align="space-between center" class="data-container"
+                         ng-show="AngEnv.HashTag">
+                        <div layout="column" layout-align="space-between space-between">
+                            <label>Hashtags</label>
+                            <md-radio-group ng-model="AngEnv.HashGroup" layout="row"
+                                            layout-align="start center">
+                                <md-radio-button value="history" class="md-primary">Histórico
+                                </md-radio-button>
+                                <md-radio-button value="suggestion" class="md-primary">Sugestões
+                                </md-radio-button>
+                            </md-radio-group>
+                            <div id="hashtags"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-tab>
+{% endblock calendar %}
