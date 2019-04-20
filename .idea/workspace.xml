@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0002_auto_20190420_1353.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LottoWebCore/migrations/0003_auto_20190420_1356.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/LottoWebCore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="81" column="9" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+            <state relative-caret-position="272">
+              <caret line="88" lean-forward="true" selection-start-line="88" selection-start-column="1" selection-end-line="98" selection-end-column="31" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -64,7 +66,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/admin.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
@@ -177,14 +179,14 @@
         <option value="$PROJECT_DIR$/LottoHub/settings.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/views.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/forms.py" />
-        <option value="$PROJECT_DIR$/LottoWebCore/models.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/admin.py" />
+        <option value="$PROJECT_DIR$/LottoWebCore/models.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="918" />
+    <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
@@ -317,18 +319,18 @@
       <workItem from="1555410603552" duration="28933000" />
       <workItem from="1555458880600" duration="3597000" />
       <workItem from="1555504910878" duration="10823000" />
-      <workItem from="1555599085062" duration="89673000" />
+      <workItem from="1555599085062" duration="90270000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145687000" />
+    <option name="totallyTimeSpent" value="146284000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29211086" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.59956235" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -343,7 +345,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32932165" />
-      <window_info anchor="bottom" id="Python Console" order="12" visible="true" weight="0.32827735" />
+      <window_info anchor="bottom" id="Python Console" order="12" visible="true" weight="0.33150986" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -726,12 +728,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="81" column="9" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+        <state relative-caret-position="184">
+          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#530#562#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -756,12 +758,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/admin.py">
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+        <state relative-caret-position="272">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-start-column="1" selection-end-line="98" selection-end-column="31" />
           <folding>
-            <element signature="e#530#562#0" expanded="true" />
+            <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>

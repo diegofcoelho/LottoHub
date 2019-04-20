@@ -72,9 +72,9 @@ class MiddleMan(models.Model):
     phone = models.CharField(max_length=500, null=True)
     email = models.CharField(max_length=500, null=True)
     analysed = models.BooleanField(default=False)
-    #raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
+    raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
+    directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
     id = models.CharField(max_length=100, default=create_hash, unique=True, primary_key=True)
-    #directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE)
 
     readonly_fields = ('id',)
 
@@ -86,17 +86,17 @@ class MiddleMan(models.Model):
     def __str__(self):
         return self.user.username
 
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        MiddleMan.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    print(instance)
-    # instance.profile.save()
+#
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         MiddleMan.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     print(instance)
+#     # instance.profile.save()
 
 
 class Ticket(models.Model):
