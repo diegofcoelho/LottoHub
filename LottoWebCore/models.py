@@ -62,8 +62,8 @@ class Raffle(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Sorteio"
-        verbose_name_plural = "Sorteios"
+        verbose_name = "Rifa"
+        verbose_name_plural = "Rifas"
 
 
 class MiddleMan(models.Model):
