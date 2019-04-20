@@ -35,6 +35,7 @@ class StudentDirectory(models.Model):
     email = models.CharField(max_length=500, null=False, verbose_name='E-mail')
     room = models.CharField(max_length=500, verbose_name='Sala')
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, verbose_name='Cidade')
+    id = models.CharField(max_length=500, default=create_hash, unique=True, primary_key=True)
     university = models.ForeignKey(University, on_delete=models.CASCADE, null=False, verbose_name='Universidade')
 
     class Meta:
@@ -74,7 +75,7 @@ class MiddleMan(models.Model):
     analysed = models.BooleanField(default=False)
     raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
     directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
-    id = models.CharField(max_length=100, default=create_hash, unique=True, primary_key=True)
+    id = models.CharField(max_length=500, default=create_hash, unique=True, primary_key=True)
 
     readonly_fields = ('id',)
 
@@ -108,7 +109,7 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(MiddleMan, on_delete=models.CASCADE, verbose_name='Vendedor')
     #raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, verbose_name='Rifa')
-    id = models.CharField(max_length=100, default=create_hash, unique=True, primary_key=True)
+    id = models.CharField(max_length=500, default=create_hash, unique=True, primary_key=True)
     directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, verbose_name='Centro Acadêmico')
 
     readonly_fields = ('id',)
