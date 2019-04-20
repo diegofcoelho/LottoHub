@@ -142,7 +142,7 @@ def api_handler(request, method=None, data=None):
                     name=data['name'],
                     phone=data['phone'],
                     email=data['email'],
-                    # lottery=datetime.strptime(data['lottery'], "%d/%m/%Y").date(),
+                    lottery=datetime.strptime(data['lottery'], "%d/%m/%Y").date(),
                     directory=StudentDirectory.objects.get(pk=data['directory']),
                 )
                 obj_raf.save()
