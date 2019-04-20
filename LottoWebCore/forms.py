@@ -1,8 +1,8 @@
 from dal import autocomplete
-
+from captcha.fields import ReCaptchaField
 from django import forms
 
-from LottoWebCore.models import MiddleMan, Ticket, StudentDirectory, University, Raffle, City
+from LottoWebCore.models import MiddleMan, Ticket, StudentDirectory, University, Raffle, City, RegistrationRequest
 
 
 class TicketForm(forms.ModelForm):
@@ -16,7 +16,7 @@ class TicketForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ('raffle','directory')
+        fields = ('raffle', 'directory')
 
 
 class StudentDirectoryForm(forms.ModelForm):
@@ -69,3 +69,37 @@ class RaffleForm(forms.ModelForm):
         widgets = {
             'completed': forms.HiddenInput(),
         }
+
+
+class TicketEditForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super(TicketEditForm, self).__init__(*args, **kwargs)
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.id:
+    #         self.fields['id'].required = False
+    #         self.fields['id'].widget.attrs['readonly'] = 'readonly'
+
+    id = forms.ModelChoiceField(
+        queryset=Ticket.objects.all(),
+        widget=autocomplete.ModelSelect2(url='ticket-autocomplete')
+    )
+
+    method = forms.CharField(widget=forms.HiddenInput(), initial='EDT')
+    model = forms.CharField(widget=forms.HiddenInput(), initial='TCK')
+
+    class Meta:
+        model = Ticket
+        fields = ('name', 'phone', 'email')
+        widgets = {
+            'completed': forms.HiddenInput(),
+        }
+
+
+class SignUpForm(forms.ModelForm):
+    method = forms.CharField(widget=forms.HiddenInput(), initial='ADD')
+    model = forms.CharField(widget=forms.HiddenInput(), initial='REG')
+    captcha = ReCaptchaField()
+
+    class Meta:
+        model = RegistrationRequest
+        fields = '__all__'

@@ -13,8 +13,9 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import RedirectView
 
-from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm
-from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City
+from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, TicketEditForm, \
+    SignUpForm
+from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City, RegistrationRequest
 
 t_objs = Ticket.objects
 
@@ -45,7 +46,10 @@ def lottery(request):
 
 
 def signup(request):
+    if request.method == 'POST':
+        api_handler(request)
     return render(request, 'dashboard/signup.html', {
+        'form': SignUpForm
     })
 
 
@@ -58,9 +62,11 @@ def UserProfile(request):
 def DashBoard(request):
     if request.method == 'POST':
         api_handler(request)
+    print(request.user)
     return render(request, "dashboard/dashboard.html",
                   {'META': request.META,
                    'TForm': TicketForm,
+                   'TEForm': TicketEditForm,
                    'SDForm': StudentDirectoryForm,
                    'UForm': UniversityForm,
                    'CForm': CityForm,
@@ -75,6 +81,8 @@ def api_handler(request, method=None, data=None):
     # http://stackoverflow.com/questions/12812716/how-do-i-pass-variables-in-django-through-the-url
     # http://www.earthchildpendants.co.uk/gods.html
     data = request.POST.copy()
+    #
+    print(data)
     lh_user = request.user.username
     #
     response = {'store': data, 'data': lh_user, 'tickets': data}
@@ -87,13 +95,11 @@ def api_handler(request, method=None, data=None):
         except:
             return HttpResponse(json.dumps(response), content_type="application/json")
         #
-        print(data)
         o_data = {'status': 200, 'code': 666, 'msg': 'Ops, your post could not be scheduled. \n Check your stats page '
                                                      'to check if you still have available slots. '}
         #
         if data['method'] == 'ADD':
             if data['model'] == 'TCK':
-                print('TCK')
                 try:
                     tickets = []
                     for _ in range(int(data['TCKN'])):
@@ -103,7 +109,6 @@ def api_handler(request, method=None, data=None):
                             directory=StudentDirectory.objects.get(pk=data['directory'])
                         ))
                         time.sleep(0.1)
-                    print(tickets)
                     ticket_book = Ticket.objects.bulk_create(tickets)
                     o_data = {'status': 200, 'code': 200, 'msg': 'Your post was scheduled successfully.'}
                 except Exception as E:
@@ -135,13 +140,13 @@ def api_handler(request, method=None, data=None):
                     university=University.objects.get(pk=data['university'])
                 )
                 obj_dir.save()
-            # elif data['model'] == 'DIR':
-            #     obj_dir = StudentDirectory(name=data['name'],
-            #                                city=data['city'],
-            #                                phone=data['phone'],
-            #                                email=data['email'],
-            #                                university=data['university'])
-            #     obj_dir.save()
+            elif data['model'] == 'REG':
+                obj_reg = RegistrationRequest(
+                    name=data['name'],
+                    email=data['email'],
+                    message=data['message']
+                )
+                obj_reg.save()
         elif data['method'] == 'DEL':
             response = None
             # response = mark_safe(json.dumps({p['fields']['picture']: p['fields'] for p in json.loads(serialize(
@@ -214,9 +219,13 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Ticket.objects.none()
         #
-        qs = Ticket.objects.all()
+        if self.request.user.is_superuser:
+            qs = Ticket.objects.all()
+        else:
+            qs = Ticket.objects.filter(directory=MiddleMan.objects.get(user=self.request.user).directory,
+                                       activated=False)
         #
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(id__istartswith=self.q)
         #
         return qs

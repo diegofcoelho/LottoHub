@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from LottoWebCore.methods import create_hash
 
@@ -64,13 +67,14 @@ class Raffle(models.Model):
 
 
 class MiddleMan(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='profile')
+    name = models.CharField(max_length=500, null=True)
+    phone = models.CharField(max_length=500, null=True)
+    email = models.CharField(max_length=500, null=True)
     analysed = models.BooleanField(default=False)
-    name = models.CharField(max_length=500, null=False)
-    phone = models.CharField(max_length=500, null=False)
-    email = models.CharField(max_length=500, null=False)
-    raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE)
+    raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, null=True)
     id = models.CharField(max_length=10, default=create_hash, unique=True, primary_key=True)
-    directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE)
+    directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, null=True)
 
     readonly_fields = ('id',)
 
@@ -80,14 +84,25 @@ class MiddleMan(models.Model):
         verbose_name_plural = "Colaboradores"
 
     def __str__(self):
-        return self.name
+        return self.user.username
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        MiddleMan.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    print(instance)
+    # instance.profile.save()
 
 
 class Ticket(models.Model):
     name = models.CharField(max_length=500, verbose_name='Comprador')
     phone = models.CharField(max_length=500, verbose_name='Telefone')
     email = models.CharField(max_length=500, verbose_name='E-mail')
-    verified = models.BooleanField(default=False)  # by the Student Directory
     notified = models.BooleanField(default=False)  # by the SERVER and to the client
     activated = models.BooleanField(default=False)  # by LABAM
     created = models.DateTimeField(auto_now_add=True)
@@ -107,9 +122,9 @@ class Ticket(models.Model):
 
 
 class RegistrationRequest(models.Model):
-    name = models.CharField(max_length=500, null=False)
-    email = models.CharField(max_length=500, null=False, unique=True)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=500, null=False, verbose_name="Nome")
+    email = models.CharField(max_length=500, null=False, unique=True, verbose_name="E-mail")
+    message = models.TextField(blank=True, verbose_name="Informações Adicionais")
 
     def __str__(self):
         return self.name

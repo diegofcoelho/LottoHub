@@ -86,6 +86,15 @@
                             <p><input type="submit"/></p>
                         </form>
                     </div>
+                    <div ng-hide="ActiveForm!=null">
+                        <h2 style="text-align: left;">Ativar Tickets</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ TEForm.as_p }}
+                            <br>
+                            <p><input type="submit"/></p>
+                        </form>
+                    </div>
                     <div ng-hide="ActiveForm!='DIR'">
                         <h2 style="text-align: left;">Cadastro de Centro Acadêmico</h2>
                         <form action="" method="post">
@@ -201,7 +210,7 @@
             })
             .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', '$timeout', function ($scope, $mdDialog, $timeout, $http) {
                 //
-                $scope.ActiveForm = 'DIR';
+                $scope.ActiveForm = null;
                 $scope.AngEnv = {
                     Url: window.location.pathname,
                     // {#  usrData: {{ usrData }}, #}

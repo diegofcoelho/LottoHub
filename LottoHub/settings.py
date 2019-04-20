@@ -28,6 +28,10 @@ DEBUG = True
 
 # Application definition
 
+RECAPTCHA_PUBLIC_KEY = '6LdVR58UAAAAAKe7sfN3ywjyxKl53JXzlAUCfONa'
+RECAPTCHA_PRIVATE_KEY = '6LdVR58UAAAAAJSNkS8Z2MV-LG4EoXp2YF-SsoZS'
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+
 INSTALLED_APPS = [
     'grappelli',
     'dal',
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
     # 'LottoWebCore.apps.LottoHubConfig',
     'LottoHub',
     'LottoWebCore',
+    'captcha'
 ]
 
 MIDDLEWARE = [

@@ -27,10 +27,10 @@ from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, Uni
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     ordering = ['id']
-    list_display = ['id', 'name', 'seller', 'directory', 'verified', 'notified', 'activated', 'raffle']
-    list_filter = ['name', 'verified', 'notified', 'activated']
+    list_display = ['id', 'name', 'seller', 'directory', 'notified', 'activated', 'raffle']
+    list_filter = ['name', 'notified', 'activated']
     actions = [create_tickets]
-    search_fields = ['name', 'verified', 'notified', 'activated']
+    search_fields = ['name', 'notified', 'activated']
     readonly_fields = ['id']
 
 
@@ -67,4 +67,4 @@ class UniversityAdmin(admin.ModelAdmin):
 
 @admin.register(RegistrationRequest)
 class RegistrationRequestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'description']
+    list_display = ['name', 'email', 'message']
