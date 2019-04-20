@@ -52,7 +52,7 @@ class Raffle(models.Model):
     email = models.CharField(max_length=500, verbose_name='E-mail')
     completed = models.BooleanField(default=False, verbose_name="Finalizado")
     creation = models.DateTimeField(auto_now_add=True)
-    lottery = models.DateTimeField(null=True, verbose_name="Data do Sorteio")
+    # lottery = models.DateTimeField(null=True, verbose_name="Data do Sorteio")
     id = models.CharField(max_length=500, default=create_hash, unique=True, primary_key=True)
     directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, verbose_name='Centro Acadêmico')
 
