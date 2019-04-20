@@ -108,7 +108,7 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(MiddleMan, on_delete=models.CASCADE, verbose_name='Vendedor')
     #raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, verbose_name='Rifa')
-    id = models.CharField(max_length=10, default=create_hash, unique=True, primary_key=True)
+    id = models.CharField(max_length=100, default=create_hash, unique=True, primary_key=True)
     #directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, verbose_name='Centro Acadêmico')
 
     readonly_fields = ('id',)
