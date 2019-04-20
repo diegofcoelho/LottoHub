@@ -31,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
-              <caret line="81" column="27" lean-forward="true" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="27" />
+              <caret line="81" column="32" selection-end-line="150" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -304,12 +304,12 @@
       <workItem from="1555410603552" duration="28933000" />
       <workItem from="1555458880600" duration="3597000" />
       <workItem from="1555504910878" duration="10823000" />
-      <workItem from="1555599085062" duration="88658000" />
+      <workItem from="1555599085062" duration="88960000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144672000" />
+    <option name="totallyTimeSpent" value="144974000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -746,7 +746,7 @@
     <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
-          <caret line="81" column="27" lean-forward="true" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="27" />
+          <caret line="81" column="32" selection-end-line="150" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
