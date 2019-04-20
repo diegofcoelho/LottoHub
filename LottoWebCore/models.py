@@ -73,7 +73,7 @@ class MiddleMan(models.Model):
     email = models.CharField(max_length=500, null=True)
     analysed = models.BooleanField(default=False)
     raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
-    directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
+    #directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
     id = models.CharField(max_length=100, default=create_hash, unique=True, primary_key=True)
 
     readonly_fields = ('id',)
