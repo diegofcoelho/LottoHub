@@ -44,7 +44,7 @@ class StudentDirectory(models.Model):
 
 
 class Raffle(models.Model):
-    name = models.CharField(max_length=500, verbose_name='Nome do Sorteio')
+    name = models.CharField(max_length=500, verbose_name='Nome da Rifa')
     phone = models.CharField(max_length=500, verbose_name='Telefone do Responsável')
     email = models.CharField(max_length=500, verbose_name='E-mail')
     completed = models.BooleanField(default=False, verbose_name="Finalizado")
