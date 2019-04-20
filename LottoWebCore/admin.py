@@ -27,7 +27,7 @@ from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, Uni
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     ordering = ['id']
-    list_display = ['id', 'name', 'seller', 'directory', 'notified', 'activated', 'raffle']
+    list_display = ['id', 'name', 'seller', 'notified', 'activated', 'raffle']
     list_filter = ['name', 'notified', 'activated']
     actions = [create_tickets]
     search_fields = ['name', 'notified', 'activated']

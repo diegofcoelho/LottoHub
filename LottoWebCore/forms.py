@@ -17,7 +17,7 @@ class TicketForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ('raffle', 'directory')
+        fields = '__all__'
 
 
 class StudentDirectoryForm(forms.ModelForm):
