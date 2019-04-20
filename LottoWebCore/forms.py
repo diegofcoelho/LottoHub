@@ -1,6 +1,7 @@
 from dal import autocomplete
-from captcha.fields import ReCaptchaField
 from django import forms
+from snowpenguin.django.recaptcha2.fields import ReCaptchaField
+from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
 from LottoWebCore.models import MiddleMan, Ticket, StudentDirectory, University, Raffle, City, RegistrationRequest
 
@@ -98,7 +99,7 @@ class TicketEditForm(forms.ModelForm):
 class SignUpForm(forms.ModelForm):
     method = forms.CharField(widget=forms.HiddenInput(), initial='ADD')
     model = forms.CharField(widget=forms.HiddenInput(), initial='REG')
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(widget=ReCaptchaWidget())
 
     class Meta:
         model = RegistrationRequest

@@ -28,11 +28,11 @@ DEBUG = True
 
 # Application definition
 
-RECAPTCHA_PUBLIC_KEY = '6LdVR58UAAAAAKe7sfN3ywjyxKl53JXzlAUCfONa'
-RECAPTCHA_PRIVATE_KEY = '6LdVR58UAAAAAJSNkS8Z2MV-LG4EoXp2YF-SsoZS'
-RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+RECAPTCHA_PUBLIC_KEY = '6LfnSJ8UAAAAAJl3G-RcGzbntVbA7HzTJh_-N4EZ'
+RECAPTCHA_PRIVATE_KEY = '6LfnSJ8UAAAAAAKNDWMf7MtCk5Y2UEAF_-MCownY'
 
 INSTALLED_APPS = [
+    'snowpenguin.django.recaptcha2',
     'grappelli',
     'dal',
     'dal_select2',
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # 'LottoWebCore.apps.LottoHubConfig',
     'LottoHub',
     'LottoWebCore',
-    'captcha'
 ]
 
 MIDDLEWARE = [
