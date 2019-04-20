@@ -37,9 +37,9 @@ class TicketAdmin(admin.ModelAdmin):
 @admin.register(MiddleMan)
 class MiddleManAdmin(admin.ModelAdmin):
     ordering = ['id']
-    list_display = ['id', 'name', 'analysed', 'directory']
+    list_display = ['id', 'name', 'analysed']
     list_filter = ['name', 'analysed']
-    search_fields = ['name', 'directory', 'analysed']
+    search_fields = ['name', 'analysed']
     readonly_fields = ['id']
 
 
