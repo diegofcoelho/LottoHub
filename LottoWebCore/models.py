@@ -79,7 +79,7 @@ class MiddleMan(models.Model):
     readonly_fields = ('id',)
 
     class Meta:
-        unique_together = ["id", "directory", "raffle"]
+        unique_together = ["directory", "raffle"]
         verbose_name = "Colaborador"
         verbose_name_plural = "Colaboradores"
 
