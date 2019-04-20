@@ -73,13 +73,13 @@ class MiddleMan(models.Model):
     email = models.CharField(max_length=500, null=True)
     analysed = models.BooleanField(default=False)
     raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, null=True)
-    id = models.CharField(max_length=10, default=create_hash, unique=True, primary_key=True)
+    id = models.CharField(max_length=100, default=create_hash, unique=True, primary_key=True)
     directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, null=True)
 
     readonly_fields = ('id',)
 
     class Meta:
-        unique_together = ["name", "directory", "id", "raffle"]
+        unique_together = ["id", "directory", "raffle"]
         verbose_name = "Colaborador"
         verbose_name_plural = "Colaboradores"
 
