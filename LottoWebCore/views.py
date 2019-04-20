@@ -78,7 +78,6 @@ def UserProfile(request):
 def DashBoard(request):
     if request.method == 'POST':
         api_handler(request)
-    print(request.user)
     return render(request, "dashboard/dashboard.html",
                   {'META': request.META,
                    'TForm': TicketForm,
@@ -125,6 +124,7 @@ def api_handler(request, method=None, data=None):
                             directory=StudentDirectory.objects.get(pk=data['directory'])
                         ))
                         time.sleep(0.1)
+                    print(tickets)
                     Ticket.objects.bulk_create(tickets)
                     o_data = {'status': 200, 'code': 200, 'msg': 'Your post was scheduled successfully.'}
                 except Exception as E:
