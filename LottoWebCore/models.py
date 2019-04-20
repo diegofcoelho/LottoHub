@@ -100,9 +100,9 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Ticket(models.Model):
-    name = models.CharField(max_length=500, verbose_name='Comprador')
-    phone = models.CharField(max_length=500, verbose_name='Telefone')
-    email = models.CharField(max_length=500, verbose_name='E-mail')
+    name = models.CharField(max_length=500, verbose_name='Comprador', null=True)
+    phone = models.CharField(max_length=500, verbose_name='Telefone', null=True)
+    email = models.CharField(max_length=500, verbose_name='E-mail', null=True)
     notified = models.BooleanField(default=False)  # by the SERVER and to the client
     activated = models.BooleanField(default=False)  # by LABAM
     created = models.DateTimeField(auto_now_add=True)
