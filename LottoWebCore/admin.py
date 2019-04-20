@@ -21,7 +21,7 @@
 from django.contrib import admin
 
 from LottoWebCore.methods import create_tickets
-from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, RegistrationRequest
+from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, RegistrationRequest, City
 
 
 @admin.register(Ticket)
@@ -63,6 +63,11 @@ class StudentDirectoryAdmin(admin.ModelAdmin):
 @admin.register(University)
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ['name', 'page']
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ['name']
 
 
 @admin.register(RegistrationRequest)
