@@ -24,7 +24,7 @@ app_name = 'LottoHub'
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    # path('grappelli/', include('grappelli.urls')),
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls, name='admin'),
     url(r'^sorteio/', lottery, name='sorteio'),
     path('profile/', UserProfile, name='profile'),

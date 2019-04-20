@@ -29,7 +29,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
-    # 'grappelli',
+    'grappelli',
     'dal',
     'dal_select2',
     'django.contrib.admin',
