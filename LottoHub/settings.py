@@ -28,11 +28,12 @@ DEBUG = True
 
 # Application definition
 
-RECAPTCHA_PUBLIC_KEY = '6LfnSJ8UAAAAAJl3G-RcGzbntVbA7HzTJh_-N4EZ'
-RECAPTCHA_PRIVATE_KEY = '6LfnSJ8UAAAAAAKNDWMf7MtCk5Y2UEAF_-MCownY'
+RECAPTCHA_PUBLIC_KEY = '6LdGSp8UAAAAAJTlN8Gm-zI8V14QcyAskpZn0v90'
+RECAPTCHA_PRIVATE_KEY = '6LdGSp8UAAAAANnClmI72qLW0h7g5bziy597SPPF'
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
 INSTALLED_APPS = [
-    'snowpenguin.django.recaptcha2',
+    'captcha',
     'grappelli',
     'dal',
     'dal_select2',

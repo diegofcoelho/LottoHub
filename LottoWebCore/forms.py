@@ -1,7 +1,7 @@
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox, ReCaptchaV2Invisible
 from dal import autocomplete
 from django import forms
-from snowpenguin.django.recaptcha2.fields import ReCaptchaField
-from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
 from LottoWebCore.models import MiddleMan, Ticket, StudentDirectory, University, Raffle, City, RegistrationRequest
 
@@ -99,7 +99,7 @@ class TicketEditForm(forms.ModelForm):
 class SignUpForm(forms.ModelForm):
     method = forms.CharField(widget=forms.HiddenInput(), initial='ADD')
     model = forms.CharField(widget=forms.HiddenInput(), initial='REG')
-    captcha = ReCaptchaField(widget=ReCaptchaWidget())
+    captcha = ReCaptchaField(widget=ReCaptchaV2Invisible(), label='')
 
     class Meta:
         model = RegistrationRequest

@@ -6,7 +6,7 @@ from dal import autocomplete
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import re_path
 from django.utils.safestring import mark_safe
@@ -47,7 +47,22 @@ def lottery(request):
 
 def signup(request):
     if request.method == 'POST':
-        api_handler(request)
+        try:
+            data = json.loads(json.dumps(request.POST))
+            if not data:
+                data = json.loads(request.body.decode("utf-8"))
+        except:
+            return HttpResponse(json.dumps(None), content_type="application/json")
+        if data['model'] == 'REG':
+            obj_reg = RegistrationRequest(
+                name=data['name'],
+                phone=data['phone'],
+                email=data['email'],
+                raffle=Raffle.objects.get(id=data['raffle']),
+                directory=StudentDirectory.objects.get(pk=data['directory'])
+            )
+            obj_reg.save()
+            return redirect('/')
     return render(request, 'dashboard/signup.html', {
         'form': SignUpForm
     })
@@ -140,13 +155,6 @@ def api_handler(request, method=None, data=None):
                     university=University.objects.get(pk=data['university'])
                 )
                 obj_dir.save()
-            elif data['model'] == 'REG':
-                obj_reg = RegistrationRequest(
-                    name=data['name'],
-                    email=data['email'],
-                    message=data['message']
-                )
-                obj_reg.save()
         elif data['method'] == 'DEL':
             response = None
             # response = mark_safe(json.dumps({p['fields']['picture']: p['fields'] for p in json.loads(serialize(

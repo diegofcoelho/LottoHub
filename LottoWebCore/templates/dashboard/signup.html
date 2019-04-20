@@ -1,13 +1,11 @@
 {% extends "__base__.html" %}
 
 {% load static %}
-{% load recaptcha2 %}
 {% block title %}LottoHUB by HutchR{% endblock %}
 
 {% block scripts %}{% endblock %}
 
 {% block styles %}
-    {% recaptcha_init %}
     <link rel="stylesheet" href="/static/assets/css/signup.css"/>
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css"/>

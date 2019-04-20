@@ -67,4 +67,4 @@ class UniversityAdmin(admin.ModelAdmin):
 
 @admin.register(RegistrationRequest)
 class RegistrationRequestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'message']
+    list_display = ['name', 'phone', 'email', 'raffle', 'directory']

@@ -121,14 +121,30 @@ class Ticket(models.Model):
         verbose_name_plural = "Bilhetes"
 
 
+#
+# class RegistrationRequest(models.Model):
+#     name = models.CharField(max_length=500, null=False, verbose_name="Nome")
+#     email = models.CharField(max_length=500, null=False, unique=True, verbose_name="E-mail")
+#     message = models.TextField(blank=True, verbose_name="Informações Adicionais")
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = "Solicitação de Registro"
+#         verbose_name_plural = "Solicitações de Registro"
+
 class RegistrationRequest(models.Model):
     name = models.CharField(max_length=500, null=False, verbose_name="Nome")
+    phone = models.CharField(max_length=500, null=False, verbose_name="Telefone")
     email = models.CharField(max_length=500, null=False, unique=True, verbose_name="E-mail")
-    message = models.TextField(blank=True, verbose_name="Informações Adicionais")
+    raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, verbose_name="Rifa")
+    directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, verbose_name="Centro Acadêmico")
+
+    class Meta:
+        unique_together = ["name", "directory", "raffle", "email"]
+        verbose_name = "Solicitação de Registro"
+        verbose_name_plural = "Solicitações de Registro"
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        verbose_name = "Solicitação de Registro"
-        verbose_name_plural = "Solicitações de Registro"
