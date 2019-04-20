@@ -53,7 +53,7 @@ class Raffle(models.Model):
     completed = models.BooleanField(default=False, verbose_name="Finalizado")
     creation = models.DateTimeField(auto_now_add=True)
     lottery = models.DateTimeField(null=True, verbose_name="Data do Sorteio")
-    id = models.CharField(default=create_hash, unique=True, primary_key=True)
+    id = models.CharField(max_length=500, default=create_hash, unique=True, primary_key=True)
     directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, verbose_name='Centro Acadêmico')
 
     readonly_fields = ('id',)

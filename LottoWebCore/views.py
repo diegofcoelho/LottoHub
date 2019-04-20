@@ -101,7 +101,7 @@ def api_handler(request, method=None, data=None):
     print(data)
     lh_user = request.user.username
     #
-    response = {'store': data, 'data': lh_user, 'tickets': data}
+    response = {'user': lh_user, 'tickets': data}
     #
     if request.method == 'POST':
         try:
