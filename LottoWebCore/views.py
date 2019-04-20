@@ -1,6 +1,7 @@
 import json
 import os
 import time
+from datetime import datetime
 
 from dal import autocomplete
 from django.contrib.auth.decorators import login_required
@@ -141,7 +142,7 @@ def api_handler(request, method=None, data=None):
                     name=data['name'],
                     phone=data['phone'],
                     email=data['email'],
-                    lottery=data['lottery'],
+                    lottery=datetime.strptime(data['lottery'], "%d/%m/%Y").date(),
                     directory=StudentDirectory.objects.get(pk=data['directory']),
                 )
                 obj_raf.save()
