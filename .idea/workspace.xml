@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-37">
-              <caret line="79" column="28" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
+            <state relative-caret-position="456">
+              <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -316,12 +314,12 @@
       <workItem from="1555410603552" duration="28933000" />
       <workItem from="1555458880600" duration="3597000" />
       <workItem from="1555504910878" duration="10823000" />
-      <workItem from="1555599085062" duration="91928000" />
+      <workItem from="1555599085062" duration="92192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147942000" />
+    <option name="totallyTimeSpent" value="148206000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
@@ -757,8 +755,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LottoWebCore/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37">
-          <caret line="79" column="28" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
+        <state relative-caret-position="456">
+          <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

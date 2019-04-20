@@ -118,14 +118,20 @@ def api_handler(request, method=None, data=None):
                 try:
                     tickets = []
                     for _ in range(int(data['TCKN'])):
-                        tickets.append(Ticket(
+                        t = Ticket(
                             seller=MiddleMan.objects.get(id=data['Vendedor']),
                             raffle=Raffle.objects.get(id=data['raffle']),
                             directory=StudentDirectory.objects.get(pk=data['directory'])
-                        ))
-                        time.sleep(0.1)
-                    print(tickets)
-                    Ticket.objects.bulk_create(tickets)
+                        )
+                        t.save()
+                        # tickets.append(Ticket(
+                        #     seller=MiddleMan.objects.get(id=data['Vendedor']),
+                        #     raffle=Raffle.objects.get(id=data['raffle']),
+                        #     directory=StudentDirectory.objects.get(pk=data['directory'])
+                        # ))
+                        #time.sleep(0.1)
+                    # print(tickets)
+                    # Ticket.objects.bulk_create(tickets)
                     o_data = {'status': 200, 'code': 200, 'msg': 'Your post was scheduled successfully.'}
                 except Exception as E:
                     o_data['hadException'] = True
