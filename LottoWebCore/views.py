@@ -5,6 +5,7 @@ import os
 import time
 from datetime import datetime
 
+import requests
 from PIL import Image, ImageDraw, ImageFont
 from dal import autocomplete
 from django.contrib.auth.decorators import login_required
@@ -95,16 +96,12 @@ def DashBoard(request):
 # https://github.com/django-tastypie/django-tastypie
 @login_required
 @csrf_protect
-def api_handler(request, method=None, data=None):
+def api_handler(request, method=None):
     # TODO ADD OWNERSHIP RESCTRICTION USER CAN ONLY SEE ITS STORES AND ALLOW STAFF OR SUPER USERS
     # http://stackoverflow.com/questions/12812716/how-do-i-pass-variables-in-django-through-the-url
     # http://www.earthchildpendants.co.uk/gods.html
-    data = request.POST.copy()
     #
-    print(data)
-    lh_user = request.user.username
-    #
-    response = {'user': lh_user, 'tickets': data}
+    response = None
     #
     if request.method == 'POST':
         try:
@@ -128,12 +125,15 @@ def api_handler(request, method=None, data=None):
                             directory=StudentDirectory.objects.get(pk=data['directory'])
                         ))
                         time.sleep(0.001)
+                        print(1)
+                    ticket_ids = [t.id for t in tickets]
+                    #
+                    request.session['tickets_id'] = json.dumps(ticket_ids)
+                    #
                     Ticket.objects.bulk_create(tickets)
-                    o_data = {'status': 200, 'code': 200, 'msg': 'Your post was scheduled successfully.'}
                 except Exception as E:
-                    o_data['hadException'] = True
-                finally:
-                    return HttpResponse(json.dumps(o_data), content_type="application/json")
+                    print(E)
+
             elif data['model'] == 'UNI':
                 obj_uni = University(name=data['name'], page=data['page'])
                 obj_uni.save()
@@ -243,13 +243,15 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
         return qs
 
 
+@login_required
+@csrf_protect
 def pdf_gen(request):
     #
-    codes = ["050958CF_1", "050958CF_2", "050958CF_3", "050958CF_4", "050958CF_5", "050958CF_6",
-             "050958CF_7", "050958CF_8", "050958CF_9", "050958C_10", "050958F_11", "050958F_12",
-             "050958F_13", "050958F_14", "050958F_15", "050958F_16", "050958F_17", "050958F_18",
-             "050958F_19", "050958F_20", "050958F_21", "050958F_22", "050958F_23", "050958F_24", "050958F_24"]
+    if request.session.get('tickets_id') is None:
+        return redirect('/dashboard')
     #
+    codes = json.loads(request.session.get('tickets_id'))
+    request.session['tickets_id'] = None
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
     # Opens an image
@@ -298,13 +300,13 @@ def pdf_gen(request):
                     tickets_total += 1
                 else:
                     break
-        print(tickets_total)
+        #
         d = ImageDraw.Draw(im)
         for line in range(0, page_lines):
-            if code_idx > len(codes)-1:
+            if code_idx > len(codes) - 1:
                 break
             for column in range(0, page_columns):
-                if code_idx > len(codes)-1:
+                if code_idx > len(codes) - 1:
                     break
                 d.text((33 + column * bg_w, 160 + line * bg_h), "Organização:", font=fnt_end, fill=(0, 0, 0))
                 d.text((45 + column * bg_w, 180 + line * bg_h), "DAEQI", font=fnt_staff, fill=(0, 0, 0))
@@ -319,7 +321,7 @@ def pdf_gen(request):
         #
         im.save(buffer, 'pdf')
     buffer.seek(0)
-    #
+
     response = HttpResponse(buffer.read(), content_type='application/pdf')
     response['Content-Disposition'] = 'inline;filename=hello.pdf'
     return response
