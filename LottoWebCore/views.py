@@ -5,7 +5,6 @@ import os
 import time
 from datetime import datetime
 
-import requests
 from PIL import Image, ImageDraw, ImageFont
 from dal import autocomplete
 from django.contrib.auth.decorators import login_required
