@@ -1,21 +1,25 @@
+import io
 import json
+import math
 import os
 import time
 from datetime import datetime
 
+from PIL import Image, ImageDraw, ImageFont
 from dal import autocomplete
 from django.contrib.auth.decorators import login_required
-from django.core.serializers import serialize
+# from django.core.serializers import serialize
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import re_path
-from django.utils.safestring import mark_safe
+# from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import RedirectView
 
-from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, TicketEditForm, \
-    SignUpForm
+from LottoHub.settings import BASE_DIR
+from LottoWebCore.forms import SignUpForm
+from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, TicketEditForm
 from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City, RegistrationRequest
 
 t_objs = Ticket.objects
@@ -237,3 +241,85 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
         #
         return qs
+
+
+def pdf_gen(request):
+    #
+    codes = ["050958CF_1", "050958CF_2", "050958CF_3", "050958CF_4", "050958CF_5", "050958CF_6",
+             "050958CF_7", "050958CF_8", "050958CF_9", "050958C_10", "050958F_11", "050958F_12",
+             "050958F_13", "050958F_14", "050958F_15", "050958F_16", "050958F_17", "050958F_18",
+             "050958F_19", "050958F_20", "050958F_21", "050958F_22", "050958F_23", "050958F_24", "050958F_24"]
+    #
+    # Create a file-like buffer to receive PDF data.
+    buffer = io.BytesIO()
+    # Opens an image
+    bg = Image.open(os.path.abspath(BASE_DIR + "//staticfiles//images//ticket.png"))
+    # The width and height of the background tile
+    bg_w, bg_h = bg.size
+    #
+    ticket_number = len(codes)
+    #
+    # codes_blank = math.ceil(ticket_number / 6) * 6 - ticket_number
+    # codes.extend(['' for _ in range(0, codes_blank)])
+    #
+    # ticket_number = len(codes)
+    ticket_pages = math.ceil(ticket_number / 12)
+    #
+    # ticket_number = 7
+    tickets_page_series = [12 for i in range(0, ticket_number, 12)]
+    tickets_page_series.pop(0) if ticket_number % 12 > 0 else []
+    tickets_page_series.extend([ticket_number % 12] if ticket_number % 12 > 0 else [])
+    font_path = os.path.abspath(BASE_DIR + '//staticfiles//fonts//Ticketing.ttf')
+    #
+    fnt_ticket = ImageFont.truetype(font_path, 30)
+    fnt_title = ImageFont.truetype(font_path, 45)
+    fnt_end = ImageFont.truetype(font_path, 25)
+    fnt_date = ImageFont.truetype(font_path, 65)
+    fnt_staff = ImageFont.truetype(font_path, 55)
+    code_idx = 0
+    #
+    tickets_total = 0
+    #
+    for page in range(0, ticket_pages):
+        # Creates a new empty image, RGB mode, and size 1240 by ticket_height
+        im = Image.new('RGB', (1240, 1754), (255, 255, 255))
+        #
+        page_lines = math.ceil(tickets_page_series[page] / 6)
+        page_columns = math.ceil(tickets_page_series[page] / (tickets_page_series[page] / 6))
+        #
+        # The width and height of the new image
+        # w, h = im.size
+        # Iterate through a grid, to place the background tile
+        for i in range(0, bg_w * page_columns, bg_w):
+            for j in range(0, bg_h * page_lines, bg_h):
+                if tickets_total < len(codes):
+                    bg = Image.eval(bg, lambda x: x + (i + j) / 1000)
+                    im.paste(bg, (i, j))
+                    tickets_total += 1
+                else:
+                    break
+        print(tickets_total)
+        d = ImageDraw.Draw(im)
+        for line in range(0, page_lines):
+            if code_idx > len(codes)-1:
+                break
+            for column in range(0, page_columns):
+                if code_idx > len(codes)-1:
+                    break
+                d.text((33 + column * bg_w, 160 + line * bg_h), "Organização:", font=fnt_end, fill=(0, 0, 0))
+                d.text((45 + column * bg_w, 180 + line * bg_h), "DAEQI", font=fnt_staff, fill=(0, 0, 0))
+                d.text((33 + column * bg_w, 230 + line * bg_h), "Sorteio:", font=fnt_end, fill=(0, 0, 0))
+                d.text((33 + column * bg_w, 250 + line * bg_h), "21/06", font=fnt_date, fill=(0, 0, 0))
+                d.text((35 + column * bg_w, 330 + line * bg_h), "BILHETE", font=fnt_title, fill=(0, 0, 0))
+                d.text((35 + column * bg_w, 40 + bg_h / 2 + line * bg_h), "BILHETE", font=fnt_title, fill=(0, 0, 0))
+                d.text((35 + column * bg_w, 370 + line * bg_h), codes[code_idx], font=fnt_ticket, fill=(0, 0, 0))
+                d.text((35 + column * bg_w, 80 + bg_h / 2 + line * bg_h), codes[code_idx], font=fnt_ticket,
+                       fill=(0, 0, 0))
+                code_idx += 1
+        #
+        im.save(buffer, 'pdf')
+    buffer.seek(0)
+    #
+    response = HttpResponse(buffer.read(), content_type='application/pdf')
+    response['Content-Disposition'] = 'inline;filename=hello.pdf'
+    return response

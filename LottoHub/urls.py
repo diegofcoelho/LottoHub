@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from LottoWebCore.views import index, lottery, UserProfile, DashBoard, signup, SellerAutocomplete, \
-    RaffleAutocomplete, StudentDirectoryAutocomplete, api_handler, TicketAutocomplete
+    RaffleAutocomplete, StudentDirectoryAutocomplete, api_handler, TicketAutocomplete, pdf_gen
 
 app_name = 'LottoHub'
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls, name='admin'),
     url(r'^sorteio/', lottery, name='sorteio'),
+    url(r'^pdf/', pdf_gen, name='pdf'),
     path('profile/', UserProfile, name='profile'),
     path('dashboard/', DashBoard, name='dashboard'),
     path('signup/', signup, name='signup'),

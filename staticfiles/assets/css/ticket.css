@@ -1,0 +1,7 @@
+.print_page {
+    height: 3508px;
+    width: 2480px;
+    background-size: 310.5px;
+    background-repeat: space space;
+    background-image: url(../../../staticfiles/images/ticket.png);
+}
