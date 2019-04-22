@@ -131,11 +131,11 @@ HEROKU = False
 if 'DYNO' in os.environ:
     SITE_ID = 2
     HEROKU = True
-    EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
-    EMAIL_HOST = 'smtp.sendgrid.net'
+    #EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+    #EMAIL_HOST = 'smtp.sendgrid.net'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+    #EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True

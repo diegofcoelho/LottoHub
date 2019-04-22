@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LottoWebCore/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="133" column="38" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="38" />
+            <state relative-caret-position="572">
+              <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="46" />
               <folding>
                 <element signature="e#326#335#0" expanded="true" />
               </folding>
@@ -44,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/methods.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+            <state relative-caret-position="662">
+              <caret line="68" column="27" lean-forward="true" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -131,7 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>socialaccount</find>
       <find>v</find>
       <find>image</find>
       <find>main .ava</find>
@@ -161,6 +158,7 @@
       <find>FileResponse</find>
       <find>user</find>
       <find>redirect</find>
+      <find>send</find>
     </findStrings>
     <replaceStrings>
       <replace>StudentDirectory</replace>
@@ -228,7 +226,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="918" />
     <option name="height" value="1047" />
@@ -338,16 +336,15 @@
       <workItem from="1555458880600" duration="3597000" />
       <workItem from="1555504910878" duration="10823000" />
       <workItem from="1555599085062" duration="131982000" />
-      <workItem from="1555888684446" duration="265000" />
+      <workItem from="1555888684446" duration="5167000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188261000" />
+    <option name="totallyTimeSpent" value="193163000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="918" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.493007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -748,8 +745,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LottoWebCore/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        <state relative-caret-position="662">
+          <caret line="68" column="27" lean-forward="true" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -758,8 +755,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="133" column="38" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="38" />
+        <state relative-caret-position="572">
+          <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="46" />
           <folding>
             <element signature="e#326#335#0" expanded="true" />
           </folding>
