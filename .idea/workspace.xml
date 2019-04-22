@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="46" />
+            <state relative-caret-position="317">
+              <caret line="137" column="43" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="43" />
               <folding>
                 <element signature="e#326#335#0" expanded="true" />
               </folding>
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/methods.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="662">
-              <caret line="68" column="27" lean-forward="true" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
+            <state relative-caret-position="555">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -129,9 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>v</find>
-      <find>image</find>
-      <find>main .ava</find>
       <find>hover</find>
       <find>redirec</find>
       <find>toast</find>
@@ -158,6 +155,9 @@
       <find>FileResponse</find>
       <find>user</find>
       <find>redirect</find>
+      <find>SENDGRID</find>
+      <find>sendgrid</find>
+      <find>sendgr</find>
       <find>send</find>
     </findStrings>
     <replaceStrings>
@@ -219,9 +219,9 @@
         <option value="$PROJECT_DIR$/LottoHub/urls.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html" />
         <option value="$PROJECT_DIR$/LottoWebCore/forms.py" />
-        <option value="$PROJECT_DIR$/LottoHub/settings.py" />
         <option value="$PROJECT_DIR$/venv/Lib/site-packages/PIL/Image.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/views.py" />
+        <option value="$PROJECT_DIR$/LottoHub/settings.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/methods.py" />
       </list>
     </option>
@@ -336,15 +336,16 @@
       <workItem from="1555458880600" duration="3597000" />
       <workItem from="1555504910878" duration="10823000" />
       <workItem from="1555599085062" duration="131982000" />
-      <workItem from="1555888684446" duration="5167000" />
+      <workItem from="1555888684446" duration="5503000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193163000" />
+    <option name="totallyTimeSpent" value="193499000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.493007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -743,22 +744,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/methods.py">
+    <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="662">
-          <caret line="68" column="27" lean-forward="true" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
+        <state relative-caret-position="317">
+          <caret line="137" column="43" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="43" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#326#335#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="46" />
+        <state relative-caret-position="555">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
           <folding>
-            <element signature="e#326#335#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>

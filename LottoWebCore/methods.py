@@ -17,6 +17,7 @@ def create_hash():
 def create_tickets():
     return 0
 
+
 #
 # def send_email():
 #     message = {
@@ -51,26 +52,28 @@ def create_tickets():
 #         print(e.message)
 #         print('Error')
 
+#
+# def send_simple_message():
+#     return requests.post(
+#         "https://api.mailgun.net/v3/sandboxd3dfea09ed314d159446475220793ee0.mailgun.org",
+#         auth=("api", "9cf144f07dc4fa362fdfeef96da0d137-dc5f81da-32005054"),
+#         data={"from": "dfcoelho@live.com",
+#               "to": ["coelho@ufs.br"],
+#               "subject": "Hello",
+#               "text": "Testing some Mailgun awesomness!"})
+#
+# send_simple_message()
 
-def send_simple_message():
-    return requests.post(
-        "https://api.mailgun.net/v3/sandboxd3dfea09ed314d159446475220793ee0.mailgun.org",
-        auth=("api", "9cf144f07dc4fa362fdfeef96da0d137-dc5f81da-32005054"),
-        data={"from": "dfcoelho@live.com",
-              "to": ["coelho@ufs.br"],
-              "subject": "Hello",
-              "text": "Testing some Mailgun awesomness!"})
 
-send_simple_message()
+def sendMail(MailTo, TicketID):
+    msg = MIMEText('Testing some Mailgun awesomness')
+    msg['Subject'] = "Hello"
+    msg['From'] = "daeqiufs@gmail.com"
+    msg['To'] = MailTo
 
-msg = MIMEText('Testing some Mailgun awesomness')
-msg['Subject'] = "Hello"
-msg['From'] = "coelho@ufs.br"
-msg['To'] = "diegofcoelho@gmail.com"
+    s = smtplib.SMTP('smtp.mailgun.org', 587)
 
-s = smtplib.SMTP('smtp.mailgun.org', 587)
-
-s.login('postmaster@sandboxd3dfea09ed314d159446475220793ee0.mailgun.org',
-        '552d7ce24b77987e6b58d72725f1d0ec-dc5f81da-be718cec')
-s.sendmail(msg['From'], msg['To'], msg.as_string())
-s.quit()
+    s.login('postmaster@sandboxd3dfea09ed314d159446475220793ee0.mailgun.org',
+            '552d7ce24b77987e6b58d72725f1d0ec-dc5f81da-be718cec')
+    s.sendmail(msg['From'], msg['To'], msg.as_string())
+    s.quit()
