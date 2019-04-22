@@ -65,9 +65,15 @@ def create_tickets():
 # send_simple_message()
 
 
-def sendMail(mail_to, ticket_id, sorteio, nome, seller, prizes):
+def sendMail(mail_to, data):
     #
-    message = 'Olá {}, \n\nO bilhete [{}] foi cadastrado para o sorteio {}.' \
+    ticket_id = data['ticket_id']
+    sorteio = data['sorteio']
+    nome = data['nome']
+    seller = data['seller']
+    prizes = data['prizes']
+    #
+    message = 'Olá {}, \n\nO bilhete {} foi cadastrado para o sorteio {}.' \
               '\n\nVocê estará concorrendo a: {}. \n\nVerifique se as informações cadastradas estão corretas e nos ' \
               'contate a qualquer momento.\n\nAtenciosamente\n{}'.format(nome, ticket_id, sorteio, prizes, seller)
     msg = MIMEText(message)

@@ -18,27 +18,18 @@
 {% block body %}
     <div id="wrapper">
         <section id="LHHeader" class="LHFields">
-
             <ul class="icons">
-                <a ng-click="ActiveForm='UNI'" href="">
-                    <li><i class="material-icons LHButtons">account_balance</i></li>
-                </a>
-                <a ng-click="ActiveForm='RAF'" href="">
-                    <li><i class="material-icons LHButtons">create_new_folder</i></li>
-                </a>
-                <a ng-click="ActiveForm='DIR'" href="">
-                    <li><i class="material-icons LHButtons">folder_shared</i></li>
-                </a>
-                </a>
                 <a ng-click="ActiveForm=null" href="">
-                    <li><i class="material-icons LHButtons">developer_board</i></li>
+                    <li><i class="material-icons LHButtons">poll</i></li>
                 </a>
+                <a ng-click="" href="">
+                    <li><i class="material-icons LHButtons">receipt</i></li>
                 </a>
-                <a ng-click="ActiveForm='TCK'" href="">
-                    <li><i class="material-icons LHButtons">local_activity</i></li>
+                <a ng-click="" href="">
+                    <li><i class="material-icons LHButtons">assignment_turned_in</i></li>
                 </a>
-                <a href="{% url 'sorteio' %}">
-                    <li><i class="material-icons LHButtons">casino</i></li>
+                <a ng-click="" href="">
+                    <li><i class="material-icons LHButtons">person</i></li>
                 </a>
                 <a href="{% url 'logout' %}">
                     <li><i class="material-icons LHButtons">exit_to_app</i></li>
@@ -50,7 +41,7 @@
         <section id="main">
             <header>
                 {% if user.is_superuser %}
-                    {#                    <p>Hello, admin.</p>#}
+                    <p style="width: 100%; text-align: right;">Olá, {{ user }}.</p>
                     <!--
                     https://github.com/handsontable/handsontable
                     https://handsontable.com/examples?manual-resize&manual-move&conditional-formatting&context-menu&filters&dropdown-menu&headers
@@ -82,15 +73,6 @@
                                     </select>
                                 </p>
                             </fieldset>
-                            <br>
-                            <p><input type="submit"/></p>
-                        </form>
-                    </div>
-                    <div ng-hide="ActiveForm!=null">
-                        <h2 style="text-align: left;">Ativar Tickets</h2>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            {{ TEForm.as_p }}
                             <br>
                             <p><input type="submit"/></p>
                         </form>
@@ -129,7 +111,17 @@
                         </form>
                     </div>
                 {% else %}
-                    <p>Hello, ordinary visitor.</p>
+                    <p style="width: 100%; text-align: right;">Olá,
+                    <div style="font-weight: bolder;">{{ user }}</div>.</p>
+                    <div ng-hide="ActiveForm!=null">
+                        <h2 style="text-align: left;">Ativar Tickets</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ TEForm.as_p }}
+                            <br>
+                            <p><input type="submit"/></p>
+                        </form>
+                    </div>
                 {% endif %}
             </header>
             <footer>
@@ -140,13 +132,36 @@
             </footer>
         </section>
         <!-- Footer -->
-        <footer id="footer">
-            <ul class="copyright">
-                <li>&copy; LottoHub</li>
-                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-            </ul>
-        </footer>
+        <br>
     </div>
+
+    <footer id="footer">
+        <ul class="copyright">
+            <li>&copy; LottoHub</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+        {% if user.is_superuser %}
+            <section id="LHHeader" class="LHFields" style="color: #414f57;">
+                <ul class="icons">
+                    <a ng-click="ActiveForm='UNI'" href="">
+                        <li><i class="material-icons LHButtons">account_balance</i></li>
+                    </a>
+                    <a ng-click="ActiveForm='RAF'" href="">
+                        <li><i class="material-icons LHButtons">create_new_folder</i></li>
+                    </a>
+                    <a ng-click="ActiveForm='DIR'" href="">
+                        <li><i class="material-icons LHButtons">folder_shared</i></li>
+                    </a>
+                    <a ng-click="ActiveForm='TCK'" href="">
+                        <li><i class="material-icons LHButtons">local_activity</i></li>
+                    </a>
+                    <a href="{% url 'sorteio' %}">
+                        <li><i class="material-icons LHButtons">casino</i></li>
+                    </a>
+                </ul>
+            </section>
+        {% endif %}
+    </footer>
 {% endblock %}
 
 {% block footer %}
@@ -161,7 +176,7 @@
             });
             document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
         }
-        window.history.replaceState( null, null, window.location.href );
+        window.history.replaceState(null, null, window.location.href);
     </script>
     <script>
         $(function () {
