@@ -65,10 +65,14 @@ def create_tickets():
 # send_simple_message()
 
 
-def sendMail(MailTo, TicketID):
-    msg = MIMEText('Testing some Mailgun awesomness')
-    msg['Subject'] = "Hello"
-    msg['From'] = "daeqiufs@gmail.com"
+def sendMail(MailTo, TicketID, Sorteio, Nome, Vendedor):
+    #
+    message = 'Olá {}, \nUm bilhete para o sorteio {} foi cadastrado em seu nome.' \
+              '\nVerifique se as informações cadastradas estão corretas e nos ' \
+              'contate a qualquer momento.'.format(Nome, Sorteio)
+    msg = MIMEText(message)
+    msg['Subject'] = "{}: Bilhete {}".format(Sorteio, TicketID)
+    msg['From'] = "noreply@LottoHub.org"
     msg['To'] = MailTo
 
     s = smtplib.SMTP('smtp.mailgun.org', 587)
