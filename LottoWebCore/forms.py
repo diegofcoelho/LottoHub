@@ -21,6 +21,14 @@ class TicketForm(forms.ModelForm):
 
 
 class StudentDirectoryForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(StudentDirectoryForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.id:
+            self.fields['id'].required = False
+            self.fields['id'].widget.attrs['readonly'] = 'readonly'
+
     method = forms.CharField(widget=forms.HiddenInput(), initial='ADD')
     model = forms.CharField(widget=forms.HiddenInput(), initial='DIR')
 

@@ -25,7 +25,7 @@
                 <a ng-click="" href="">
                     <li><i class="material-icons LHButtons">receipt</i></li>
                 </a>
-                <a ng-click="" href="">
+                <a ng-click="ActiveForm='ACT'" href="">
                     <li><i class="material-icons LHButtons">assignment_turned_in</i></li>
                 </a>
                 <a ng-click="" href="">
@@ -41,7 +41,6 @@
         <section id="main">
             <header>
                 {% if user.is_superuser %}
-                    <p style="width: 100%; text-align: right;">Olá, {{ user }}.</p>
                     <!--
                     https://github.com/handsontable/handsontable
                     https://handsontable.com/examples?manual-resize&manual-move&conditional-formatting&context-menu&filters&dropdown-menu&headers
@@ -110,19 +109,19 @@
                             <p><input type="submit"/></p>
                         </form>
                     </div>
-                {% else %}
-                    <p style="width: 100%; text-align: right;">Olá,
-                    <div style="font-weight: bolder;">{{ user }}</div>.</p>
-                    <div ng-hide="ActiveForm!=null">
-                        <h2 style="text-align: left;">Ativar Tickets</h2>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            {{ TEForm.as_p }}
-                            <br>
-                            <p><input type="submit"/></p>
-                        </form>
-                    </div>
                 {% endif %}
+                <div ng-hide="ActiveForm!='ACT'">
+                    <h2 style="text-align: left;">Ativar Tickets</h2>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ TEForm.as_p }}
+                        <br>
+                        <p><input type="submit"/></p>
+                    </form>
+                </div>
+                <div ng-hide="ActiveForm!=null">
+                    <p style="width: 100%; text-align: right;">Olá, {{ user }}.</p>
+                </div>
             </header>
             <footer>
                 <ul class="icons">
