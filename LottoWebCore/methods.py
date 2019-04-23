@@ -78,7 +78,7 @@ def sendMail(mail_to, data):
               'contate a qualquer momento.\n\nAtenciosamente\n{}'.format(nome, ticket_id, sorteio, prizes, seller)
     msg = MIMEText(message)
     msg['Subject'] = "{}: Bilhete [{}]".format(sorteio, ticket_id)
-    msg['From'] = "noreply@LottoHub.org"
+    msg['From'] = "noreply@lottohub.org"
     msg['To'] = mail_to
 
     s = smtplib.SMTP('smtp.mailgun.org', 587)

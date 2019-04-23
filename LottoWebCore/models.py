@@ -88,7 +88,6 @@ class MiddleMan(models.Model):
         return self.user.username
 
 
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

@@ -18,8 +18,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import RedirectView
 
 from LottoHub.settings import BASE_DIR
-from LottoWebCore.forms import SignUpForm
-from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, TicketEditForm
+from LottoWebCore.forms import SignUpForm, TicketEditForm
+from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, TicketActivationForm
+from LottoWebCore.methods import sendMail
 from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City, RegistrationRequest
 
 t_objs = Ticket.objects
@@ -37,7 +38,7 @@ def index(request):
     return render(request, 'index.html', {
         'hostname': hostname,
         # 'count': PageView.objects.count(),
-        'users': Ticket.objects.count()
+        'bilhetes': Ticket.objects.count()
         # 'user_ratio': (Users.objects.count() / sum([s['self.followers'] for s in Store.objects.filter(
         #    ~Q(collection=django.utils.timezone.datetime(2016, 1, 1, tzinfo=pytz.UTC))
         # ).values('self.followers')])) * 100
@@ -85,7 +86,8 @@ def DashBoard(request):
     return render(request, "dashboard/dashboard.html",
                   {'META': request.META,
                    'TForm': TicketForm,
-                   'TEForm': TicketEditForm,
+                   'ActivationForm': TicketActivationForm,
+                   'EditForm': TicketEditForm,
                    'SDForm': StudentDirectoryForm,
                    'UForm': UniversityForm,
                    'CForm': CityForm,
@@ -113,6 +115,8 @@ def api_handler(request, method=None):
         o_data = {'status': 200, 'code': 666, 'msg': 'Ops, your post could not be scheduled. \n Check your stats page '
                                                      'to check if you still have available slots. '}
         #
+        print(data)
+        #
         if data['method'] == 'ADD':
             if data['model'] == 'TCK':
                 try:
@@ -132,7 +136,6 @@ def api_handler(request, method=None):
                     Ticket.objects.bulk_create(tickets)
                 except Exception as E:
                     print(E)
-
             elif data['model'] == 'UNI':
                 obj_uni = University(name=data['name'], page=data['page'])
                 obj_uni.save()
@@ -163,9 +166,53 @@ def api_handler(request, method=None):
             # response = mark_safe(json.dumps({p['fields']['picture']: p['fields'] for p in json.loads(serialize(
             # 'json', None))}))
             return HttpResponse(json.dumps(response), content_type="application/json")
-        elif data['method'] == 'request':
-            # TODO statistics
-            pass
+        elif data['method'] == 'EDT':
+            if data['model'] == 'TCK_A':
+                try:
+                    ticket = Ticket.objects.get(id=data['id'])
+                    ticket.name = data['name']
+                    ticket.phone = data['phone']
+                    ticket.email = data['email']
+                    ticket.save()
+                    #
+                    if 'DYNO' in os.environ:
+                        data = {'ticket_id': data['id'],
+                                'name': data['name'],
+                                'phone': data['phone'],
+                                'email': data['email']
+                                }
+                        #
+                        sendMail(ticket.email, data)
+                        #
+                        ticket.notified = True
+                        ticket.activated = True
+                        ticket.save()
+                    #
+                except Exception as E:
+                    print(E)
+            if data['model'] == 'TCK_E':
+                try:
+                    ticket = Ticket.objects.get(id=data['id'])
+                    ticket.name = data['name']
+                    ticket.phone = data['phone']
+                    ticket.email = data['email']
+                    ticket.save()
+                    #
+                    if 'DYNO' in os.environ:
+                        data = {'ticket_id': data['id'],
+                                'name': data['name'],
+                                'phone': data['phone'],
+                                'email': data['email']
+                                }
+                        #
+                        sendMail(ticket.email, data)
+                        #
+                        ticket.notified = True
+                        ticket.activated = True
+                        ticket.save()
+                    #
+                except Exception as E:
+                    print(E)
     elif not method:
         response['analytics'] = "method_1"
     elif method == 'following':
@@ -233,8 +280,9 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
         if self.request.user.is_superuser:
             qs = Ticket.objects.all()
         else:
+            ticket_status = self.forwarded.get('ticket_status', None)
             qs = Ticket.objects.filter(directory=MiddleMan.objects.get(user=self.request.user).directory,
-                                       activated=False)
+                                       activated=ticket_status)
         #
         if self.q:
             qs = qs.filter(id__istartswith=self.q)

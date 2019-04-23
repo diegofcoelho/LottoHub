@@ -90,15 +90,42 @@ class TicketEditForm(forms.ModelForm):
 
     id = forms.ModelChoiceField(
         queryset=Ticket.objects.all(),
-        widget=autocomplete.ModelSelect2(url='ticket-autocomplete')
+        widget=autocomplete.ModelSelect2(url='ticket-autocomplete', forward=['ticket_status'])
     )
 
+    ticket_status = forms.CharField(widget=forms.HiddenInput(), initial='True')
     method = forms.CharField(widget=forms.HiddenInput(), initial='EDT')
-    model = forms.CharField(widget=forms.HiddenInput(), initial='TCK')
+    model = forms.CharField(widget=forms.HiddenInput(), initial='TCK_E')
 
     class Meta:
         model = Ticket
-        fields = ('name', 'phone', 'email')
+        fields = ('name', 'email', 'phone', 'raffle')
+        widgets = {
+            'notified': forms.HiddenInput(),
+            'activated': forms.HiddenInput(),
+            'raffle': forms.HiddenInput(),
+        }
+
+
+class TicketActivationForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super(TicketEditForm, self).__init__(*args, **kwargs)
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.id:
+    #         self.fields['id'].required = False
+    #         self.fields['id'].widget.attrs['readonly'] = 'readonly'
+
+    id = forms.ModelChoiceField(
+        queryset=Ticket.objects.all(),
+        widget=autocomplete.ModelSelect2(url='ticket-autocomplete')
+    )
+
+    method = forms.CharField(widget=forms.HiddenInput(), initial='ATV')
+    model = forms.CharField(widget=forms.HiddenInput(), initial='TCK_A')
+
+    class Meta:
+        model = Ticket
+        fields = ('name', 'seller', 'phone', 'email')
         widgets = {
             'completed': forms.HiddenInput(),
         }

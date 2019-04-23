@@ -22,14 +22,14 @@
                 <a ng-click="ActiveForm=null" href="">
                     <li><i class="material-icons LHButtons">poll</i></li>
                 </a>
-                <a ng-click="" href="">
+                <a ng-click="ActiveForm='TCK_E'" href="">
                     <li><i class="material-icons LHButtons">receipt</i></li>
                 </a>
-                <a ng-click="ActiveForm='ACT'" href="">
-                    <li><i class="material-icons LHButtons">assignment_turned_in</i></li>
+                <a ng-click="ActiveForm='TCK_A'" href="">
+                    <li><i class="material-icons LHButtons">beenhere</i></li>
                 </a>
-                <a ng-click="" href="">
-                    <li><i class="material-icons LHButtons">person</i></li>
+                <a ng-click="ActiveForm='PRF'" href="">
+                    <li><i class="material-icons LHButtons">person_pin</i></li>
                 </a>
                 <a href="{% url 'logout' %}">
                     <li><i class="material-icons LHButtons">exit_to_app</i></li>
@@ -50,11 +50,10 @@
                         <form action="" method="post">
                             {% csrf_token %}
                             {{ UForm.as_p }}
-                            <br>
                             <p><input type="submit"/></p>
                         </form>
                     </div>
-                    <div ng-hide="ActiveForm!='TCK'">
+                    <div ng-hide="ActiveForm!='TCK_G'">
                         <h2 style="text-align: left;">Gerar Tickets</h2>
                         <form action="" method="post">
                             {% csrf_token %}
@@ -72,7 +71,6 @@
                                     </select>
                                 </p>
                             </fieldset>
-                            <br>
                             <p><input type="submit"/></p>
                         </form>
                     </div>
@@ -81,7 +79,6 @@
                         <form action="" method="post">
                             {% csrf_token %}
                             {{ SDForm.as_p }}
-                            <br>
                             <p style="text-align: right;">
                                 <md-button ng-click="ActiveForm='CTY'" class="md-raised md-warn">+Cidade</md-button>
                                 <input type="submit"/>
@@ -96,7 +93,6 @@
                         <form action="" method="post">
                             {% csrf_token %}
                             {{ RForm.as_p }}
-                            <br>
                             <p><input type="submit"/></p>
                         </form>
                     </div>
@@ -110,17 +106,25 @@
                         </form>
                     </div>
                 {% endif %}
-                <div ng-hide="ActiveForm!='ACT'">
+                <div ng-hide="ActiveForm!='TCK_A'">
                     <h2 style="text-align: left;">Ativar Tickets</h2>
                     <form action="" method="post">
                         {% csrf_token %}
-                        {{ TEForm.as_p }}
-                        <br>
+                        {{ ActivationForm.as_p }}
                         <p><input type="submit"/></p>
                     </form>
                 </div>
                 <div ng-hide="ActiveForm!=null">
                     <p style="width: 100%; text-align: right;">Olá, {{ user }}.</p>
+                </div>
+                <div ng-hide="ActiveForm!='TCK_E'">
+                    <h2 style="text-align: left;">Editar Ticket</h2>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ EditForm.as_p }}
+                        <br>
+                        <p><input type="submit"/></p>
+                    </form>
                 </div>
             </header>
             <footer>
@@ -151,7 +155,7 @@
                     <a ng-click="ActiveForm='DIR'" href="">
                         <li><i class="material-icons LHButtons">folder_shared</i></li>
                     </a>
-                    <a ng-click="ActiveForm='TCK'" href="">
+                    <a ng-click="ActiveForm='TCK_G'" href="">
                         <li><i class="material-icons LHButtons">local_activity</i></li>
                     </a>
                     <a href="{% url 'sorteio' %}">
@@ -177,24 +181,26 @@
         }
         window.history.replaceState(null, null, window.location.href);
     </script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker({
-                beforeShow: function (input, inst) {
-                    let widget = $(inst).datepicker('widget');
-                    widget.css('margin-left', $(input).outerWidth() - widget.outerWidth());
-                },
-                dateFormat: 'dd/mm/yy',
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                nextText: 'Próximo',
-                prevText: 'Anterior'
+    {% if user.is_superuser %}
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({
+                    beforeShow: function (input, inst) {
+                        let widget = $(inst).datepicker('widget');
+                        widget.css('margin-left', $(input).outerWidth() - widget.outerWidth());
+                    },
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior'
+                });
             });
-        });
-    </script>
+        </script>
+    {% endif %}
 {% endblock %}
 
 {% block angularJS %}
