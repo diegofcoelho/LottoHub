@@ -70,9 +70,11 @@ class Raffle(models.Model):
 
 class MiddleMan(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='profile')
+    #
     name = models.CharField(max_length=500, null=True)
     phone = models.CharField(max_length=500, null=True)
     email = models.CharField(max_length=500, null=True)
+    #
     analysed = models.BooleanField(default=False)
     raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
     directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
@@ -87,6 +89,15 @@ class MiddleMan(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def first_name(self):
+        return self.user.first_name
+
+    def last_name(self):
+        return self.user.last_name
+
+    def full_name(self):
+        return '%s %s' % (self.user.first_name, self.user.last_name)
 
 
 @receiver(post_save, sender=User)

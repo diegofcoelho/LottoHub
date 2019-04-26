@@ -219,7 +219,7 @@ def api_handler(request, method=None):
                                 'name': ticket.name,
                                 'phone': ticket.phone,
                                 'email': ticket.email,
-                                'seller': ticket.seller,
+                                'seller': ticket.seller.full_name,
                                 'seller_email': ticket.seller.email,
                                 'prizes': ticket.raffle.prizes
                                 }
