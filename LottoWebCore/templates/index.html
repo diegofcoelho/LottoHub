@@ -39,6 +39,9 @@
                             <a href="{% url 'dashboard' %}">
                                 <li><i class="material-icons LHButtons">dashboard</i></li>
                             </a>
+                            <a href="{% url 'logout' %}">
+                                <li><i class="material-icons LHButtons">exit_to_app</i></li>
+                            </a>
                         {% else %}
                             <a href="{% url 'login' %}">
                                 <li><i class="material-icons LHButtons">fingerprint</i></li>
@@ -46,15 +49,10 @@
                             <a href="{% url 'signup' %}">
                                 <li><i class="material-icons LHButtons">loupe</i></li>
                             </a>
-                        {% endif %}
-                        <a href="">
-                            <li><i class="material-icons LHButtons">offline_pin</i></li>
-                        </a>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'logout' %}">
-                                <li><i class="material-icons LHButtons">exit_to_app</i></li>
+                            <a href="">
+                                <li><i class="material-icons LHButtons">offline_pin</i></li>
                             </a>
-                        {% endif %}
+                        {% endif %} 
                     {% endblock %}
                 </ul>
             </footer>

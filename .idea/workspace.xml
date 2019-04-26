@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LottoWebCore/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
@@ -62,6 +59,36 @@
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="256" column="44" selection-start-line="256" selection-start-column="44" selection-end-line="256" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="n#block#7;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/__base__.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="17" lean-forward="true" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -79,7 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FileResponse</find>
       <find>user</find>
       <find>redirect</find>
       <find>SENDGRID</find>
@@ -109,6 +135,7 @@
       <find>/static/admin/js/vendor/jquery/jquery.js</find>
       <find>datepi</find>
       <find>sendma</find>
+      <find>office</find>
     </findStrings>
     <replaceStrings>
       <replace>StudentDirectory</replace>
@@ -165,18 +192,18 @@
         <option value="$PROJECT_DIR$/venv/Lib/site-packages/PIL/Image.py" />
         <option value="$PROJECT_DIR$/LottoHub/settings.py" />
         <option value="$PROJECT_DIR$/staticfiles/assets/css/dashboard.css" />
-        <option value="$PROJECT_DIR$/LottoWebCore/templates/index.html" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/LottoWebCore/templates/__base__.html" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html" />
         <option value="$PROJECT_DIR$/LottoWebCore/forms.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/models.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/views.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/methods.py" />
+        <option value="$PROJECT_DIR$/LottoWebCore/templates/__base__.html" />
+        <option value="$PROJECT_DIR$/LottoWebCore/templates/index.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -185,7 +212,68 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="LottoWebCore" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="LottoWebCore" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="LottoWebCore" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="LottoWebCore" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="staticfiles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="staticfiles" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LottoHub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LottoHub" type="462c0819:PsiDirectoryNode" />
+              <item name="staticfiles" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -266,18 +354,18 @@
       <workItem from="1555888684446" duration="18716000" />
       <workItem from="1555969100144" duration="10376000" />
       <workItem from="1556149889957" duration="5387000" />
-      <workItem from="1556237817037" duration="1848000" />
+      <workItem from="1556237817037" duration="2532000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224323000" />
+    <option name="totallyTimeSpent" value="225007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.6421912" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.64113784" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -597,28 +685,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="50" column="79" selection-start-line="50" selection-start-column="68" selection-end-line="50" selection-end-column="79" />
-          <folding>
-            <element signature="e#2217#2223#0#HTML" expanded="true" />
-            <element signature="n#block#7;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/registration/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3349">
-          <caret line="197" column="40" selection-start-line="197" selection-start-column="40" selection-end-line="197" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -639,13 +709,6 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/__base__.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -692,6 +755,30 @@
           <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="256" column="44" selection-start-line="256" selection-start-column="44" selection-end-line="256" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/__base__.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="17" lean-forward="true" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="n#block#7;n#!!top" />
           </folding>
         </state>
       </provider>
