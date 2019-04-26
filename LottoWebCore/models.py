@@ -90,12 +90,15 @@ class MiddleMan(models.Model):
     def __str__(self):
         return self.user.username
 
+    @property
     def first_name(self):
         return self.user.first_name
 
+    @property
     def last_name(self):
         return self.user.last_name
 
+    @property
     def full_name(self):
         return '%s %s' % (self.user.first_name, self.user.last_name)
 
