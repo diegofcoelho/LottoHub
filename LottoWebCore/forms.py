@@ -1,5 +1,5 @@
 from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2Checkbox, ReCaptchaV2Invisible
+from captcha.widgets import ReCaptchaV2Invisible
 from dal import autocomplete
 from django import forms
 
@@ -117,9 +117,10 @@ class TicketActivationForm(forms.ModelForm):
 
     id = forms.ModelChoiceField(
         queryset=Ticket.objects.all(),
-        widget=autocomplete.ModelSelect2(url='ticket-autocomplete')
+        widget=autocomplete.ModelSelect2(url='ticket-autocomplete', forward=['ticket_status'])
     )
 
+    ticket_status = forms.CharField(widget=forms.HiddenInput(), initial='False')
     method = forms.CharField(widget=forms.HiddenInput(), initial='ATV')
     model = forms.CharField(widget=forms.HiddenInput(), initial='TCK_A')
 

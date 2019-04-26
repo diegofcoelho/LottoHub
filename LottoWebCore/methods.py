@@ -102,31 +102,18 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                     Atenciosamente,<br>
                     {seller_name}<br>
                     {seller_email}<br>
-                   # Here is the <a href="http://www.python.org">link</a> you wanted.
                 </p>
               </body>
             </html>
                     """.format(name=name,
-                                                               raffle=raffle,
-                                                               ticket=ticket_id,
-                                                               prizes=prizes,
-                                                               seller_name=seller_name,
-                                                               seller_email=seller_email,
-                                                               phone=phone,
-                                                               email=email)
+                               raffle=raffle,
+                               ticket=ticket_id,
+                               prizes=prizes,
+                               seller_name=seller_name,
+                               seller_email=seller_email,
+                               phone=phone,
+                               email=email)
             #
-            message2 = 'Olá {name}, \n\nO bilhete <bold>{ticket}</bold> foi ativado com sucesso e encontra-se habilitado para o' \
-                      ' {raffle}. \n\nVocê estará concorrendo a: {prizes}. \n\nVerifique se as informações ' \
-                      'abaixo estão corretas e nos contate caso haja alguma divergência.\n\nTicket: {ticket}\n' \
-                      'Nome: {name}\nemail: {email}\nTelefone:{phone}\nVendedor: {seller_name}\n\nAtenciosamente' \
-                      '\n{seller_name}\n{seller_email}'.format(name=name,
-                                                               raffle=raffle,
-                                                               ticket=ticket_id,
-                                                               prizes=prizes,
-                                                               seller_name=seller_name,
-                                                               seller_email=seller_email,
-                                                               phone=phone,
-                                                               email=email)
         elif method == 'FIX':
             ticket_id = data['ticket_id']
             raffle = data['raffle']
@@ -139,17 +126,33 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
             #
             mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
             #
-            message = 'Olá {seller_name}, \n\n O proprietário do ticket #{ticket} nos contatou e pediu para que você ' \
-                      'verifique os dados inseridos em nosso sistema.\n\nCaso seja necessário, cotate-o diretamente ' \
-                      'utilizando e obtenha as informações necessárias para corrigir os dados referentes ao bilhete.' \
-                      '\n\nTicket: {ticket}\nNome: {name}\n' \
-                      'email: {email}\nTelefone:{phone}\n'.format(name=name,
-                                                                  raffle=raffle,
-                                                                  ticket=ticket_id,
-                                                                  seller_name=seller_name,
-                                                                  seller_email=seller_email,
-                                                                  phone=phone,
-                                                                  email=email)
+            message = """
+            <html>
+              <head></head>
+                <body>
+                    <p>Olá {seller_name},<br><br>
+                    O proprietário do bilhete #<b style='font-weight: bold;'>{ticket} ({raffle})</b> nos contatou e 
+                    pediu para que você verifique os dados inseridos em nosso sistema.<br><br>Caso seja necessário, 
+                    cotate-o diretamente utilizando os dados no canhoto e obtenha as informações necessárias para 
+                    corrigir o registro do bilhete.
+                    <br><br>
+                    Ticket: #<b style='font-weight: bold;'>{ticket}</b><br>
+                    Nome: <b style='font-weight: bold;'>{name}</b><br>
+                    E-mail: <b style='font-weight: bold;'>{email}</b><br>
+                    Telefone: <b style='font-weight: bold;'>{phone}</b><br>
+                    <br>
+                    Atenciosamente,<br>
+                    LottoHUB Team<br>
+                </p>
+              </body>
+            </html>
+                    """.format(name=name,
+                               raffle=raffle,
+                               ticket=ticket_id,
+                               seller_name=seller_name,
+                               seller_email=seller_email,
+                               phone=phone,
+                               email=email)
         elif method == 'WRN':
             ticket_id = data['ticket_id']
             raffle = data['raffle']
@@ -157,14 +160,25 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
             seller_email = data['seller_email']
             mail_to = seller_email
             mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
-            message = 'Olá {seller_name}, \n\n O proprietário do ticket #{ticket} nos contatou e informou que' \
-                      ' o mesmo ainda se encontra inativo. Verifique os dados no canhoto do bilhete e ative-o' \
-                      'em nosso sistema.\n\nNotificações em excesso podem levar a suspensão de sua conta, então' \
-                      'acompanharemos o caso.\n\nLottoHUB website:' \
-                      ' https://lottohub.herokuapp.com'.format(raffle=raffle,
-                                                               ticket=ticket_id,
-                                                               seller_name=seller_name,
-                                                               seller_email=seller_email)
+            message = """
+            <html>
+              <head></head>
+                <body>
+                    <p>
+                        Olá {seller_name},<br><br>
+                        O proprietário do bilhete #<b style='font-weight: bold;'>{ticket} ({raffle})</b> nos contatou e 
+                        e informou que o mesmo ainda se encontra inativo.<br>Verifique os dados no canhoto do bilhete e
+                        ative-o em nosso sistema.<br><br>Por configurar-se como má conduta, o recebimento de múltiplas 
+                        denuncias pode levar a suspensão de sua conta. <br> Evite e-mails de notificação ativando o 
+                        bilhete assim que possível.<br> Atenciosamente,<br> 
+                        <a href="https://lottohub.herokuapp.com">LottoHUB Team</a>
+                    </p>
+              </body>
+            </html>
+                    """.format(raffle=raffle,
+                               ticket=ticket_id,
+                               seller_name=seller_name,
+                               seller_email=seller_email)
         #
         msg = MIMEText(message, 'html')
         msg['Subject'] = mail_subject

@@ -225,6 +225,8 @@ def api_handler(request, method=None):
                                 }
                         #
                         sendMail('ATV', data)
+                        sendMail('FIX', data)
+                        sendMail('WRN', data)
                         #
                         ticket.notified = True
                         ticket.activated = True
@@ -296,10 +298,12 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Ticket.objects.none()
         #
+        ticket_status = self.forwarded.get('ticket_status', False)
+        print(ticket_status)
+        #
         if self.request.user.is_superuser:
-            qs = Ticket.objects.all()
+            qs = Ticket.objects.filter(activated=ticket_status)
         else:
-            ticket_status = self.forwarded.get('ticket_status', None)
             qs = Ticket.objects.filter(directory=MiddleMan.objects.get(user=self.request.user).directory,
                                        activated=ticket_status)
         #
