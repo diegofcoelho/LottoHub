@@ -81,8 +81,8 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
             #
             mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
             #
-            message = 'Olá {name}, \n\nO bilhete {ticket} foi ativado com sucesso e encontra-se habilitado para o' \
-                      ' raffle {raffle}. \n\nVocê estará concorrendo a: {prizes}. \n\nVerifique se as informações ' \
+            message = 'Olá {name}, \n\nO bilhete <bold>{ticket}</bold> foi ativado com sucesso e encontra-se habilitado para o' \
+                      ' {raffle}. \n\nVocê estará concorrendo a: {prizes}. \n\nVerifique se as informações ' \
                       'abaixo estão corretas e nos contate caso haja alguma divergência.\n\nTicket: {ticket}\n' \
                       'Nome: {name}\nemail: {email}\nTelefone:{phone}\nVendedor: {seller_name}\n\nAtenciosamente' \
                       '\n{seller_name}\n{seller_email}'.format(name=name,
@@ -132,9 +132,9 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                                                                seller_name=seller_name,
                                                                seller_email=seller_email)
         #
-        msg = MIMEText(message)
+        msg = MIMEText(message, 'html')
         msg['Subject'] = mail_subject
-        msg['From'] = "noreply@lottohub.org"
+        msg['From'] = "naoresponda@lottohub.org"
         msg['To'] = mail_to
         #
         s = smtplib.SMTP('smtp.mailgun.org', 587)
