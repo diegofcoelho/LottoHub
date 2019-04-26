@@ -204,6 +204,34 @@ def api_handler(request, method=None):
                     ticket.save()
                 except Exception as E:
                     print(E)
+        elif data['method'] == 'ATV':
+            if data['model'] == 'TCK_A':
+                try:
+                    ticket = Ticket.objects.get(id=data['id'])
+                    ticket.name = data['name']
+                    ticket.phone = data['phone']
+                    ticket.email = data['email']
+                    ticket.save()
+                    #
+                    if 'DYNO' in os.environ:
+                        data = {'ticket_id': ticket.id,
+                                'raffle': ticket.raffle,
+                                'name': ticket.name,
+                                'phone': ticket.phone,
+                                'email': ticket.email,
+                                'seller': ticket.seller,
+                                'seller_email': ticket.seller.email,
+                                'prizes': ticket.raffle.prizes
+                                }
+                        #
+                        sendMail('ATV', data)
+                        #
+                        ticket.notified = True
+                        ticket.activated = True
+                        ticket.save()
+                    #
+                except Exception as E:
+                    print(E)
     elif not method:
         response['analytics'] = "method_1"
     elif method == 'following':
