@@ -67,6 +67,8 @@ def create_tickets():
 
 def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
     #
+    print(method)
+    #
     try:
         if method == 'ATV':
             ticket_id = data['ticket_id']
@@ -133,7 +135,7 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                     <p>Olá {seller_name},<br><br>
                     O proprietário do bilhete #<b style='font-weight: bold;'>{ticket} ({raffle})</b> nos contatou e 
                     pediu para que você verifique os dados inseridos em nosso sistema.<br><br>Caso seja necessário, 
-                    cotate-o diretamente utilizando os dados no canhoto e obtenha as informações necessárias para 
+                    contate-o diretamente utilizando os dados no canhoto e obtenha as informações necessárias para 
                     corrigir o registro do bilhete.
                     <br><br>
                     Ticket: #<b style='font-weight: bold;'>{ticket}</b><br>
