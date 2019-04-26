@@ -144,7 +144,7 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                     Telefone: <b style='font-weight: bold;'>{phone}</b><br>
                     <br>
                     Atenciosamente,<br>
-                    LottoHUB Team<br>
+                    <a href="https://lottohub.herokuapp.com">LottoHUB Team</a><br>
                 </p>
               </body>
             </html>
@@ -163,24 +163,17 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
             mail_to = seller_email
             mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
             message = """
-            <html>
-              <head></head>
-                <body>
-                    <p>
-                        Olá {seller_name},<br><br>
-                        O proprietário do bilhete #<b style='font-weight: bold;'>{ticket} ({raffle})</b> nos contatou e 
-                        e informou que o mesmo ainda se encontra inativo.<br>Verifique os dados no canhoto do bilhete e
-                        ative-o em nosso sistema.<br><br>Por configurar-se como má conduta, o recebimento de múltiplas 
-                        denuncias pode levar a suspensão de sua conta. <br> Evite e-mails de notificação ativando o 
-                        bilhete assim que possível.<br> Atenciosamente,<br> 
-                        <a href="https://lottohub.herokuapp.com">LottoHUB Team</a>
-                    </p>
-              </body>
-            </html>
-                    """.format(raffle=raffle,
-                               ticket=ticket_id,
-                               seller_name=seller_name,
-                               seller_email=seller_email)
+            <html><head></head><body><p>Olá {seller_name},<br><br>
+            O proprietário do bilhete #<b style='font-weight: bold;'>{ticket} ({raffle})</b> nos contatou e 
+            e informou que o mesmo ainda se encontra inativo.<br>Verifique os dados no canhoto do bilhete e
+            ative-o em nosso sistema.<br><br>Por configurar-se como má conduta, o recebimento de múltiplas 
+            denuncias pode levar a suspensão de sua conta. <br> Evite e-mails de notificação ativando o 
+            bilhete assim que possível.<br><br>Atenciosamente,<br> 
+            <a href="https://lottohub.herokuapp.com">LottoHUB Team</a></p></body></html>""".format(
+                raffle=raffle,
+                ticket=ticket_id,
+                seller_name=seller_name,
+                seller_email=seller_email)
         #
         msg = MIMEText(message, 'html')
         msg['Subject'] = mail_subject
