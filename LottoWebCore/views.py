@@ -224,9 +224,9 @@ def api_handler(request, method=None):
                                 'prizes': ticket.raffle.prizes
                                 }
                         #
-                        sendMail('ATV', data)
+                        #sendMail('ATV', data)
                         sendMail('FIX', data)
-                        sendMail('WRN', data)
+                        #sendMail('WRN', data)
                         #
                         ticket.notified = True
                         ticket.activated = True
