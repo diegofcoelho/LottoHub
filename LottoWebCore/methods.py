@@ -104,9 +104,16 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                 </p>
               </body>
             </html>
-                    """
+                    """.format(name=name,
+                                                               raffle=raffle,
+                                                               ticket=ticket_id,
+                                                               prizes=prizes,
+                                                               seller_name=seller_name,
+                                                               seller_email=seller_email,
+                                                               phone=phone,
+                                                               email=email)
             #
-            message = 'Olá {name}, \n\nO bilhete <bold>{ticket}</bold> foi ativado com sucesso e encontra-se habilitado para o' \
+            message2 = 'Olá {name}, \n\nO bilhete <bold>{ticket}</bold> foi ativado com sucesso e encontra-se habilitado para o' \
                       ' {raffle}. \n\nVocê estará concorrendo a: {prizes}. \n\nVerifique se as informações ' \
                       'abaixo estão corretas e nos contate caso haja alguma divergência.\n\nTicket: {ticket}\n' \
                       'Nome: {name}\nemail: {email}\nTelefone:{phone}\nVendedor: {seller_name}\n\nAtenciosamente' \
