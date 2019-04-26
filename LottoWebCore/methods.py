@@ -92,7 +92,7 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                     Você estará concorrendo a: <b style='font-weight: bold;'>{prizes}</b>. 
                     <br><br>
                     Verifique se as informações abaixo estão corretas e nos contate caso haja alguma divergência.
-                    <br>
+                    <br><br>
                     Ticket: #<b style='font-weight: bold;'>{ticket}</b><br>
                     Nome: <b style='font-weight: bold;'>{name}</b><br>
                     E-mail: <b style='font-weight: bold;'>{email}</b><br>
