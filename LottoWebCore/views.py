@@ -19,7 +19,8 @@ from django.views.generic import RedirectView
 
 from LottoHub.settings import BASE_DIR
 from LottoWebCore.forms import SignUpForm, TicketEditForm
-from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, TicketActivationForm
+from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, \
+    TicketActivationForm
 from LottoWebCore.methods import sendMail
 from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City, RegistrationRequest
 
@@ -176,13 +177,17 @@ def api_handler(request, method=None):
                     ticket.save()
                     #
                     if 'DYNO' in os.environ:
-                        data = {'ticket_id': data['id'],
-                                'name': data['name'],
-                                'phone': data['phone'],
-                                'email': data['email']
+                        data = {'ticket_id': ticket.id,
+                                'raffle': ticket.raffle,
+                                'name': ticket.name,
+                                'phone': ticket.phone,
+                                'email': ticket.email,
+                                'seller': ticket.seller,
+                                'seller_email': ticket.seller.email,
+                                'prizes': ticket.raffle.prizes
                                 }
                         #
-                        sendMail(ticket.email, data)
+                        sendMail('ATV', data)
                         #
                         ticket.notified = True
                         ticket.activated = True
@@ -197,20 +202,6 @@ def api_handler(request, method=None):
                     ticket.phone = data['phone']
                     ticket.email = data['email']
                     ticket.save()
-                    #
-                    if 'DYNO' in os.environ:
-                        data = {'ticket_id': data['id'],
-                                'name': data['name'],
-                                'phone': data['phone'],
-                                'email': data['email']
-                                }
-                        #
-                        sendMail(ticket.email, data)
-                        #
-                        ticket.notified = True
-                        ticket.activated = True
-                        ticket.save()
-                    #
                 except Exception as E:
                     print(E)
     elif not method:

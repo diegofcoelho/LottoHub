@@ -51,6 +51,7 @@ class Raffle(models.Model):
     name = models.CharField(max_length=500, verbose_name='Nome da Rifa')
     phone = models.CharField(max_length=500, verbose_name='Telefone do Responsável')
     email = models.CharField(max_length=500, verbose_name='E-mail')
+    prizes = models.CharField(max_length=500, verbose_name='Premiação', null=True)
     completed = models.BooleanField(default=False, verbose_name="Finalizado")
     creation = models.DateField(auto_now_add=True)
     lottery = models.DateField(null=True, verbose_name="Data do Sorteio")

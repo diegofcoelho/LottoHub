@@ -65,25 +65,83 @@ def create_tickets():
 # send_simple_message()
 
 
-def sendMail(mail_to, data):
+def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
     #
-    ticket_id = data['ticket_id']
-    sorteio = data['sorteio']
-    nome = data['nome']
-    seller = data['seller']
-    prizes = data['prizes']
-    #
-    message = 'Olá {}, \n\nO bilhete {} foi cadastrado para o sorteio {}.' \
-              '\n\nVocê estará concorrendo a: {}. \n\nVerifique se as informações cadastradas estão corretas e nos ' \
-              'contate a qualquer momento.\n\nAtenciosamente\n{}'.format(nome, ticket_id, sorteio, prizes, seller)
-    msg = MIMEText(message)
-    msg['Subject'] = "{}: Bilhete [{}]".format(sorteio, ticket_id)
-    msg['From'] = "noreply@lottohub.org"
-    msg['To'] = mail_to
-
-    s = smtplib.SMTP('smtp.mailgun.org', 587)
-
-    s.login('postmaster@sandboxd3dfea09ed314d159446475220793ee0.mailgun.org',
-            '552d7ce24b77987e6b58d72725f1d0ec-dc5f81da-be718cec')
-    s.sendmail(msg['From'], msg['To'], msg.as_string())
-    s.quit()
+    try:
+        if method == 'ATV':
+            ticket_id = data['ticket_id']
+            raffle = data['raffle']
+            name = data['name']
+            phone = data['phone']
+            email = data['email']
+            mail_to = email
+            seller_name = data['seller']
+            seller_email = data['seller_email']
+            prizes = data['prizes']
+            #
+            mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
+            #
+            message = 'Olá {name}, \n\nO bilhete {ticket} foi ativado com sucesso e encontra-se habilitado para o' \
+                      ' raffle {raffle}. \n\nVocê estará concorrendo a: {prizes}. \n\nVerifique se as informações ' \
+                      'abaixo estão corretas e nos contate caso haja alguma divergência.\n\nTicket: {ticket}\n' \
+                      'Nome: {name}\nemail: {email}\nTelefone:{phone}\nVendedor: {seller_name}\n\nAtenciosamente' \
+                      '\n{seller_name}\n{seller_email}'.format(name=name,
+                                                               raffle=raffle,
+                                                               ticket=ticket_id,
+                                                               prizes=prizes,
+                                                               seller_name=seller_name,
+                                                               seller_email=seller_email,
+                                                               phone=phone,
+                                                               email=email)
+        elif method == 'FIX':
+            ticket_id = data['ticket_id']
+            raffle = data['raffle']
+            name = data['name']
+            phone = data['phone']
+            email = data['email']
+            seller_name = data['seller']
+            seller_email = data['seller_email']
+            mail_to = seller_email
+            #
+            mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
+            #
+            message = 'Olá {seller_name}, \n\n O proprietário do ticket #{ticket} nos contatou e pediu para que você ' \
+                      'verifique os dados inseridos em nosso sistema.\n\nCaso seja necessário, cotate-o diretamente ' \
+                      'utilizando e obtenha as informações necessárias para corrigir os dados referentes ao bilhete.' \
+                      '\n\nTicket: {ticket}\nNome: {name}\n' \
+                      'email: {email}\nTelefone:{phone}\n'.format(name=name,
+                                                                  raffle=raffle,
+                                                                  ticket=ticket_id,
+                                                                  seller_name=seller_name,
+                                                                  seller_email=seller_email,
+                                                                  phone=phone,
+                                                                  email=email)
+        elif method == 'WRN':
+            ticket_id = data['ticket_id']
+            raffle = data['raffle']
+            seller_name = data['seller']
+            seller_email = data['seller_email']
+            mail_to = seller_email
+            mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
+            message = 'Olá {seller_name}, \n\n O proprietário do ticket #{ticket} nos contatou e informou que' \
+                      ' o mesmo ainda se encontra inativo. Verifique os dados no canhoto do bilhete e ative-o' \
+                      'em nosso sistema.\n\nNotificações em excesso podem levar a suspensão de sua conta, então' \
+                      'acompanharemos o caso.\n\nLottoHUB website:' \
+                      ' https://lottohub.herokuapp.com'.format(raffle=raffle,
+                                                               ticket=ticket_id,
+                                                               seller_name=seller_name,
+                                                               seller_email=seller_email)
+        #
+        msg = MIMEText(message)
+        msg['Subject'] = mail_subject
+        msg['From'] = "noreply@lottohub.org"
+        msg['To'] = mail_to
+        #
+        s = smtplib.SMTP('smtp.mailgun.org', 587)
+        #
+        s.login('postmaster@sandboxd3dfea09ed314d159446475220793ee0.mailgun.org',
+                '552d7ce24b77987e6b58d72725f1d0ec-dc5f81da-be718cec')
+        s.sendmail(msg['From'], msg['To'], msg.as_string())
+        s.quit()
+    except Exception as e:
+        print(e)
