@@ -81,6 +81,31 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
             #
             mail_subject = "Bilhete #{ticket_id} - {raffle}".format(raffle=raffle, ticket_id=ticket_id)
             #
+            message = """
+            <html>
+              <head></head>
+                <body>
+                    <p>Olá {name},<br>
+                    O bilhete <div style='font-weight: bold;'>{ticket}</div> foi ativado com sucesso e encontra-se 
+                    habilitado para o <div style='font-weight: bold;'>{raffle}<div>.
+                    <br>
+                    Você estará concorrendo a: {prizes}. <br>
+                    Verifique se as informações abaixo estão corretas e nos contate caso haja alguma divergência.
+                    Ticket: {ticket}<br>
+                    Nome: {name}<br>
+                    email: {email}<br>
+                    Telefone:{phone}<br>
+                    Vendedor: {seller_name}<br>
+                    <br>
+                    Atenciosamente<br>
+                    {seller_name}<br>
+                    {seller_email}
+                   Here is the <a href="http://www.python.org">link</a> you wanted.
+                </p>
+              </body>
+            </html>
+                    """
+            #
             message = 'Olá {name}, \n\nO bilhete <bold>{ticket}</bold> foi ativado com sucesso e encontra-se habilitado para o' \
                       ' {raffle}. \n\nVocê estará concorrendo a: {prizes}. \n\nVerifique se as informações ' \
                       'abaixo estão corretas e nos contate caso haja alguma divergência.\n\nTicket: {ticket}\n' \
