@@ -8,7 +8,8 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 from dal import autocomplete
 from django.contrib.auth.decorators import login_required
-# from django.core.serializers import serialize
+from django.core.serializers import serialize
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # Create your views here.
@@ -18,7 +19,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import RedirectView
 
 from LottoHub.settings import BASE_DIR
-from LottoWebCore.forms import SignUpForm, TicketEditForm
+from LottoWebCore.forms import SignUpForm, TicketEditForm, TicketCheckForm
 from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, \
     TicketActivationForm
 from LottoWebCore.methods import sendMail
@@ -52,6 +53,11 @@ def lottery(request):
     })
 
 
+def ticket_check(request):
+    return render(request, 'dashboard/verify.html', {'CheckForm': TicketCheckForm
+    })
+
+
 def signup(request):
     if request.method == 'POST':
         try:
@@ -76,16 +82,21 @@ def signup(request):
 
 
 @login_required
-def UserProfile(request):
-    return render(request, "account/profile.html", {'META': request.META})
-
-
-@login_required
 def DashBoard(request):
+    #
+    users_data = serialize('json', User.objects.all())
+    users_data = json.loads(users_data)
+    user_data = [user['fields'] for user in users_data if user['fields']['username'] == str(request.user)][0]
+    seller_data = MiddleMan.objects.filter(user__username=request.user)[0].to_dict()
+    seller_dict = StudentDirectory.objects.get(id=seller_data['directory']).name
+    #
     if request.method == 'POST':
         api_handler(request)
     return render(request, "dashboard/dashboard.html",
                   {'META': request.META,
+                   'UserData': user_data,
+                   'SellerData': seller_data,
+                   'SellerDict': seller_dict,
                    'TForm': TicketForm,
                    'ActivationForm': TicketActivationForm,
                    'EditForm': TicketEditForm,

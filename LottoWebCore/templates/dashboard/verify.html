@@ -7,7 +7,7 @@
 {% block scripts %}{% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="/static/assets/css/main.css"/>
+    <link rel="stylesheet" href="/static/assets/css/dashboard.css"/>
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css"/>
     </noscript>
@@ -18,45 +18,39 @@
 {% block body %}
     <div id="wrapper">
         <!-- Main -->
-        <section id="main">
+        <md-card id="main">
             <header>
              <span class="avatar">
-                <img src="/static/images/LottoHub_logo.png" onclick="location.href='/'" on width="142px" height="142px"
+                <img src="/static/images/LottoHub_logo.png" onclick="location.href='/'" on width="50px" height="50px"
                      alt=""/>
             </span>
-                <h1>LottoHUB</h1>
-                <p>Gerenciamento de Sorteios</p>
-                <hr>
+                <h2 style="text-align: left;" ng-hide="status==null">Situação do Bilhete</h2>
+                <hr ng-hide="status==null">
+                <div style="text-align: left;" ng-hide="status==null">
+                    <div class="field-name">Status:</div>
+                    <div class="field-name" ng-hide="status==false">Nome:</div>
+                    <div class="field-name" ng-hide="status==false">E-mail:</div>
+                    <div class="field-name" ng-hide="status==false">Telefone:</div>
+                    <div class="field-name">Vendedor:</div>
+                    <div class="field-name">Notificação:</div>
+                </div>
+                <hr ng-hide="status==null">
+                <div ng-hide="status!=null">
+                    <h2 style="text-align: left;">Verificar Bilhete</h2>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ CheckForm.as_p }}
+                        <p><input type="submit"/></p>
+                    </form>
+                </div>
+                <div style="text-align: left;" ng-hide="status!=true">
+                    Boa Sorte!
+                </div>
+                <div style="text-align: left;" ng-hide="status!=false" layout="row" layout-align="space-between center">
+                    <p>Notifique seu vendedor!</p> <md-button class="md-raised md-warn">Notificar!</md-button>
+                </div>
             </header>
-            <br>
-            <footer>
-                <ul class="icons">
-                    {% block content %}
-                        {% if user.is_authenticated %}
-                            <a href="/dashboard/?profile">
-                                <li><i class="material-icons LHButtons">person_pin</i></li>
-                            </a>
-                            <a href="{% url 'dashboard' %}">
-                                <li><i class="material-icons LHButtons">dashboard</i></li>
-                            </a>
-                            <a href="{% url 'logout' %}">
-                                <li><i class="material-icons LHButtons">exit_to_app</i></li>
-                            </a>
-                        {% else %}
-                            <a href="{% url 'login' %}">
-                                <li><i class="material-icons LHButtons">fingerprint</i></li>
-                            </a>
-                            <a href="{% url 'signup' %}">
-                                <li><i class="material-icons LHButtons">loupe</i></li>
-                            </a>
-                            <a href="{% url 'validar' %}">
-                                <li><i class="material-icons LHButtons">offline_pin</i></li>
-                            </a>
-                        {% endif %} 
-                    {% endblock %}
-                </ul>
-            </footer>
-        </section>
+        </md-card>
         <!-- Footer -->
         <footer id="footer">
             <ul class="copyright">
@@ -67,6 +61,11 @@
     </div>
 {% endblock %}
 
+
+{% block footer %}
+    {{ TForm.media }}
+{% endblock %}
+
 {% block late_script %}
     <script>
         if ('addEventListener' in window) {
@@ -75,6 +74,7 @@
             });
             document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
         }
+        window.history.replaceState(null, null, window.location.href);
     </script>
 {% endblock %}
 
@@ -105,11 +105,12 @@
             })
             .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', function ($scope, $mdDialog, $timeout, $http) {
                 //
+                $scope.status = null;
                 $scope.AngEnv = {
                     Url: window.location.pathname,
-                    // {#  usrData: {{ usrData }}, #}
-                    // {#  #}adata: {{ angular_data }} #}
-                };
+                    status: null
+                }
+                ;
                 //
                 $scope.cancel = function () {
                     $mdDialog.cancel();

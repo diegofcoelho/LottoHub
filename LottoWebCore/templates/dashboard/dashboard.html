@@ -38,7 +38,7 @@
         </section>
         <br>
         <!-- Main -->
-        <section id="main">
+        <md-card id="main">
             <header>
                 {% if user.is_superuser %}
                     <!--
@@ -115,7 +115,7 @@
                     </form>
                 </div>
                 <div ng-hide="ActiveForm!=null">
-                    <p style="width: 100%; text-align: right;">Olá, {{ user }}.</p>
+                    <p style="width: 100%; text-align: right;">Olá, {{ UserData.first_name }}.</p>
                 </div>
                 <div ng-hide="ActiveForm!='TCK_E'">
                     <h2 style="text-align: left;">Editar Ticket</h2>
@@ -126,6 +126,46 @@
                         <p><input type="submit"/></p>
                     </form>
                 </div>
+                <div ng-hide="ActiveForm!='PRF'" style="margin: -1em -2em -1em -2em;">
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <h2 class="md-flex" style="text-align: left;color: white;font-weight: bold;">
+                                Informações Pessoais
+                            </h2>
+                        </div>
+                    </md-toolbar>
+                    <div style="text-align: left;" layout="column" layout-gt-sm="row"
+                         layout-align="space-between center" layout-align-gt-sm="space-between start">
+                        {% if UserData.username == user.get_username %}
+                            <div flex="4" style="padding: 1em;word-wrap: break-word;" layout-fill="">
+                                <div class="field-name">Nome:</div>
+                                {{ UserData.first_name }} <br>
+                                <md-divider></md-divider>
+                                <div class="field-name"> Sobrenome:</div>
+                                {{ UserData.last_name }} <br>
+                                <md-divider></md-divider>
+                                <div class="field-name">Usuário:</div>
+                                {{ UserData.username }} <br>
+                                <md-divider></md-divider>
+                                <div class="field-name">Telefone:</div>
+                                {{ SellerData.phone }} <br>
+                                <md-divider></md-divider>
+                                <!-- Último Login: {{ UserData.last_login }} <br> -->
+                                <div class="field-name">E-mail:</div>
+                                {{ SellerData.email }}<br>
+                                <md-divider></md-divider>
+                                <div class="field-name">Centro Acadêmico:</div>
+                                {{ SellerDict }} <br>
+                                <md-divider></md-divider>
+                            </div>
+                            <md-card-title-media flex="1" style="margin: 1em;">
+                                <img src="{{ SellerData.picture }}" alt="Smiley face" class="profile-page"
+                                     height="100%" width="100%">
+                                <br>
+                            </md-card-title-media>
+                        {% endif %}
+                    </div>
+                </div>
             </header>
             <footer>
                 <ul class="icons">
@@ -133,7 +173,7 @@
                     {% endblock %}
                 </ul>
             </footer>
-        </section>
+        </md-card>
         <!-- Footer -->
         <br>
     </div>
@@ -146,6 +186,9 @@
         {% if user.is_superuser %}
             <section id="LHHeader" class="LHFields" style="color: #414f57;">
                 <ul class="icons">
+                    <a href="/admin" target="_blank">
+                        <li><i class="material-icons LHButtons">security</i></li>
+                    </a>
                     <a ng-click="ActiveForm='UNI'" href="">
                         <li><i class="material-icons LHButtons">account_balance</i></li>
                     </a>
@@ -228,13 +271,26 @@
                     return Object.keys(object).length;
                 }
             })
-            .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', '$timeout', function ($scope, $mdDialog, $timeout, $http) {
+            .controller('dataCtrl', ['$location', '$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', '$timeout', function ($location, $scope, $mdDialog, $timeout, $http) {
                 //
-                $scope.ActiveForm = null;
+                $scope.$on('$locationChangeSuccess', function (event) {
+                    let pageUrl = $location.absUrl();
+                    var profile_page = pageUrl.search('profile') > -1;
+                    var activation_page = pageUrl.search('activation') > -1;
+                    var edit_page = pageUrl.search('edit') > -1;
+                    if (profile_page) {
+                        $scope.ActiveForm = 'PRF';
+                    } else if (activation_page) {
+                        $scope.ActiveForm = 'TCK_A';
+                    } else if (edit_page) {
+                        $scope.ActiveForm = 'TCK_E';
+                    } else {
+                        $scope.ActiveForm = null;
+                    }
+                });
+                //
                 $scope.AngEnv = {
-                    Url: window.location.pathname,
-                    // {#  usrData: {{ usrData }}, #}
-                    // {#  #}adata: {{ angular_data }} #}
+                    Url: window.location.pathname
                 };
                 //
                 $scope.$watch('ActiveForm', function (newValue, oldValue) {

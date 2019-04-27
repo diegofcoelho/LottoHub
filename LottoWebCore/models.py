@@ -1,9 +1,40 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import ManyToManyField, DateTimeField, ForeignKey, OneToOneField, Model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from LottoWebCore.methods import create_hash
+
+
+class JSONModel(models.Model):
+    def __repr__(self):
+        return str(self.to_dict)
+
+    def to_dict(self):
+        opts = self._meta
+        #
+        data = {}
+        #
+        for f in opts.concrete_fields + opts.many_to_many:
+            if isinstance(f, ManyToManyField):
+                if self.pk is None:
+                    data[f.name] = []
+                else:
+                    data[f.name] = list(f.value_from_object(self).values_list('pk', flat=True))
+            elif isinstance(f, DateTimeField):
+                if f.value_from_object(self) is not None:
+                    data[f.name] = f.value_from_object(self).timestamp()
+                else:
+                    data[f.name] = None
+            # elif isinstance(f, ForeignKey):
+            #     print(f.value_from_object(self))
+            else:
+                data[f.name] = f.value_from_object(self)
+        return data
+
+    class Meta:
+        abstract = True
 
 
 class City(models.Model):
@@ -68,13 +99,14 @@ class Raffle(models.Model):
         verbose_name_plural = "Rifas"
 
 
-class MiddleMan(models.Model):
+class MiddleMan(JSONModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='profile')
     #
     name = models.CharField(max_length=500, null=True)
     phone = models.CharField(max_length=500, null=True)
     email = models.CharField(max_length=500, null=True)
     #
+    picture = models.CharField(max_length=500, null=True)
     analysed = models.BooleanField(default=False)
     raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
     directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
@@ -89,6 +121,10 @@ class MiddleMan(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def centro(self):
+        return self.directory.name
 
     @property
     def first_name(self):

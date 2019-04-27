@@ -3,9 +3,6 @@ import smtplib
 import time
 from email.mime.text import MIMEText
 
-import requests
-from sendgrid import SendGridAPIClient
-
 
 def create_hash():
     ticket_hash = hashlib.sha1()
@@ -141,7 +138,11 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                     Ticket: #<b style='font-weight: bold;'>{ticket}</b><br>
                     Nome: <b style='font-weight: bold;'>{name}</b><br>
                     E-mail: <b style='font-weight: bold;'>{email}</b><br>
-                    Telefone: <b style='font-weight: bold;'>{phone}</b><br>
+                    Telefone: <b style='font-weight: bold;'>{phone}</b>
+                    <br>
+                    <br>
+                    <a href="https://lottohub.herokuapp.com/dashboard/?edit">Editar Bilhete</a>
+                    <br>
                     <br>
                     Atenciosamente,<br>
                     <a href="https://lottohub.herokuapp.com">LottoHUB Team</a><br>
@@ -168,8 +169,9 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
             e informou que o mesmo ainda se encontra inativo.<br>Verifique os dados no canhoto do bilhete e
             ative-o em nosso sistema.<br><br>Por configurar-se como má conduta, o recebimento de múltiplas 
             denuncias pode levar a suspensão de sua conta. <br> Evite e-mails de notificação ativando o 
-            bilhete assim que possível.<br><br>Atenciosamente,<br> 
-            <a href="https://lottohub.herokuapp.com">LottoHUB Team</a></p></body></html>""".format(
+            bilhete assim que possível.<br><br><a href="https://lottohub.herokuapp.com/dashboard/?activation">
+            Ativar Bilhete</a><br><br>Atenciosamente,<br> <a href="https://lottohub.herokuapp.com">LottoHUB Team</a>
+            </p></body></html>""".format(
                 raffle=raffle,
                 ticket=ticket_id,
                 seller_name=seller_name,
