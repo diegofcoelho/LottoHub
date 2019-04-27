@@ -145,7 +145,7 @@ class SignUpForm(forms.ModelForm):
 class TicketCheckForm(forms.ModelForm):
     method = forms.CharField(widget=forms.HiddenInput(), initial='ATV')
     model = forms.CharField(widget=forms.HiddenInput(), initial='CHK')
-    # captcha = ReCaptchaField(widget=ReCaptchaV2Invisible(), label='')
+    captcha = ReCaptchaField(widget=ReCaptchaV2Invisible(), label='')
 
     id = forms.CharField(max_length=10, required=True, label="Número do Bilhete")
     email = forms.EmailField()
