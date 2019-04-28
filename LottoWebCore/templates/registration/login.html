@@ -42,6 +42,9 @@
                     <form method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
+                        <button onclick="location.href='javascript:history.back()'" type="button" alt="Página anterior">
+                            Voltar
+                        </button>
                         <button type="submit">Login</button>
                         <button onclick="location.href='http://www.example.com'" type="button"
                                 alt="Esqueceu sua senha?">

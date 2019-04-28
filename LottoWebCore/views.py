@@ -54,7 +54,7 @@ def lottery(request):
     })
 
 
-def ticket_check(request, q=None):
+def ticket_check(request):
     #
     if request.method == 'POST':
         try:
@@ -64,13 +64,11 @@ def ticket_check(request, q=None):
             #
             q = Ticket.objects.filter(Q(id=data['id']) &
                                       Q(seller__id=data['seller']) &
-                                      Q(raffle__id=data['raffle']) &
-                                      Q(email=data['email']))
+                                      Q(raffle__id=data['raffle']))
             if q.count() > 0:
                 q = Ticket.objects.get(Q(id=data['id']) &
-                                      Q(seller__id=data['seller']) &
-                                      Q(raffle__id=data['raffle']) &
-                                      Q(email=data['email']))
+                                       Q(seller__id=data['seller']) &
+                                       Q(raffle__id=data['raffle']))
                 #
                 print(q)
                 #

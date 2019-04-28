@@ -62,6 +62,7 @@ class University(models.Model):
 
 class StudentDirectory(models.Model):
     name = models.CharField(max_length=500, null=False, verbose_name='Nome do Centro')
+    acronym = models.CharField(max_length=12, null=False, verbose_name='Sigla do Centro')
     phone = models.CharField(max_length=500, null=False, verbose_name='Telefone ou Ramal')
     email = models.CharField(max_length=500, null=False, verbose_name='E-mail')
     room = models.CharField(max_length=500, verbose_name='Sala')
@@ -75,7 +76,7 @@ class StudentDirectory(models.Model):
         verbose_name_plural = "Centros Acadêmicos"
 
     def __str__(self):
-        return self.name
+        return self.acronym
 
 
 class Raffle(models.Model):
@@ -101,13 +102,8 @@ class Raffle(models.Model):
 
 class MiddleMan(JSONModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='profile')
-    #
-    name = models.CharField(max_length=500, null=True)
     phone = models.CharField(max_length=500, null=True)
-    email = models.CharField(max_length=500, null=True)
-    #
     picture = models.CharField(max_length=500, null=True)
-    analysed = models.BooleanField(default=False)
     raffle = models.ForeignKey(Raffle, null=True, on_delete=models.CASCADE)
     directory = models.ForeignKey(StudentDirectory, null=True, on_delete=models.CASCADE)
     id = models.CharField(max_length=500, default=create_hash, unique=True, primary_key=True)
@@ -129,6 +125,14 @@ class MiddleMan(JSONModel):
     @property
     def first_name(self):
         return self.user.first_name
+
+    @property
+    def name(self):
+        return self.full_name
+
+    @property
+    def email(self):
+        return self.user.email
 
     @property
     def last_name(self):
@@ -188,11 +192,14 @@ class Ticket(models.Model):
 #         verbose_name_plural = "Solicitações de Registro"
 
 class RegistrationRequest(models.Model):
-    name = models.CharField(max_length=500, null=False, verbose_name="Nome")
+    name = models.CharField(max_length=500, null=False, verbose_name="Nome Completo")
+    username = models.CharField(max_length=12, null=True, verbose_name="Nome de Usuário")
     phone = models.CharField(max_length=500, null=False, verbose_name="Telefone")
     email = models.CharField(max_length=500, null=False, unique=True, verbose_name="E-mail")
+    social_media = models.CharField(max_length=500, null=True, verbose_name="Facebook/Instagram (URL)")
     raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, verbose_name="Rifa")
     directory = models.ForeignKey(StudentDirectory, on_delete=models.CASCADE, verbose_name="Centro Acadêmico")
+    analysed = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ["name", "directory", "raffle", "email"]

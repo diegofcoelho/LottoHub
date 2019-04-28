@@ -11,10 +11,6 @@ def create_hash():
     return ticket_hash.hexdigest()[:10]
 
 
-def create_tickets():
-    return 0
-
-
 #
 # def send_email():
 #     message = {
@@ -63,8 +59,6 @@ def create_tickets():
 
 
 def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
-    #
-    print(method)
     #
     try:
         if method == 'ATV':
@@ -176,6 +170,32 @@ def sendMail(method, data, message=None, mail_subject=None, mail_to=None):
                 ticket=ticket_id,
                 seller_name=seller_name,
                 seller_email=seller_email)
+        elif method == 'USR':
+            #
+            username = data['username']
+            raffle = data['raffle']
+            name = data['name']
+            pwd = data['pwd']
+            #
+            mail_subject = "LottoHUB - Usuário {username} ATIVO - {raffle}".format(username=username, raffle=raffle)
+            #
+            message = """
+           <html>
+             <head></head>
+               <body>
+                   <p>Olá {name},<br><br>
+                   Seu nome de usuário é #<b style='font-weight: bold;'>{username}</b> e sua senha provisória <b style='font-weight: bold;'>{pwd}</b>.
+                   <br><br>
+                   Você pode alterar sua senha a qualquer momento em nosso website.
+                   <br><br>
+                   Atenciosamente,<br>
+                   LottoHUB Team<br>
+               </p>
+             </body>
+           </html>
+           """.format(name=name,
+                      username=username,
+                      pwd=pwd)
         #
         msg = MIMEText(message, 'html')
         msg['Subject'] = mail_subject

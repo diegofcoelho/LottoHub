@@ -20,7 +20,7 @@
 # admin.site.register(University, UniversityAdmin)
 from django.contrib import admin
 
-from LottoWebCore.methods import create_tickets
+from LottoWebCore.actions import RequestToUser
 from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, RegistrationRequest, City
 
 
@@ -29,7 +29,6 @@ class TicketAdmin(admin.ModelAdmin):
     ordering = ['id']
     list_display = ['id', 'name', 'seller', 'notified', 'activated']
     list_filter = ['name', 'notified', 'activated']
-    actions = [create_tickets]
     search_fields = ['name', 'notified', 'activated']
     readonly_fields = ['id']
 
@@ -37,11 +36,8 @@ class TicketAdmin(admin.ModelAdmin):
 @admin.register(MiddleMan)
 class MiddleManAdmin(admin.ModelAdmin):
     ordering = ['id']
-    list_display = ['id', 'name', 'analysed', 'full_name']
-    list_filter = ['name', 'analysed']
-    search_fields = ['name', 'analysed']
+    list_display = ['id', 'name', 'full_name']
     readonly_fields = ['id']
-
 
 @admin.register(Raffle)
 class RaffleAdmin(admin.ModelAdmin):
@@ -55,7 +51,7 @@ class RaffleAdmin(admin.ModelAdmin):
 @admin.register(StudentDirectory)
 class StudentDirectoryAdmin(admin.ModelAdmin):
     ordering = ['name']
-    list_display = ['name', 'room', 'city', 'email', 'university']
+    list_display = ['acronym', 'name', 'phone', 'city', 'email', 'university']
     list_filter = ['name', 'room', 'city', 'email', 'university']
     search_fields = ['name', 'university']
 
@@ -72,4 +68,5 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(RegistrationRequest)
 class RegistrationRequestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'phone', 'email', 'raffle', 'directory']
+    list_display = ['name', 'phone', 'email', 'raffle', 'directory', 'analysed']
+    actions = [RequestToUser]

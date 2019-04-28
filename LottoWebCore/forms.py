@@ -148,7 +148,7 @@ class TicketCheckForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Invisible(), label='')
 
     id = forms.CharField(max_length=10, required=True, label="Número do Bilhete")
-    email = forms.EmailField()
+    # email = forms.EmailField()
 
     class Meta:
         model = Ticket

@@ -56,7 +56,8 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {{ CheckForm.as_p }}
-                        <p style="text-align: left;"><input type="submit"/></p>
+                        <p style="text-align: left;">
+                        <a href="javascript:history.back()" class="button">Voltar</a>   <input type="submit"/></p>
                     </form>
                 </div>
                 <div style="text-align: left;" ng-if="AngEnv.TicketStatus==true">
