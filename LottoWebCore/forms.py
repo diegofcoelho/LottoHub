@@ -140,6 +140,9 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = RegistrationRequest
         fields = '__all__'
+        widgets = {
+            'analysed': forms.HiddenInput(),
+        }
 
 
 class TicketCheckForm(forms.ModelForm):
