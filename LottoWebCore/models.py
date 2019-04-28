@@ -62,7 +62,7 @@ class University(models.Model):
 
 class StudentDirectory(models.Model):
     name = models.CharField(max_length=500, null=False, verbose_name='Nome do Centro')
-    acronym = models.CharField(max_length=12, null=True, verbose_name='Sigla do Centro')
+    acronym = models.CharField(max_length=12, null=False, verbose_name='Sigla do Centro')
     phone = models.CharField(max_length=500, null=False, verbose_name='Telefone ou Ramal')
     email = models.CharField(max_length=500, null=False, verbose_name='E-mail')
     room = models.CharField(max_length=500, verbose_name='Sala')

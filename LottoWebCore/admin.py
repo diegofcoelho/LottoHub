@@ -51,7 +51,7 @@ class RaffleAdmin(admin.ModelAdmin):
 @admin.register(StudentDirectory)
 class StudentDirectoryAdmin(admin.ModelAdmin):
     ordering = ['name']
-    list_display = ['name', 'phone', 'city', 'email', 'university']
+    list_display = ['acronym', 'name', 'phone', 'city', 'email', 'university']
     list_filter = ['name', 'room', 'city', 'email', 'university']
     search_fields = ['name', 'university']
 
