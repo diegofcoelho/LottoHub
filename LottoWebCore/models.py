@@ -76,7 +76,7 @@ class StudentDirectory(models.Model):
         verbose_name_plural = "Centros Acadêmicos"
 
     def __str__(self):
-        return self.acronym
+        return self.name if not self.acronym else self.acronym
 
 
 class Raffle(models.Model):
