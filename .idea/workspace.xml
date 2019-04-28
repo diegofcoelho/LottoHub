@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/verify.html" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/verify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +229,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
     <option name="width" value="918" />
     <option name="height" value="1047" />
@@ -376,12 +366,12 @@
       <workItem from="1556380032726" duration="10172000" />
       <workItem from="1556391143466" duration="14000" />
       <workItem from="1556405855540" duration="10768000" />
-      <workItem from="1556454288850" duration="5152000" />
+      <workItem from="1556454288850" duration="5747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="287281000" />
+    <option name="totallyTimeSpent" value="287876000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="918" height="1047" extended-state="0" />
