@@ -10,6 +10,7 @@ from dal import autocomplete
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # Create your views here.
@@ -53,9 +54,44 @@ def lottery(request):
     })
 
 
-def ticket_check(request):
-    return render(request, 'dashboard/verify.html', {'CheckForm': TicketCheckForm
-    })
+def ticket_check(request, q=None):
+    #
+    if request.method == 'POST':
+        try:
+            data = json.loads(json.dumps(request.POST))
+            if not data:
+                data = json.loads(request.body.decode("utf-8"))
+            #
+            q = Ticket.objects.filter(Q(id=data['id']) &
+                                      Q(seller__id=data['seller']) &
+                                      Q(raffle__id=data['raffle']) &
+                                      Q(email=data['email']))
+            if q.count() > 0:
+                q = Ticket.objects.get(Q(id=data['id']) &
+                                      Q(seller__id=data['seller']) &
+                                      Q(raffle__id=data['raffle']) &
+                                      Q(email=data['email']))
+                #
+                print(q)
+                #
+                response = {"status": True,
+                            "TicketStatus": q.activated,
+                            "Nome": q.name,
+                            "Email": q.email,
+                            "Phone": q.phone,
+                            "Seller": q.seller.full_name,
+                            "Notified": q.notified
+                            }
+                return render(request, 'dashboard/verify.html', {'CheckForm': TicketCheckForm,
+                                                                 'cResponse': json.dumps(response)})
+            else:
+                return render(request, 'dashboard/verify.html', {'CheckForm': TicketCheckForm,
+                                                                 'cResponse': json.dumps({"status": False})})
+        except Exception as E:
+            print(E)
+    else:
+        return render(request, 'dashboard/verify.html', {'CheckForm': TicketCheckForm,
+                                                         'cResponse': json.dumps({"status": None})})
 
 
 def signup(request):
@@ -109,19 +145,19 @@ def DashBoard(request):
 # https://github.com/django-tastypie/django-tastypie
 @login_required
 @csrf_protect
-def api_handler(request, method=None):
+def api_handler(request, method=None, response=None):
     # TODO ADD OWNERSHIP RESCTRICTION USER CAN ONLY SEE ITS STORES AND ALLOW STAFF OR SUPER USERS
     # http://stackoverflow.com/questions/12812716/how-do-i-pass-variables-in-django-through-the-url
     # http://www.earthchildpendants.co.uk/gods.html
-    #
-    response = None
     #
     if request.method == 'POST':
         try:
             data = json.loads(json.dumps(request.POST))
             if not data:
                 data = json.loads(request.body.decode("utf-8"))
+            print(data)
         except:
+            print('Error')
             return HttpResponse(json.dumps(response), content_type="application/json")
         #
         o_data = {'status': 200, 'code': 666, 'msg': 'Ops, your post could not be scheduled. \n Check your stats page '

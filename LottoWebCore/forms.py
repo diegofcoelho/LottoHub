@@ -152,4 +152,4 @@ class TicketCheckForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ('raffle',)
+        fields = ('raffle', 'seller')

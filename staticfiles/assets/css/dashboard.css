@@ -1218,6 +1218,7 @@ img {
 
 .field-name {
     font-weight: bold;
+    display: inline-flex;
 }
 
 md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {

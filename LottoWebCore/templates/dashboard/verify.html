@@ -24,30 +24,48 @@
                 <img src="/static/images/LottoHub_logo.png" onclick="location.href='/'" on width="50px" height="50px"
                      alt=""/>
             </span>
-                <h2 style="text-align: left;" ng-hide="status==null">Situação do Bilhete</h2>
-                <hr ng-hide="status==null">
-                <div style="text-align: left;" ng-hide="status==null">
-                    <div class="field-name">Status:</div>
-                    <div class="field-name" ng-hide="status==false">Nome:</div>
-                    <div class="field-name" ng-hide="status==false">E-mail:</div>
-                    <div class="field-name" ng-hide="status==false">Telefone:</div>
+                <h2 style="text-align: left;" ng-hide="AngEnv.status==null">Situação do Bilhete</h2>
+                <hr ng-hide="AngEnv.status==null">
+                <div style="text-align: left;" ng-if="AngEnv.status==true">
+                    <div class="field-name">Status:
+                        <div ng-if="!AngEnv.TicketStatus" style="color: red;"> INATIVO</div>
+                        <div ng-if="AngEnv.TicketStatus" style="color: green;"> ATIVO</div>
+                    </div>
+                    <br>
+                    <div class="field-name" ng-hide="AngEnv.status==false">Nome:</div>
+                    {[{ AngEnv.Nome }]} <br>
+                    <div class="field-name" ng-hide="AngEnv.status==false">E-mail:</div>
+                    {[{ AngEnv.Email }]} <br>
+                    <div class="field-name" ng-hide="AngEnv.status==false">Telefone:</div>
+                    {[{ AngEnv.Phone }]} <br>
                     <div class="field-name">Vendedor:</div>
-                    <div class="field-name">Notificação:</div>
+                    {[{ AngEnv.Seller }]}
                 </div>
-                <hr ng-hide="status==null">
-                <div ng-hide="status!=null">
+                <div style="text-align: left;" ng-if="AngEnv.status==false" layout="column"
+                     layout-align="space-between center">
+                    <p>Não existe bilhete cadastrado com as informações enviadas.<br>
+                        Verifique os dados presentes no canhoto do bilhete e tente novamente.
+                    </p>
+                    <div style="text-align: right;width: 100%;">
+                        <a href="javascript:history.back()" class="button">Voltar</a>
+                    </div>
+                </div>
+                <hr ng-hide="AngEnv.status==null">
+                <div ng-hide="AngEnv.status!=null">
                     <h2 style="text-align: left;">Verificar Bilhete</h2>
                     <form action="" method="post">
                         {% csrf_token %}
                         {{ CheckForm.as_p }}
-                        <p><input type="submit"/></p>
+                        <p style="text-align: left;"><input type="submit"/></p>
                     </form>
                 </div>
-                <div style="text-align: left;" ng-hide="status!=true">
+                <div style="text-align: left;" ng-if="AngEnv.TicketStatus==true">
                     Boa Sorte!
                 </div>
-                <div style="text-align: left;" ng-hide="status!=false" layout="row" layout-align="space-between center">
-                    <p>Notifique seu vendedor!</p> <md-button class="md-raised md-warn">Notificar!</md-button>
+                <div style="text-align: left;" ng-if="AngEnv.TicketStatus==false" layout="row"
+                     layout-align="space-between center">
+                    <p>Notifique seu vendedor!</p>
+                    <md-button class="md-raised md-warn">Notificar!</md-button>
                 </div>
             </header>
         </md-card>
@@ -71,6 +89,7 @@
         if ('addEventListener' in window) {
             window.addEventListener('load', function () {
                 document.body.className = document.body.className.replace(/\bis-preload\b/, '');
+                $('#main').scope().$apply();
             });
             document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
         }
@@ -106,10 +125,7 @@
             .controller('dataCtrl', ['$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', function ($scope, $mdDialog, $timeout, $http) {
                 //
                 $scope.status = null;
-                $scope.AngEnv = {
-                    Url: window.location.pathname,
-                    status: null
-                }
+                $scope.AngEnv = {{ cResponse|safe }}
                 ;
                 //
                 $scope.cancel = function () {

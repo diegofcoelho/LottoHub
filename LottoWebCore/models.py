@@ -120,7 +120,7 @@ class MiddleMan(JSONModel):
         verbose_name_plural = "Colaboradores"
 
     def __str__(self):
-        return self.user.username
+        return self.full_name
 
     @property
     def centro(self):
@@ -157,6 +157,7 @@ class Ticket(models.Model):
     email = models.CharField(max_length=500, verbose_name='E-mail', null=True)
     notified = models.BooleanField(default=False)  # by the SERVER and to the client
     activated = models.BooleanField(default=False)  # by LABAM
+    flagged = models.BooleanField(default=False)  # by USER if NOT activated
     created = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(MiddleMan, on_delete=models.CASCADE, verbose_name='Vendedor')
     raffle = models.ForeignKey(Raffle, on_delete=models.CASCADE, verbose_name='Rifa')
