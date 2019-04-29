@@ -27,7 +27,7 @@ from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, Uni
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     ordering = ['id']
-    list_display = ['id', 'name', 'seller', 'notified', 'activated']
+    list_display = ['id', 'name', 'directory', 'seller', 'notified', 'activated']
     list_filter = ['name', 'notified', 'activated']
     search_fields = ['name', 'notified', 'activated']
     readonly_fields = ['id']
@@ -38,6 +38,7 @@ class MiddleManAdmin(admin.ModelAdmin):
     ordering = ['id']
     list_display = ['id', 'name', 'full_name']
     readonly_fields = ['id']
+
 
 @admin.register(Raffle)
 class RaffleAdmin(admin.ModelAdmin):

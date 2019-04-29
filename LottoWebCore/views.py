@@ -122,7 +122,14 @@ def DashBoard(request):
     users_data = json.loads(users_data)
     user_data = [user['fields'] for user in users_data if user['fields']['username'] == str(request.user)][0]
     seller_data = MiddleMan.objects.filter(user__username=request.user)[0].to_dict()
+    seller_raffle = MiddleMan.objects.get(user__username=request.user).raffle
+    seller_directory = MiddleMan.objects.get(user__username=request.user).directory
     seller_dict = StudentDirectory.objects.get(id=seller_data['directory']).name
+    #
+    ticket_total = Ticket.objects.filter(raffle=seller_raffle)
+    ticket_total_dir = ticket_total.filter(directory=seller_directory)
+    ticket_sold = ticket_total.filter(activated=True)
+    ticket_sold_dir = ticket_total_dir.filter(activated=True)
     #
     if request.method == 'POST':
         api_handler(request)
@@ -137,6 +144,10 @@ def DashBoard(request):
                    'SDForm': StudentDirectoryForm,
                    'UForm': UniversityForm,
                    'CForm': CityForm,
+                   'ticket_total': ticket_total.count(),
+                   'ticket_total_dir': ticket_total_dir.count(),
+                   'ticket_sold': ticket_sold.count(),
+                   'ticket_sold_dir': ticket_sold_dir.count(),
                    'RForm': RaffleForm})
 
 

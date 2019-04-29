@@ -115,42 +115,26 @@
                         <p><input type="submit"/></p>
                     </form>
                 </div>
-                <div ng-hide="ActiveForm!=null" class="gridListdemoBasicUsage">
+                <div ng-hide="ActiveForm!=null" layout="row">
                     <h2 style="width: 100%; text-align: right;">Olá, {{ UserData.first_name }}.</h2>
-                    <hr>
-                    <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="3" md-rows-gt-sm="3"
-                                  md-row-height="4:2" md-gutter="12px" md-gutter-gt-sm="8px">
-                        <md-grid-tile class="gray" md-rowspan="3" md-colspan="2">
-                            <ng-gauge type="{[{ AngEnv.options.type }]}" size="{[{ AngEnv.options.size }]}"
-                                      thick="{[{ AngEnv.options.thick }]}"
-                                      label="{[{ AngEnv.options.label }]}" append="{[{ AngEnv.options.append }]}"
-                                      prepend="{[{ AngEnv.options.prepend }]}" cap="{[{ AngEnv.options.cap }]}"
-                                      foreground-color="{[{ AngEnv.options.foregroundColor }]}"
-                                      background-color="{[{ AngEnv.options.backgroundColor }]}"
-                                      value="AngEnv.options.value"
-                                      min="AngEnv.options.min" max="AngEnv.options.max"
-                                      thresholds="AngEnv.enableThresholds ? AngEnv.thresholds : AngEnv.empty">
-                            </ng-gauge>
-                        </md-grid-tile>
-                        <md-grid-tile class="red" md-rowspan="1" md-colspan="1">
-                                <h1>{{ ticket_total }}</h1>
-                            <md-grid-tile-footer>
-                                <h3>Total | Emitidos</h3>
-                            </md-grid-tile-footer>
-                        </md-grid-tile>
-                        <md-grid-tile class="yellow" md-rowspan="1" md-colspan="1">
-                               <h1> {{ ticket_total_dir }}</h1>
-                            <md-grid-tile-footer>
-                                <h3>Centro | Emitidos</h3>
-                            </md-grid-tile-footer>
-                        </md-grid-tile>
-                        <md-grid-tile class="green" md-rowspan="1" md-colspan="1">
-                                <h1>{{ ticket_sold_dir }}</h1>
-                            <md-grid-tile-footer>
-                                <h3>Centro | Vendidos</h3>
-                            </md-grid-tile-footer>
-                        </md-grid-tile>
-                    </md-grid-list>
+                    <ng-gauge type="{[{ AngEnv.options.type }]}" size="{[{ AngEnv.options.size }]}"
+                              thick="{[{ AngEnv.options.thick }]}"
+                              label="{[{ AngEnv.options.label }]}" append="{[{ AngEnv.options.append }]}"
+                              prepend="{[{ AngEnv.options.prepend }]}" cap="{[{ AngEnv.options.cap }]}"
+                              foreground-color="{[{ AngEnv.options.foregroundColor }]}"
+                              background-color="{[{ AngEnv.options.backgroundColor }]}" value="AngEnv.options.value"
+                              min="AngEnv.options.min" max="AngEnv.options.max"
+                              thresholds="AngEnv.enableThresholds ? AngEnv.thresholds : AngEnv.empty">
+                    </ng-gauge>
+                    <ng-gauge type="{[{ AngEnv.options.type }]}" size="{[{ AngEnv.options.f_size }]}"
+                              thick="{[{ AngEnv.options.f_thick }]}"
+                              label="{[{ AngEnv.options.f_label }]}" append="{[{ AngEnv.options.append }]}"
+                              prepend="{[{ AngEnv.options.prepend }]}" cap="{[{ AngEnv.options.cap }]}"
+                              foreground-color="{[{ AngEnv.options.foregroundColor }]}"
+                              background-color="{[{ AngEnv.options.backgroundColor }]}" value="AngEnv.options.f_value"
+                              min="AngEnv.options.f_min" max="AngEnv.options.f_max"
+                              thresholds="AngEnv.enableThresholds ? AngEnv.thresholds : AngEnv.empty">
+                    </ng-gauge>
                 </div>
                 <div ng-hide="ActiveForm!='TCK_E'">
                     <h2 style="text-align: left;">Editar Ticket</h2>
@@ -347,17 +331,17 @@
                     Url: window.location.pathname
                 };
                 //
-                let gauge_label = ((1 < {{ ticket_sold }}) ? 'bilhetes' : 'bilhete');
+                let gauge_label = ((1 < {{ ticket_count }}) ? 'bilhetes' : 'bilhete');
                 //
                 $scope.AngEnv.options = {
                     type: 'full',
                     cap: 'butt',
                     size: parseInt(window.innerWidth / 5),
-                    value: {{ ticket_sold }},
+                    value: {{ ticket_count }},
                     thick: parseInt(window.innerWidth / 40),
                     label: gauge_label,
                     f_size: parseInt(window.innerWidth / 6),
-                    f_value: {{ ticket_sold }},
+                    f_value: {{ ticket_count }},
                     f_thick: parseInt(window.innerWidth / 40),
                     f_label: '%',
                     append: '',
@@ -372,16 +356,16 @@
                 $scope.AngEnv.enableThresholds = true;
                 $scope.AngEnv.thresholds = {
                     '1500': {color: 'green'},
-                    '1100': {color: 'yellow'},
-                    '800': {color: 'orange'},
-                    '500': {color: "coral"},
+                    '1200': {color: 'coral'},
+                    '1000': {color: 'yellow'},
+                    '800': {color: "orange"},
                     '0': {color: 'red'}
                 };
                 $scope.AngEnv.empty = {};
                 //
                 $(window).resize(function () {
-                    gauge_label = ((1 < {{ ticket_sold }}) ? 'bilhetes' : 'bilhete');
-                    $scope.AngEnv.options.size = parseInt(window.innerWidth / 5);
+                    gauge_label = ((1 < {{ ticket_count }}) ? 'bilhetes' : 'bilhete');
+                    $scope.AngEnv.options.size = parseInt(window.innerWidth / 3.5);
                     $scope.AngEnv.options.thick = parseInt(window.innerWidth / 40);
                     $scope.$apply();
                 });
