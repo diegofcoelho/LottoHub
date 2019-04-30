@@ -117,7 +117,7 @@
                 </div>
                 <div ng-hide="ActiveForm!=null" class="gridListdemoBasicUsage">
                     <h2 style="width: 100%; text-align: right;">Olá, {{ UserData.first_name }}.</h2>
-                    <hr>
+
                     <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="3" md-rows-gt-sm="3"
                                   md-row-height="4:2" md-gutter="12px" md-gutter-gt-sm="8px">
                         <md-grid-tile class="gray" md-rowspan="3" md-colspan="2">
@@ -133,19 +133,19 @@
                             </ng-gauge>
                         </md-grid-tile>
                         <md-grid-tile class="red" md-rowspan="1" md-colspan="1">
-                                <h1>{{ ticket_total }}</h1>
+                            <h1>{{ ticket_total }}</h1>
                             <md-grid-tile-footer>
                                 <h3>Total | Emitidos</h3>
                             </md-grid-tile-footer>
                         </md-grid-tile>
                         <md-grid-tile class="yellow" md-rowspan="1" md-colspan="1">
-                               <h1> {{ ticket_total_dir }}</h1>
+                            <h1> {{ ticket_total_dir }}</h1>
                             <md-grid-tile-footer>
                                 <h3>Centro | Emitidos</h3>
                             </md-grid-tile-footer>
                         </md-grid-tile>
-                        <md-grid-tile class="green" md-rowspan="1" md-colspan="1">
-                                <h1>{{ ticket_sold_dir }}</h1>
+                        <md-grid-tile class="green" md-rowspan="1" md-colspan-gt-md="1" md-colspan-gt-xs="2">
+                            <h1>{{ ticket_sold_dir }}</h1>
                             <md-grid-tile-footer>
                                 <h3>Centro | Vendidos</h3>
                             </md-grid-tile-footer>
@@ -235,6 +235,9 @@
                     </a>
                     <a ng-click="ActiveForm='TCK_G'" href="">
                         <li><i class="material-icons LHButtons">local_activity</i></li>
+                    </a>
+                    <a target="_blank" href="/pdf">
+                        <li><i class="material-icons LHButtons">print</i></li>
                     </a>
                     <a href="{% url 'sorteio' %}">
                         <li><i class="material-icons LHButtons">casino</i></li>
@@ -348,6 +351,7 @@
                 };
                 //
                 let gauge_label = ((1 < {{ ticket_sold }}) ? 'bilhetes' : 'bilhete');
+                gauge_label = ``;
                 //
                 $scope.AngEnv.options = {
                     type: 'full',

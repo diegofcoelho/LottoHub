@@ -185,10 +185,14 @@ def api_handler(request, method=None, response=None):
                             directory=StudentDirectory.objects.get(pk=data['directory'])
                         ))
                         time.sleep(0.001)
-                        print(1)
                     ticket_ids = [t.id for t in tickets]
                     #
-                    request.session['tickets_id'] = json.dumps(ticket_ids)
+                    if request.session.get('tickets_id') is None:
+                        request.session['tickets_id'] = json.dumps(ticket_ids)
+                    else:
+                        ticket_session = json.loads(request.session['tickets_id'])
+                        ticket_ids.extend(ticket_session)
+                        request.session['tickets_id'] = json.dumps(ticket_ids)
                     #
                     Ticket.objects.bulk_create(tickets)
                 except Exception as E:
@@ -375,7 +379,6 @@ def pdf_gen(request):
         return redirect('/dashboard')
     #
     codes = json.loads(request.session.get('tickets_id'))
-    request.session['tickets_id'] = None
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
     # Opens an image
@@ -447,5 +450,6 @@ def pdf_gen(request):
     buffer.seek(0)
 
     response = HttpResponse(buffer.read(), content_type='application/pdf')
-    response['Content-Disposition'] = 'inline;filename=hello.pdf'
+    response['Content-Disposition'] = 'inline;filename=ticket_pages.pdf'
+    request.session['tickets_id'] = None
     return response
