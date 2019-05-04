@@ -238,7 +238,7 @@
                     e.removeClass('paused');
                     let counter = 0;
                     let res = window.setInterval(function () {
-                        $scope.nyx('http://localhost:8000/nyx/');
+                        $scope.nyx('/nyx/');
                         $scope.tickets[IDX] = $scope.temp['id'];
                         counter = counter + 1;
                         //
@@ -295,7 +295,7 @@
                 });
                 //
                 $scope.poll = null;
-                $scope.nyx('http://localhost:8000/sorteio2/');
+                $scope.nyx('/sorteio2/');
                 //
                 $scope.ticketID = function (IDX, ID) {
                     $scope.poll = $scope.temp;
