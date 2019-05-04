@@ -155,12 +155,13 @@ def save_user_profile(sender, instance, **kwargs):
     # instance.profile.save()
 
 
-class Ticket(models.Model):
+class Ticket(JSONModel):
     name = models.CharField(max_length=500, verbose_name='Comprador', null=True)
     phone = models.CharField(max_length=500, verbose_name='Telefone', null=True)
     email = models.CharField(max_length=500, verbose_name='E-mail', null=True)
     notified = models.BooleanField(default=False)  # by the SERVER and to the client
     activated = models.BooleanField(default=False)  # by LABAM
+    winner = models.BooleanField(default=False)  # by LABAM
     flagged = models.BooleanField(default=False)  # by USER if NOT activated
     created = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(MiddleMan, on_delete=models.CASCADE, verbose_name='Vendedor')

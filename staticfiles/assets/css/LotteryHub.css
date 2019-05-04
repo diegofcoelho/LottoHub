@@ -1,0 +1,135 @@
+.odometer {
+    height: 3em;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+    /* margin: 0 auto; */
+    display: inline-block;
+    background: #444;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 5px;
+    -moz-box-shadow: inset 0 2px 8px -2px #000;
+    -webkit-box-shadow: inset 0 2px 8px -2px #000;
+    box-shadow: inset 0 2px 8px -2px #000;
+}
+
+.digit {
+    font-size: 3em;
+    display: inline-block;
+    height: 1em;
+    /* width: 0.59em; */
+    width: 20vw;
+    overflow: hidden;
+    padding: 0 0.2em;
+}
+
+.digit:first-child {
+    border-left: none;
+}
+
+.digit-container {
+    line-height: 1em;
+    -webkit-animation: slide infinite linear;
+    animation: slide infinite linear;
+}
+
+.digit-one {
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
+}
+
+.digit-ten {
+    -webkit-animation-duration: 50000ms;
+    animation-duration: 50000ms;
+}
+
+.digit-hundred {
+    -webkit-animation-duration: 500000ms;
+    animation-duration: 500000ms;
+}
+
+@-webkit-keyframes slide {
+    from {
+        /* -webkit-transform: translateY(0);
+         /*/
+        -webkit-transform: translateY(-2em);
+    }
+    to {
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes slide {
+    from {
+        /*transform: translateY(0);
+        /*/
+        -webkit-transform: translateY(-2em);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+#main {
+    -moz-transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -moz-transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -moz-transition: opacity 1s ease, -moz-transform 1s ease;
+    -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+    -ms-transition: opacity 1s ease, -ms-transform 1s ease;
+    transition: opacity 1s ease, transform 1s ease;
+    padding: 2em 3em 2em 3em;
+    margin-bottom: 0;
+    background: #ffffff;
+    border-radius: 4px;
+    cursor: default;
+    max-width: 100%;
+    opacity: 0.95;
+    position: relative;
+    text-align: center;
+    width: 90vw;
+    height: 75vh;
+
+}
+
+.paused {
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation: none;
+    animation-iteration-count: 1;
+    animation: none;
+    -moz-animation-iteration-count: 1;
+    -moz-animation: none;
+    -o-animation-iteration-count: 1;
+    -o-animation: none;
+}
+
+.lotto-button {
+    font-size: 2.5em !important;
+    width: 5vw !important;
+    height: 5vw !important;
+    line-height: 2.85em !important;
+    max-height: unset !important;
+    position: relative;
+    right: -46vw;
+    bottom: -2vh;
+}
+
+.digit-name {
+    line-height: 1em;
+    width: 45vw;
+    font-size: 3em;
+    background-color: whitesmoke;
+    color: black;
+}
+
+.digit-dir {
+    width: 10vw;
+    font-size: 2.5em;
+    line-height: 1.2em;
+    /* height: 100%; */
+}

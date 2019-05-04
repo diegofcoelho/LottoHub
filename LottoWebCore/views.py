@@ -1,5 +1,7 @@
 import io
 import json
+import random
+
 import math
 import os
 import time
@@ -7,15 +9,16 @@ from datetime import datetime
 
 from PIL import Image, ImageDraw, ImageFont
 from dal import autocomplete
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Max
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import re_path
 # from django.utils.safestring import mark_safe
+from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import RedirectView
 
@@ -50,8 +53,27 @@ def index(request):
 
 @login_required
 def lottery(request):
-    return render(request, 'dashboard/lottery.html', {
+    return render(request, 'dashboard/LotteryHub.html', {
+        'directories': mark_safe(json.dumps({dir.id: dir.acronym for dir in StudentDirectory.objects.all()}))
     })
+
+
+def check_admin(user):
+    return user.is_superuser
+
+
+# @user_passes_test(check_admin)
+def lottery_b(request):
+    objs = Ticket.objects.filter(activated=False)
+    n_objs = objs.count()
+    pk = random.randint(1, n_objs)
+    return HttpResponse(json.dumps(objs[pk].to_dict()), content_type="application/json")
+
+
+def lottery_c(request):
+    objs = Ticket.objects.filter(activated=False)
+    objs_list = [obj.to_dict() for obj in objs]
+    return HttpResponse(json.dumps(objs_list), content_type="application/json")
 
 
 def ticket_check(request):

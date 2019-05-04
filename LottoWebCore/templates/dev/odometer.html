@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="odometer.css"/>
+    <script src="../../../staticfiles/assets/js/jquery.min.js">
+    </script>
+    <script src="../../../staticfiles/assets/js/angular.js"></script>
+    <script src="../../../staticfiles/assets/js/material.min.js"></script>
+    <script src="../../../staticfiles/assets/js/angular-animate.min.js"></script>
+    <script src="../../../staticfiles/assets/js/angular-route.min.js"></script>
+    <script src="../../../staticfiles/assets/js/angular-aria.min.js"></script>
+    <script src="../../../staticfiles/assets/js/angular-messages.min.js"></script>
+    <script src="../../../staticfiles/assets/js/angular-material.min.js"></script>
+    <script src="../../../staticfiles/assets/js/angular-sanitize.min.js"></script>
+</head>
+<body class="is-preload" ng-controller="dataCtrl as AngEnv" ng-app="LottoApp" id="bg">
+<div class="odometer">
+    <!--
+    <div class="digit">
+        <div class="digit-container digit-hundred">0 9 8 7 6 5 4 3 2 1 0</div>
+    </div>
+    <div class="digit">
+        <div class="digit-container digit-ten">0 9 8 7 6 5 4 3 2 1 0</div>
+    </div>
+    -->
+    <div class="digit">
+        <div class="digit-container digit-one"> {[{ ticket }]}{[{ ticket }]}{[{ ticket }]}
+        </div>
+    </div>
+</div>
+<script>
+    angular.module('LottoApp', ['ngMaterial', 'ngMessages', 'ngSanitize', "ngAnimate", "ngRoute"], function ($interpolateProvider, $httpProvider) {
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    })
+        .config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }])
+        .config(
+            function ($mdIconProvider, $$mdSvgRegistry) {
+                // Add default icons from angular material
+                $mdIconProvider
+                    .icon('md-close', $$mdSvgRegistry.mdClose)
+                    .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                    .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                    .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+            }
+        )
+        .filter('ObjectLength', function () {
+            return function (object) {
+                return Object.keys(object).length;
+            }
+        })
+        .controller('dataCtrl', ['$location', '$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', '$timeout', function ($location, $scope, $mdDialog, $timeout, $http, $window) {
+            //
+            $scope.$on('$locationChangeSuccess', function (event) {
+                window.setInterval(function () {
+                    /// call your function here
+                    $scope.ticket = $scope.getRandomSpan();
+                    //console.log($scope.ticket);
+                    $scope.$apply();
+                }, 200);
+            });
+            //
+            $(window).resize(function () {
+                //
+            });
+            //
+            $scope.getRandomSpan = function () {
+                return Math.floor((Math.random() * 6) + 1);
+            }
+        }])
+        .directive('errSrc', function () {
+            return {
+                link: function (scope, element, attrs) {
+                    element.bind('error', function () {
+                        if (attrs.src !== attrs.errSrc) {
+                            attrs.$set('src', attrs.errSrc);
+                        }
+                    });
+
+                    attrs.$observe('ngSrc', function (value) {
+                        if (!value && attrs.errSrc) {
+                            attrs.$set('src', attrs.errSrc);
+                        }
+                    });
+                }
+            }
+        })
+</script>
+</body>
+</html>

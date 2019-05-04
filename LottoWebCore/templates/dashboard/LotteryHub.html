@@ -1,0 +1,350 @@
+{% extends "__base__.html" %}
+
+{% load static %}
+
+{% block title %}LottoHUB | Sorteio{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/assets/css/dashboard.css"/>
+    <link rel="stylesheet" href="/static/assets/css/LotteryHub.css"/>
+    <noscript>
+        <link rel="stylesheet" href="/static/assets/css/noscript.css"/>
+    </noscript>
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <section id="LHHeader" class="LHFields">
+            <ul class="icons">
+                <a ng-click="ActiveForm=null" href="">
+                    <li><i class="material-icons LHButtons">poll</i></li>
+                </a>
+                <a ng-click="ActiveForm='TCK_E'" href="">
+                    <li><i class="material-icons LHButtons">receipt</i></li>
+                </a>
+                <a ng-click="ActiveForm='TCK_A'" href="">
+                    <li><i class="material-icons LHButtons">beenhere</i></li>
+                </a>
+                <a ng-click="ActiveForm='PRF'" href="">
+                    <li><i class="material-icons LHButtons">person_pin</i></li>
+                </a>
+                <a href="{% url 'logout' %}">
+                    <li><i class="material-icons LHButtons">exit_to_app</i></li>
+                </a>
+            </ul>
+        </section>
+        <br>
+        <!-- Main -->
+        <md-card id="main" layout="column" layout-align="space-between space-between">
+            <div layout="row" layout-align="space-between center" style="width: 100%;">
+                <div class="odometer">
+                    <div class="digit">
+                        <div id='display1' class="digit-container digit-one">
+                            {[{ tickets[0] }]}
+                            {[{ tickets[0] }]}
+                            {[{ tickets[0] }]}
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-name">
+                    <div class="digit-container digit-one display1">
+                        {[{ winners[0] }]}<br>
+                        {[{ winners[0] }]}<br>
+                        {[{ winners[0] }]}
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-dir">
+                    <div class="digit-container digit-one display1">
+                        {[{ directories[directory[0]] }]}
+                        {[{ directories[directory[0]] }]}
+                        {[{ directories[directory[0]] }]}
+                    </div>
+                </div>
+            </div>
+            <div layout="row" layout-align="space-between center" style="width: 100%;">
+                <div class="odometer">
+                    <div class="digit">
+                        <div id="display2" class="digit-container digit-one">
+                            {[{ tickets[1] }]}
+                            {[{ tickets[1] }]}
+                            {[{ tickets[1] }]}
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-name">
+                    <div class="digit-container digit-one display2">
+                        {[{ winners[1] }]}<br>
+                        {[{ winners[1] }]}<br>
+                        {[{ winners[1] }]}
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-dir">
+                    <div class="digit-container digit-one display2">
+                        {[{ directories[directory[1]] }]}
+                        {[{ directories[directory[1]] }]}
+                        {[{ directories[directory[1]] }]}
+                    </div>
+                </div>
+            </div>
+            <div layout="row" layout-align="space-between center" style="width: 100%;">
+                <div class="odometer">
+                    <div class="digit">
+                        <div id="display3" class="digit-container digit-one">
+                            {[{ tickets[2] }]}
+                            {[{ tickets[2] }]}
+                            {[{ tickets[2] }]}
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-name">
+                    <div class="digit-container digit-one display3">
+                        {[{ winners[2] }]}<br>
+                        {[{ winners[2] }]}<br>
+                        {[{ winners[2] }]}
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-dir">
+                    <div class="digit-container digit-one display3">
+                        {[{ directories[directory[2]] }]}
+                        {[{ directories[directory[2]] }]}
+                        {[{ directories[directory[2]] }]}
+                    </div>
+                </div>
+            </div>
+            <div layout="row" layout-align="space-between center" style="width: 100%;">
+                <div class="odometer">
+                    <div class="digit">
+                        <div id="display4" class="digit-container digit-one">
+                            {[{ tickets[3] }]}
+                            {[{ tickets[3] }]}
+                            {[{ tickets[3] }]}
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-name">
+                    <div class="digit-container digit-one display4">
+                        {[{ winners[3] }]}<br>
+                        {[{ winners[3] }]}<br>
+                        {[{ winners[3] }]}
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-dir">
+                    <div class="digit-container digit-one display4">
+                        {[{ directories[directory[3]] }]}
+                        {[{ directories[directory[3]] }]}
+                        {[{ directories[directory[3]] }]}
+                    </div>
+                </div>
+            </div>
+            <div layout="row" layout-align="space-between center" style="width: 100%;">
+                <div class="odometer">
+                    <div class="digit">
+                        <div id="display5" class="digit-container digit-one">
+                            {[{ tickets[4] }]}
+                            {[{ tickets[4] }]}
+                            {[{ tickets[4] }]}
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-name">
+                    <div class="digit-container digit-one display5">
+                        {[{ winners[4] }]}<br>
+                        {[{ winners[4] }]}<br>
+                        {[{ winners[4] }]}
+                    </div>
+                </div>
+                <div class="winner-name odometer digit-one digit digit-dir">
+                    <div class="digit-container digit-one display5">
+                        {[{ directories[directory[4]] }]}
+                        {[{ directories[directory[4]] }]}
+                        {[{ directories[directory[4]] }]}
+                    </div>
+                </div>
+            </div>
+        </md-card>
+        <md-button class=" lotto-button md-fab" flex="1" ng-click="sorteio()">
+            <i class="material-icons LHButtons">casino</i>
+        </md-button>
+    </div>
+{% endblock %}
+
+
+{% block late_script %}
+    <script>
+        if ('addEventListener' in window) {
+            window.addEventListener('load', function () {
+                document.body.className = document.body.className.replace(/\bis-preload\b/, '');
+            });
+            document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+        }
+        window.history.replaceState(null, null, window.location.href);
+    </script>
+{% endblock %}
+
+{% block angularJS %}
+    <script>
+        angular.module('LottoApp', ['ngMaterial', 'ngMessages', 'ngSanitize', "ngAnimate", "ngRoute"], function ($interpolateProvider, $httpProvider) {
+            $interpolateProvider.startSymbol('{[{');
+            $interpolateProvider.endSymbol('}]}');
+        })
+            .config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
+                $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+                $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            }])
+            .config(
+                function ($mdIconProvider, $$mdSvgRegistry) {
+                    // Add default icons from angular material
+                    $mdIconProvider
+                        .icon('md-close', $$mdSvgRegistry.mdClose)
+                        .icon('md-menu', $$mdSvgRegistry.mdMenu)
+                        .icon('md-toggle-arrow', $$mdSvgRegistry.mdToggleArrow)
+                        .icon('md-tabs-arrow', $$mdSvgRegistry.mdTabsArrow);
+                }
+            )
+            .filter('ObjectLength', function () {
+                return function (object) {
+                    return Object.keys(object).length;
+                }
+            })
+            .controller('dataCtrl', ['$location', '$scope', "$mdDialog", '$timeout', '$http', '$mdToast', '$location', '$window', '$timeout', function ($location, $scope, $mdDialog, $timeout, $http, $window) {
+                //$scope.ticket = 'be590e1584';
+                $scope.directories = {{ directories }};
+                //
+                $scope.max_swaps = 500;
+                $scope.tickets = ['', '', '', '', ''];
+                $scope.winners = ['', '', '', '', ''];
+                $scope.idxs = ['', '', '', '', ''];
+                $scope.directory = ['', '', '', '', ''];
+                //
+                $scope.$on('$locationChangeSuccess', function (event) {
+
+                    let counter = 0;
+                    var res = window.setInterval(function () {
+                        /// call your function here
+                        // $scope.ticket = $scope.getRandomSpan();
+                        //$scope.nyx();
+                        // console.log($scope.ticket);
+                        counter = counter + 1;
+                        $scope.$apply();
+                        if (counter >= $scope.max_swaps) {
+                            clearInterval(res);
+                        }
+                    }, 50)
+                });
+                //
+                $scope.ticketID2 = function (IDX, ID) {
+                    let e = $(ID);
+                    e.removeClass('paused');
+                    let counter = 0;
+                    let res = window.setInterval(function () {
+                        $scope.nyx('http://localhost:8000/nyx/');
+                        $scope.tickets[IDX] = $scope.temp['id'];
+                        counter = counter + 1;
+                        //
+                        if (counter >= $scope.max_swaps) {
+                            let e = $(ID);
+                            e.addClass('paused');
+                            let f = e.clone(true);
+                            //e.remove();
+                            e.replaceWith(f);
+                            clearInterval(res);
+                        }
+                    }, 50);
+                };
+                //
+                $scope.sorteio = function () {
+                    $timeout(function () {
+                        $scope.ticketID(0, 'display1')
+                    }, 0);
+                    $timeout(function () {
+                        $scope.ticketID(1, 'display2')
+                    }, 1000);
+                    $timeout(function () {
+                        $scope.ticketID(2, 'display3')
+                    }, 2000);
+                    $timeout(function () {
+                        $scope.ticketID(3, 'display4')
+                    }, 3000);
+                    $timeout(function () {
+                        $scope.ticketID(4, 'display5')
+                    }, 4000);
+                };
+                //
+                $scope.nyx = function (url) {
+                    $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+                    })
+                        .success(function (data) {
+                            $scope.temp = data;
+                        })
+                        .finally(function (data) {
+                            // return data['id'];
+                            //
+                        })
+                        .then(function (data) {
+                            // $scope.ticket = data['id'];
+                            // return data['id'];
+                        });
+                };
+                //
+                $(window).resize(function () {
+                    //
+                });
+                //
+                $scope.poll = null;
+                $scope.nyx('http://localhost:8000/sorteio2/');
+                //
+                $scope.ticketID = function (IDX, ID) {
+                    $scope.poll = $scope.temp;
+                    $scope.max_swaps = $scope.poll.length;
+                    let counter = 1;
+                    $('#' + ID).removeClass('paused');
+                    $('.' + ID).removeClass('paused');
+                    let res = window.setInterval(function () {
+                        let max = $scope.poll.length - 1;
+                        //console.log(max);
+                        let ticket = Math.floor((Math.random() * max));
+                        let name = $scope.poll[ticket]['name'];
+                        let id = $scope.poll[ticket]['id'];
+                        let directory = $scope.poll[ticket]['directory'];
+                        //
+                        $scope.winners[IDX] = name;
+                        $scope.tickets[IDX] = id;
+                        $scope.$apply();
+                        $scope.directory[IDX] = directory;
+                        $scope.idxs[IDX] = ticket;
+                        counter = counter + 1;
+                        //
+                        if (counter >= $scope.max_swaps) {
+                            $('#' + ID).addClass('paused');
+                            $('.' + ID).addClass('paused');
+                            clearInterval(res);
+                            $scope.poll.splice(ticket, 1);
+                            $scope.$apply();
+                        }
+                    }, 50);
+
+                }
+            }])
+            .directive('errSrc', function () {
+                return {
+                    link: function (scope, element, attrs) {
+                        element.bind('error', function () {
+                            if (attrs.src !== attrs.errSrc) {
+                                attrs.$set('src', attrs.errSrc);
+                            }
+                        });
+
+                        attrs.$observe('ngSrc', function (value) {
+                            if (!value && attrs.errSrc) {
+                                attrs.$set('src', attrs.errSrc);
+                            }
+                        });
+                    }
+                }
+            })
+    </script>
+{% endblock %}
