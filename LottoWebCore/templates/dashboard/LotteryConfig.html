@@ -1,0 +1,26 @@
+<md-input-container class="md-block">
+    <label>Hourly Rate (USD)</label>
+    <input required="" type="number" step="1" name="rate" ng-model="max_winners" min="1" max="10"
+           ng-pattern="/^1234$/">
+
+    <div ng-messages="projectForm.rate.$error" multiple="" md-auto-hide="false">
+        <div ng-message="required">
+            You've got to charge something! You can't just <b>give away</b> a Missile Defense
+            System.
+        </div>
+
+        <div ng-message="min">
+            You should charge at least $800 an hour. This job is a big deal... if you mess up,
+            everyone dies!
+        </div>
+
+        <div ng-message="pattern">
+            You should charge exactly $1,234.
+        </div>
+
+        <div ng-message="max">
+            {{ projectForm.rate.$viewValue | currency:"$":0}} an hour? That's a little ridiculous. I
+            doubt even Bill Clinton could afford that.
+        </div>
+    </div>
+</md-input-container>

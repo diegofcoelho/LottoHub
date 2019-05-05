@@ -1,9 +1,10 @@
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Invisible
-from dal import autocomplete
+from dal import autocomplete, forward
 from django import forms
 
-from LottoWebCore.models import MiddleMan, Ticket, StudentDirectory, University, Raffle, City, RegistrationRequest
+from LottoWebCore.models import MiddleMan, Ticket, StudentDirectory, University, Raffle, City, RegistrationRequest, \
+    Prize
 
 
 class TicketForm(forms.ModelForm):
@@ -151,8 +152,29 @@ class TicketCheckForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Invisible(), label='')
 
     id = forms.CharField(max_length=10, required=True, label="Número do Bilhete")
+
     # email = forms.EmailField()
 
     class Meta:
         model = Ticket
         fields = ('raffle', 'seller')
+
+
+class WinnersConfigForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super(WinnersConfigForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        self.fields['prize'].widget.attrs['ng-change'] = 'getRaffleID()'
+        self.fields['prize'].widget.attrs['ng-model'] = 'prize_code'
+
+    raffle = forms.ModelChoiceField(
+        queryset=Raffle.objects.all(),
+        widget=autocomplete.ModelSelect2(url='raffle-autocomplete'),
+        label="Sorteio"
+    )
+    prize = forms.ModelChoiceField(
+        queryset=Prize.objects.all(),
+        widget=autocomplete.ModelSelect2(url='prizes-autocomplete', forward=['raffle', ]),
+        label="Prêmio"
+    )

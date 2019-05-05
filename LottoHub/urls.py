@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from LottoWebCore.views import RaffleAutocomplete, StudentDirectoryAutocomplete, api_handler, pdf_gen, lottery_b, \
-    lottery_c
+    lottery_c, PrizesAC
 from LottoWebCore.views import index, lottery, DashBoard, signup, SellerAutocomplete, TicketAutocomplete, ticket_check
 
 app_name = 'LottoHub'
@@ -39,5 +39,6 @@ urlpatterns = [
     url(r'^seller-autocomplete/$', SellerAutocomplete.as_view(), name='seller-autocomplete'),
     url(r'^raffle-autocomplete/$', RaffleAutocomplete.as_view(), name='raffle-autocomplete'),
     url(r'^ticket-autocomplete/$', TicketAutocomplete.as_view(), name='ticket-autocomplete'),
+    url(r'^prizes-autocomplete/$', PrizesAC.as_view(), name='prizes-autocomplete'),
     url(r'^directory-autocomplete/$', StudentDirectoryAutocomplete.as_view(), name='directory-autocomplete')
 ]

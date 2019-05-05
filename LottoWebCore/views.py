@@ -23,11 +23,12 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import RedirectView
 
 from LottoHub.settings import BASE_DIR
-from LottoWebCore.forms import SignUpForm, TicketEditForm, TicketCheckForm
+from LottoWebCore.forms import SignUpForm, TicketEditForm, TicketCheckForm, WinnersConfigForm
 from LottoWebCore.forms import TicketForm, StudentDirectoryForm, UniversityForm, RaffleForm, CityForm, \
     TicketActivationForm
 from LottoWebCore.methods import sendMail
-from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City, RegistrationRequest
+from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, City, RegistrationRequest, \
+    Prize
 
 t_objs = Ticket.objects
 
@@ -54,7 +55,8 @@ def index(request):
 @login_required
 def lottery(request):
     return render(request, 'dashboard/LotteryHub.html', {
-        'directories': mark_safe(json.dumps({dir.id: dir.acronym for dir in StudentDirectory.objects.all()}))
+        'directories': mark_safe(json.dumps({dir.id: dir.acronym for dir in StudentDirectory.objects.all()})),
+        'configFORM': WinnersConfigForm,
     })
 
 
@@ -350,7 +352,7 @@ class RaffleAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Raffle.objects.none()
         #
-        qs = Raffle.objects.all()
+        qs = Raffle.objects.all().order_by('name')
         #
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
@@ -379,7 +381,6 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
             return Ticket.objects.none()
         #
         ticket_status = self.forwarded.get('ticket_status', False)
-        print(ticket_status)
         #
         if self.request.user.is_superuser:
             qs = Ticket.objects.filter(activated=ticket_status)
@@ -389,6 +390,32 @@ class TicketAutocomplete(autocomplete.Select2QuerySetView):
         #
         if self.q:
             qs = qs.filter(id__istartswith=self.q)
+        #
+        return qs
+
+
+class PrizesAC(autocomplete.Select2QuerySetView):
+    def get_result_value(self, result):
+        id = "PK" + str(result.pk) + "#" + str(result.qtde)
+        return id
+
+    def get_queryset(self):
+        #
+        qs = None
+        #
+        if not self.request.user.is_authenticated:
+            return Raffle.objects.none()
+        else:
+            #
+            raffle = self.forwarded.get('raffle', '')
+            #
+            if raffle != '':
+                pre_qs = Raffle.objects.filter(id=raffle).values('prizes')
+                qs = Prize.objects.filter(pk__in=[prize['prizes'] for prize in pre_qs]).order_by('name')
+            elif self.q:
+                qs = Prize.objects.filter(name__istartswith=self.q).order_by('name')
+        # else:
+        #     qs = Prize.objects.all()
         #
         return qs
 

@@ -1,0 +1,31 @@
+<script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog aria-label="Configurações de Sorteio">
+        <form ng-cloak action="" method="post">
+            <md-toolbar class="md-accent" style="color: white;">
+                <div class="md-toolbar-tools">
+                    <h1>Configurações de Sorteio</h1>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <i class="material-icons">close</i>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    {% csrf_token %}
+                    {{ configFORM.as_p }}
+                </div>
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="answer(max_winners)">
+                    Cancelar
+                </md-button>
+                <md-button ng-click="answer(max_winners)">
+                    Sortear
+                </md-button>
+                <!--<input type="submit"/>-->
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>

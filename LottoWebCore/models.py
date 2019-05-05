@@ -79,11 +79,23 @@ class StudentDirectory(models.Model):
         return self.name if not self.acronym else self.acronym
 
 
+class Prize(models.Model):
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=500, verbose_name='Descrição da Premiação')
+    qtde = models.IntegerField(verbose_name='Multiplicidade da Premiação', null=False, default=1)
+
+    class Meta:
+        verbose_name = "Prêmio"
+        verbose_name_plural = "Prêmios"
+
+
 class Raffle(models.Model):
     name = models.CharField(max_length=500, verbose_name='Nome da Rifa')
     phone = models.CharField(max_length=500, verbose_name='Telefone do Responsável')
     email = models.CharField(max_length=500, verbose_name='E-mail')
-    prizes = models.CharField(max_length=500, verbose_name='Premiação', null=True)
+    prizes = models.ManyToManyField(Prize, null=True, default=None)
     completed = models.BooleanField(default=False, verbose_name="Finalizado")
     creation = models.DateField(auto_now_add=True)
     lottery = models.DateField(null=True, verbose_name="Data do Sorteio")

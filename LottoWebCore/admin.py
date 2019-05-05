@@ -21,7 +21,8 @@
 from django.contrib import admin
 
 from LottoWebCore.actions import RequestToUser
-from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, RegistrationRequest, City
+from LottoWebCore.models import Ticket, MiddleMan, Raffle, StudentDirectory, University, RegistrationRequest, City, \
+    Prize
 
 
 @admin.register(Ticket)
@@ -71,3 +72,8 @@ class CityAdmin(admin.ModelAdmin):
 class RegistrationRequestAdmin(admin.ModelAdmin):
     list_display = ['name', 'phone', 'email', 'raffle', 'directory', 'analysed']
     actions = [RequestToUser]
+
+
+@admin.register(Prize)
+class PrizeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'qtde']
