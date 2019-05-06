@@ -67,7 +67,7 @@
                 </div>
             </div>
         </md-card>
-        <md-button class="lotto-button md-fab" ng-click="sorteio()" id="LottoButton">
+        <md-button class="lotto-button md-fab" ng-click="sorteio()" id="LottoButton" ng-disabled="max_winners<=0">
             <i class="material-icons LHButtons">casino</i>
         </md-button>
     </div>
@@ -88,6 +88,9 @@
                 {% csrf_token %}
                 {{ configFORM.as_p }}
             </form>
+            <audio id='audio_player' loop="true">
+                <source id="oggSource" type="audio/ogg" src='/static/media/showTime.min.ogg'/>
+            </audio>
         </md-content>
     </md-sidenav>
 {% endblock %}
@@ -107,6 +110,7 @@
         }
         window.history.replaceState(null, null, window.location.href);
     </script>
+
 {% endblock %}
 
 {% block angularJS %}
@@ -135,7 +139,7 @@
                 }
             })
             .controller('dataCtrl', ['$location', '$scope', "$mdDialog", '$timeout', '$http', '$mdSidenav', '$mdToast', '$location', '$window', '$timeout', function ($location, $scope, $mdDialog, $timeout, $http, $mdSidenav, $window) {
-                //$scope.ticket = 'be590e1584';
+                // $scope.ticket = 'be590e1584';
                 $scope.toShow = "home"; // Default
                 //
                 $scope.toggleLeft = function () {
@@ -153,17 +157,34 @@
                 //
                 $scope.directories = {{ directories }};
                 //
+                $scope.audioStop = function () {
+                    let audio_player = $('#audio_player')[0];
+                    audio_player.currentTime = 0;
+                    audio_player.pause();
+                };
+                $scope.audioPlay = function () {
+                    let audio_player = $('#audio_player')[0];
+                    audio_player.currentTime = 0;
+                    audio_player.play();
+                };
+                //
                 $scope.prize_code = null;
                 $scope.getRaffleID = function () {
                     value = $("form").serializeArray()[2]['value'];
                     $scope.max_winners = parseInt(value.split('#')[1]);
+                    $scope.tickets = Array($scope.max_winners).fill('');
+                    $scope.winners = Array($scope.max_winners).fill('');
+                    $scope.idxs = Array($scope.max_winners).fill('');
+                    $scope.directory = Array($scope.max_winners).fill('');
                     $scope.close();
                 };
                 //
                 $scope.config = {};
                 $scope.hostUrl = location.host;
-                $scope.max_swaps = 500;
                 $scope.max_winners = 0;
+                $scope.swaps_floor = 600;
+                $scope.swaps_ceil = 1200;
+                $scope.swaps_max = 0;
                 $scope.tickets = Array($scope.max_winners).fill('');
                 $scope.winners = Array($scope.max_winners).fill('');
                 $scope.idxs = Array($scope.max_winners).fill('');
@@ -198,7 +219,7 @@
                         // console.log($scope.ticket);
                         counter = counter + 1;
                         $scope.$apply();
-                        if (counter >= $scope.max_swaps) {
+                        if (counter >= $scope.swaps_max) {
                             clearInterval(res);
                         }
                     }, 50);
@@ -213,7 +234,7 @@
                         $scope.tickets[IDX] = $scope.temp['id'];
                         counter = counter + 1;
                         //
-                        if (counter >= $scope.max_swaps) {
+                        if (counter >= $scope.swaps_max) {
                             let e = $(ID);
                             e.addClass('paused');
                             let f = e.clone(true);
@@ -225,10 +246,12 @@
                 };
                 //
                 $scope.sorteio = function () {
+                    $scope.audioStop();
                     if ($scope.confetti != null) {
                         $scope.confetti.clear();
                         $scope.confetti = null;
                     }
+                    $scope.audioPlay();
                     for (let i = 0; i < $scope.max_winners; i++) {
                         let classID = 'display' + (i + 1);
                         $timeout(function () {
@@ -261,12 +284,13 @@
                 });
                 //
                 $scope.poll = null;
-                $scope.sorteioUrl = 'http://' + $scope.hostUrl + '/sorteio2/'
+                $scope.sorteioUrl = 'http://' + $scope.hostUrl + '/sorteio2/';
                 $scope.nyx($scope.sorteioUrl);
                 //
                 $scope.ticketID = function (IDX, ID) {
                     $scope.poll = $scope.temp;
-                    $scope.max_swaps = $scope.poll.length;
+                    $scope.swaps_max = ($scope.swaps_floor - $scope.swaps_ceil) * Math.pow(Math.E, ((-$scope.max_winners / 8) ** 3)) + $scope.swaps_ceil;
+                    //$scope.swaps_max = $scope.poll.length;
                     let counter = 1;
                     $('#' + ID).removeClass('paused');
                     $('.' + ID).removeClass('paused');
@@ -285,7 +309,7 @@
                         $scope.idxs[IDX] = ticket;
                         counter = counter + 1;
                         //
-                        if (counter >= $scope.max_swaps) {
+                        if (counter >= $scope.swaps_max) {
                             $('#' + ID).addClass('paused');
                             $('.' + ID).addClass('paused');
                             clearInterval(res);
@@ -297,45 +321,21 @@
                             }
                             //
                             $timeout(function () {
-                                $scope.confetti.clear();
-                                $scope.confetti = null;
+                                if ($scope.confetti != null) {
+                                    $scope.confetti.clear();
+                                    $scope.confetti = null;
+                                }
                             }, 5 * 60 * 1000);
+                            //
+                            $timeout(function () {
+                                if ($scope.confetti != null) {
+                                    $scope.audioStop();
+                                }
+                            }, $scope.max_winners * 1000);
                         }
                     }, 50);
                 };
                 //
-                $scope.customFullscreen = false;
-                $scope.showPrompt = function (ev) {
-                    $mdDialog.show({
-                        controller: DialogController,
-                        templateUrl: 'dialog1.tmpl.html',
-                        parent: angular.element(document.body),
-                        scope: $scope,
-                        targetEvent: ev,
-                        clickOutsideToClose: true,
-                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-                    })
-                        .then(function (answer) {
-                            $scope.status = 'You said the information was "' + answer + '".';
-                        }, function () {
-                            $scope.status = 'You cancelled the dialog.';
-                        });
-                };
-
-                function DialogController($scope, $mdDialog) {
-                    $scope.hide = function () {
-                        $mdDialog.hide();
-                    };
-
-                    $scope.cancel = function () {
-                        $mdDialog.cancel();
-                    };
-
-                    $scope.answer = function (answer) {
-                        //$scope.max_winners = answer;
-                        $mdDialog.hide(answer);
-                    };
-                }
             }])
             .directive('errSrc', function () {
                 return {

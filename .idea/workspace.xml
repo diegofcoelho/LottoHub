@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb58ec9-bd09-4c6f-ae9a-0addf4f9e1eb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryConfig.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/PromptMenu.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LottoWebCore/templates/dev/Urls.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/assets/js/confetti.index.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/assets/js/confetti.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/images/hat.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoHub/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoHub/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryHub.html" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryHub.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LottoWebCore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LottoWebCore/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/staticfiles/assets/css/LotteryHub.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/assets/css/LotteryHub.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,7 +19,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
+            <state relative-caret-position="539">
               <caret line="89" selection-start-line="89" selection-end-line="89" />
               <folding>
                 <element signature="e#326#335#0" expanded="true" />
@@ -41,12 +29,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html">
+        <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="450">
+              <caret line="97" column="43" selection-start-line="97" selection-start-column="43" selection-end-line="97" selection-end-column="43" />
               <folding>
-                <element signature="e#103#122#0#DjangoTemplate" />
+                <element signature="e#0#43#0" expanded="true" />
+                <element signature="e#334#1245#0" />
+                <element signature="e#1278#1503#0" />
+                <element signature="e#1542#1841#0" />
               </folding>
             </state>
           </provider>
@@ -55,66 +46,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryHub.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+            <state relative-caret-position="2261">
+              <caret line="141" column="19" selection-start-line="141" selection-start-column="19" selection-end-line="141" selection-end-column="19" />
               <folding>
                 <element signature="n#block#0;n#!!top" />
                 <element signature="n#block#1;n#!!top" />
-                <element signature="e#340#438#0#HTML" />
-                <element signature="e#853#985#0#HTML" />
-                <element signature="e#1002#1123#0#HTML" />
-                <element signature="e#1140#1271#0#HTML" />
-                <element signature="e#1288#1419#0#HTML" />
-                <element signature="e#1779#2169#0#HTML" />
-                <element signature="e#1822#2146#0#HTML" />
-                <element signature="e#1866#2119#0#HTML" />
-                <element signature="e#2186#2526#0#HTML" />
-                <element signature="e#2268#2503#0#HTML" />
-                <element signature="e#2543#2924#0#HTML" />
-                <element signature="e#2624#2901#0#HTML" />
-                <element signature="e#3220#3505#0#HTML" />
-                <element signature="e#3278#3390#0#HTML" />
-                <element signature="e#6560#6675#0#HTML" />
-                <element signature="e#6697#6936#0#HTML" />
-                <element signature="e#6780#6935#0#HTML" />
-                <element signature="e#7019#7426#0#HTML" />
-                <element signature="e#7489#7620#0#HTML" />
-                <element signature="e#7532#7606#0#HTML" />
-                <element signature="e#8558#9227#0#HTML" />
-                <element signature="e#8728#8955#0#HTML" />
-                <element signature="e#8769#8954#0#HTML" />
-                <element signature="e#9318#9901#0#HTML" />
-                <element signature="e#9419#9877#0#HTML" />
-                <element signature="e#9445#9472#0#HTML" />
-                <element signature="e#9780#9855#0#HTML" />
-                <element signature="e#9977#10770#0#HTML" />
-                <element signature="e#10157#10746#0#HTML" />
-                <element signature="e#10417#10724#0#HTML" />
-                <element signature="e#10836#11314#0#HTML" />
-                <element signature="e#10887#11007#0#HTML" />
-                <element signature="e#11073#11296#0#HTML" />
-                <element signature="e#11179#11262#0#HTML" />
-                <element signature="e#11379#12158#0#HTML" />
-                <element signature="e#11407#11669#0#HTML" />
-                <element signature="e#11720#11795#0#HTML" />
-                <element signature="e#11846#11954#0#HTML" />
-                <element signature="e#11876#11897#0#HTML" />
-                <element signature="e#12002#12138#0#HTML" />
-                <element signature="e#12032#12062#0#HTML" />
-                <element signature="e#12224#12266#0#HTML" />
-                <element signature="e#13953#14132#0#HTML" />
-                <element signature="e#14213#14357#0#HTML" />
-                <element signature="e#15396#15827#0#HTML" />
-                <element signature="e#15444#15509#0#HTML" />
-                <element signature="e#15560#15627#0#HTML" />
-                <element signature="e#15684#15808#0#HTML" />
-                <element signature="e#15889#16524#0#HTML" />
-                <element signature="e#15914#16510#0#HTML" />
-                <element signature="e#15975#16492#0#HTML" />
-                <element signature="e#16035#16219#0#HTML" />
-                <element signature="e#16097#16193#0#HTML" />
-                <element signature="e#16288#16468#0#HTML" />
-                <element signature="e#16346#16442#0#HTML" />
               </folding>
             </state>
           </provider>
@@ -123,105 +59,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/staticfiles/assets/css/LotteryHub.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="162" column="8" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="8" />
+            <state relative-caret-position="510">
+              <caret line="132" column="31" selection-start-line="132" selection-start-column="31" selection-end-line="132" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LottoWebCore/forms.py">
+        <entry file="file://$PROJECT_DIR$/staticfiles/assets/css/dashboard.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2941">
-              <caret line="173" column="22" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LottoWebCore/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="399" column="14" selection-start-line="399" selection-start-column="14" selection-end-line="399" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#1234#1283#0" />
-                <element signature="e#1310#1809#0" />
-                <element signature="e#1444#1808#0" />
-                <element signature="e#1572#1668#0" />
-                <element signature="e#1854#2024#0" />
-                <element signature="e#1906#2023#0" />
-                <element signature="e#2054#2078#0" />
-                <element signature="e#2142#2337#0" />
-                <element signature="e#2368#2541#0" />
-                <element signature="e#2575#4308#0" />
-                <element signature="e#2618#4110#0" />
-                <element signature="e#2635#4058#0" />
-                <element signature="e#3022#3835#0" />
-                <element signature="e#3291#3639#0" />
-                <element signature="e#3704#3834#0" />
-                <element signature="e#3870#4058#0" />
-                <element signature="e#3918#4057#0" />
-                <element signature="e#4129#4308#0" />
-                <element signature="e#4177#4307#0" />
-                <element signature="e#4336#5109#0" />
-                <element signature="e#4373#5021#0" />
-                <element signature="e#4390#4522#0" />
-                <element signature="e#4669#5021#0" />
-                <element signature="e#5074#5108#0" />
-                <element signature="e#5156#6804#0" />
-                <element signature="e#6088#6803#0" />
-                <element signature="e#6948#13698#0" />
-                <element signature="e#6948#7041#0" />
-                <element signature="e#7241#13222#0" />
-                <element signature="e#7258#7414#0" />
-                <element signature="e#7443#7544#0" />
-                <element signature="e#7572#7775#0" />
-                <element signature="e#7608#7774#0" />
-                <element signature="e#7864#10083#0" />
-                <element signature="e#7907#8973#0" />
-                <element signature="e#7932#8905#0" />
-                <element signature="e#8024#8357#0" />
-                <element signature="e#8632#8827#0" />
-                <element signature="e#9031#9120#0" />
-                <element signature="e#9178#9242#0" />
-                <element signature="e#9300#9652#0" />
-                <element signature="e#9710#10083#0" />
-                <element signature="e#10134#10382#0" />
-                <element signature="e#10162#10263#0" />
-                <element signature="e#10433#11983#0" />
-                <element signature="e#10478#11611#0" />
-                <element signature="e#10503#11543#0" />
-                <element signature="e#10816#11521#0" />
-                <element signature="e#10823#11290#0" />
-                <element signature="e#11669#11983#0" />
-                <element signature="e#11694#11915#0" />
-                <element signature="e#12034#13222#0" />
-                <element signature="e#12079#13222#0" />
-                <element signature="e#12104#13154#0" />
-                <element signature="e#12417#13132#0" />
-                <element signature="e#12424#12901#0" />
-                <element signature="e#13765#14112#0" />
-                <element signature="e#13797#14112#0" />
-                <element signature="e#14597#14958#0" />
-                <element signature="e#14629#14958#0" />
-                <element signature="e#15025#15727#0" />
-                <element signature="e#15057#15727#0" />
-                <element signature="e#15462#15619#0" />
-                <element signature="e#15786#19417#0" />
-                <element signature="e#16241#16242#0" />
-                <element signature="e#16460#16461#0" />
-                <element signature="e#17141#19188#0" />
-                <element signature="e#17446#17447#0" />
-                <element signature="e#17650#17938#0" />
-                <element signature="e#17710#17938#0" />
-                <element signature="e#17761#17890#0" />
-                <element signature="e#18034#19147#0" />
-                <element signature="e#18152#19147#0" />
-              </folding>
+            <state relative-caret-position="206">
+              <caret line="679" selection-start-line="679" selection-end-line="679" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -240,13 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ticket_count</find>
-      <find>('tickets_id')</find>
-      <find>'tickets_id'</find>
-      <find>tickets_id</find>
-      <find>tickets</find>
-      <find>&quot;1&quot;</find>
-      <find>winner-name odometer digit-container digit-one digit</find>
       <find>translate(0,0)</find>
       <find>getRandomTicket</find>
       <find>$scope.displayErrorMsg = false;</find>
@@ -270,6 +111,13 @@
       <find>&lt;i class=&quot;material-icons&quot;&gt;close&lt;/i&gt;</find>
       <find>wrapper</find>
       <find>form</find>
+      <find>max_winners</find>
+      <find>max_swaps</find>
+      <find>$scope.confetti.clear()</find>
+      <find>audio</find>
+      <find>currentTime</find>
+      <find>play()</find>
+      <find>$scope.audio.Play</find>
     </findStrings>
     <replaceStrings>
       <replace>StudentDirectory</replace>
@@ -300,6 +148,8 @@
       <replace>!important;</replace>
       <replace>&lt;div layout=&quot;row&quot; layout-align=&quot;space-between center&quot;</replace>
       <replace>&lt;div layout=&quot;row&quot; layout-align=&quot;space-between center&quot;&gt;</replace>
+      <replace>$scope.audioStop</replace>
+      <replace>$scope.audioPlay</replace>
     </replaceStrings>
     <dirStrings>
       <dir>E:\dfcoelho\Documents\GitHub\LottoHub</dir>
@@ -354,13 +204,13 @@
         <option value="$PROJECT_DIR$/staticfiles/assets/js/confetti.index.min.js" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryConfig.html" />
         <option value="$PROJECT_DIR$/LottoWebCore/admin.py" />
-        <option value="$PROJECT_DIR$/LottoWebCore/models.py" />
         <option value="$PROJECT_DIR$/LottoHub/urls.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/dashboard/PromptMenu.html" />
         <option value="$PROJECT_DIR$/LottoWebCore/views.py" />
         <option value="$PROJECT_DIR$/LottoWebCore/forms.py" />
-        <option value="$PROJECT_DIR$/staticfiles/assets/css/LotteryHub.css" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/dev/Urls.txt" />
+        <option value="$PROJECT_DIR$/LottoWebCore/models.py" />
+        <option value="$PROJECT_DIR$/staticfiles/assets/css/LotteryHub.css" />
         <option value="$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryHub.html" />
       </list>
     </option>
@@ -536,16 +386,17 @@
       <workItem from="1557002183317" duration="933000" />
       <workItem from="1557003967302" duration="20668000" />
       <workItem from="1557059696775" duration="25625000" />
+      <workItem from="1557086972203" duration="14028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="402569000" />
+    <option name="totallyTimeSpent" value="416597000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.41137856" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.5809628" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -560,7 +411,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5011655" side_tool="true" weight="0.32822758" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.4988345" visible="true" weight="0.33041576" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.4988345" weight="0.32719395" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -774,13 +625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/staticfiles/assets/css/dashboard.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-811">
-          <caret line="918" column="51" lean-forward="true" selection-start-line="918" selection-start-column="51" selection-end-line="918" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/staticfiles/assets/js/confetti.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2270">
@@ -812,16 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="89" selection-start-line="89" selection-end-line="89" />
-          <folding>
-            <element signature="e#326#335#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LottoHub/wsgi.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -845,34 +679,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="98" column="33" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-            <element signature="e#334#1245#0" />
-            <element signature="e#1278#1503#0" />
-            <element signature="e#1542#1841#0" />
-            <element signature="e#3799#4967#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/__base__.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="33" column="48" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#103#122#0#DjangoTemplate" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -886,99 +696,6 @@
     <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/PromptMenu.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="399" column="14" selection-start-line="399" selection-start-column="14" selection-end-line="399" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1234#1283#0" />
-            <element signature="e#1310#1809#0" />
-            <element signature="e#1444#1808#0" />
-            <element signature="e#1572#1668#0" />
-            <element signature="e#1854#2024#0" />
-            <element signature="e#1906#2023#0" />
-            <element signature="e#2054#2078#0" />
-            <element signature="e#2142#2337#0" />
-            <element signature="e#2368#2541#0" />
-            <element signature="e#2575#4308#0" />
-            <element signature="e#2618#4110#0" />
-            <element signature="e#2635#4058#0" />
-            <element signature="e#3022#3835#0" />
-            <element signature="e#3291#3639#0" />
-            <element signature="e#3704#3834#0" />
-            <element signature="e#3870#4058#0" />
-            <element signature="e#3918#4057#0" />
-            <element signature="e#4129#4308#0" />
-            <element signature="e#4177#4307#0" />
-            <element signature="e#4336#5109#0" />
-            <element signature="e#4373#5021#0" />
-            <element signature="e#4390#4522#0" />
-            <element signature="e#4669#5021#0" />
-            <element signature="e#5074#5108#0" />
-            <element signature="e#5156#6804#0" />
-            <element signature="e#6088#6803#0" />
-            <element signature="e#6948#13698#0" />
-            <element signature="e#6948#7041#0" />
-            <element signature="e#7241#13222#0" />
-            <element signature="e#7258#7414#0" />
-            <element signature="e#7443#7544#0" />
-            <element signature="e#7572#7775#0" />
-            <element signature="e#7608#7774#0" />
-            <element signature="e#7864#10083#0" />
-            <element signature="e#7907#8973#0" />
-            <element signature="e#7932#8905#0" />
-            <element signature="e#8024#8357#0" />
-            <element signature="e#8632#8827#0" />
-            <element signature="e#9031#9120#0" />
-            <element signature="e#9178#9242#0" />
-            <element signature="e#9300#9652#0" />
-            <element signature="e#9710#10083#0" />
-            <element signature="e#10134#10382#0" />
-            <element signature="e#10162#10263#0" />
-            <element signature="e#10433#11983#0" />
-            <element signature="e#10478#11611#0" />
-            <element signature="e#10503#11543#0" />
-            <element signature="e#10816#11521#0" />
-            <element signature="e#10823#11290#0" />
-            <element signature="e#11669#11983#0" />
-            <element signature="e#11694#11915#0" />
-            <element signature="e#12034#13222#0" />
-            <element signature="e#12079#13222#0" />
-            <element signature="e#12104#13154#0" />
-            <element signature="e#12417#13132#0" />
-            <element signature="e#12424#12901#0" />
-            <element signature="e#13765#14112#0" />
-            <element signature="e#13797#14112#0" />
-            <element signature="e#14597#14958#0" />
-            <element signature="e#14629#14958#0" />
-            <element signature="e#15025#15727#0" />
-            <element signature="e#15057#15727#0" />
-            <element signature="e#15462#15619#0" />
-            <element signature="e#15786#19417#0" />
-            <element signature="e#16241#16242#0" />
-            <element signature="e#16460#16461#0" />
-            <element signature="e#17141#19188#0" />
-            <element signature="e#17446#17447#0" />
-            <element signature="e#17650#17938#0" />
-            <element signature="e#17710#17938#0" />
-            <element signature="e#17761#17890#0" />
-            <element signature="e#18034#19147#0" />
-            <element signature="e#18152#19147#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LottoWebCore/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2941">
-          <caret line="173" column="22" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dev/Urls.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -986,75 +703,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2839">
+          <caret line="173" column="22" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6273">
+          <caret line="399" column="14" selection-start-line="399" selection-start-column="14" selection-end-line="399" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="97" column="43" selection-start-line="97" selection-start-column="43" selection-end-line="97" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#334#1245#0" />
+            <element signature="e#1278#1503#0" />
+            <element signature="e#1542#1841#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/staticfiles/assets/css/dashboard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="679" selection-start-line="679" selection-end-line="679" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5663">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#103#122#0#DjangoTemplate" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LottoHub/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+          <folding>
+            <element signature="e#326#335#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/staticfiles/assets/css/LotteryHub.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="162" column="8" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="8" />
+        <state relative-caret-position="510">
+          <caret line="132" column="31" selection-start-line="132" selection-start-column="31" selection-end-line="132" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LottoWebCore/templates/dashboard/LotteryHub.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+        <state relative-caret-position="2261">
+          <caret line="141" column="19" selection-start-line="141" selection-start-column="19" selection-end-line="141" selection-end-column="19" />
           <folding>
             <element signature="n#block#0;n#!!top" />
             <element signature="n#block#1;n#!!top" />
-            <element signature="e#340#438#0#HTML" />
-            <element signature="e#853#985#0#HTML" />
-            <element signature="e#1002#1123#0#HTML" />
-            <element signature="e#1140#1271#0#HTML" />
-            <element signature="e#1288#1419#0#HTML" />
-            <element signature="e#1779#2169#0#HTML" />
-            <element signature="e#1822#2146#0#HTML" />
-            <element signature="e#1866#2119#0#HTML" />
-            <element signature="e#2186#2526#0#HTML" />
-            <element signature="e#2268#2503#0#HTML" />
-            <element signature="e#2543#2924#0#HTML" />
-            <element signature="e#2624#2901#0#HTML" />
-            <element signature="e#3220#3505#0#HTML" />
-            <element signature="e#3278#3390#0#HTML" />
-            <element signature="e#6560#6675#0#HTML" />
-            <element signature="e#6697#6936#0#HTML" />
-            <element signature="e#6780#6935#0#HTML" />
-            <element signature="e#7019#7426#0#HTML" />
-            <element signature="e#7489#7620#0#HTML" />
-            <element signature="e#7532#7606#0#HTML" />
-            <element signature="e#8558#9227#0#HTML" />
-            <element signature="e#8728#8955#0#HTML" />
-            <element signature="e#8769#8954#0#HTML" />
-            <element signature="e#9318#9901#0#HTML" />
-            <element signature="e#9419#9877#0#HTML" />
-            <element signature="e#9445#9472#0#HTML" />
-            <element signature="e#9780#9855#0#HTML" />
-            <element signature="e#9977#10770#0#HTML" />
-            <element signature="e#10157#10746#0#HTML" />
-            <element signature="e#10417#10724#0#HTML" />
-            <element signature="e#10836#11314#0#HTML" />
-            <element signature="e#10887#11007#0#HTML" />
-            <element signature="e#11073#11296#0#HTML" />
-            <element signature="e#11179#11262#0#HTML" />
-            <element signature="e#11379#12158#0#HTML" />
-            <element signature="e#11407#11669#0#HTML" />
-            <element signature="e#11720#11795#0#HTML" />
-            <element signature="e#11846#11954#0#HTML" />
-            <element signature="e#11876#11897#0#HTML" />
-            <element signature="e#12002#12138#0#HTML" />
-            <element signature="e#12032#12062#0#HTML" />
-            <element signature="e#12224#12266#0#HTML" />
-            <element signature="e#13953#14132#0#HTML" />
-            <element signature="e#14213#14357#0#HTML" />
-            <element signature="e#15396#15827#0#HTML" />
-            <element signature="e#15444#15509#0#HTML" />
-            <element signature="e#15560#15627#0#HTML" />
-            <element signature="e#15684#15808#0#HTML" />
-            <element signature="e#15889#16524#0#HTML" />
-            <element signature="e#15914#16510#0#HTML" />
-            <element signature="e#15975#16492#0#HTML" />
-            <element signature="e#16035#16219#0#HTML" />
-            <element signature="e#16097#16193#0#HTML" />
-            <element signature="e#16288#16468#0#HTML" />
-            <element signature="e#16346#16442#0#HTML" />
           </folding>
         </state>
       </provider>
