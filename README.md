@@ -1,6 +1,6 @@
-# Heroku Django Starter Template
+# LottoHub using Heroku Django Starter Template
 
-An utterly fantastic project starter template for Django 2.0.
+An utterly fantastic project that mimic a lottery to distribute prizes. The system is able to allow multiple ticket sellers from different groups to compete as in a sale turnment.
 
 ## Features
 
