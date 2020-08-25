@@ -1,14 +1,21 @@
-# LottoHub using Heroku Django Starter Template
+# Heroku-Ready Django Raffle System
 
-An utterly fantastic project that mimic a lottery to distribute prizes. The system is able to allow multiple ticket sellers from different groups to compete as in a sale turnment.
+An utterly fantastic Raffle System built upon Django 2.0.
+
+Demo [here](https://lottohub.herokuapp.com/).
 
 ## Features
 
 - Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
 - Enhancements to Django's static file serving functionality via WhiteNoise.
 - Latest Python 3.6 runtime environment.
+- Consider a college environment with multiple departments and fraternities as HQs.
 
-## How to Use
+## Multilingual Support
+
+- If you master muli language implementation, please submit your pull request
+
+## How to Install and Use on HEROKU
 
 To use this project, follow these steps:
 
@@ -47,3 +54,18 @@ See also, a [ready-made application](https://github.com/heroku/python-getting-st
 - [Gunicorn](https://warehouse.python.org/project/gunicorn/)
 - [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
 - [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+
+## Dashboard Page
+![Dashboard](dev/dashboard.png)
+
+## Print Raffle Tickets
+![print](dev/print.png)
+
+## User/Seller Profile Page
+![profile](dev/profile.png)
+
+## Raffle Prizes
+![raffle](dev/raffle.png)
+
+## Ticket Validation
+![validation](dev/validation.png)
